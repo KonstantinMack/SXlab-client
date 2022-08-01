@@ -1,0 +1,46 @@
+@use "./variables" as *;
+@use "./typography" as *;
+
+/* CSS Resets */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+input {
+  display: block;
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+// Fonts
+body {
+  font-family: $font-stack;
+  background-color: $background-black;
+  color: $sx-white;
+}

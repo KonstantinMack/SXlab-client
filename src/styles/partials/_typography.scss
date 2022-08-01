@@ -1,0 +1,21 @@
+@use "./mixins" as *;
+
+h1 {
+  @include font($size: 3.2rem, $weight: 700);
+}
+
+h2 {
+  @include font($size: 2.4rem, $weight: 700);
+}
+
+h3 {
+  @include font($size: 1.4rem, $weight: 700);
+}
+
+span {
+  @include font($size: 4rem, $weight: 300);
+}
+
+p {
+  @include font($size: 1.4rem);
+}

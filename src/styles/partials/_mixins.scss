@@ -1,0 +1,64 @@
+// media mixins
+@mixin tablet($side-padding: false) {
+  @media only screen and (min-width: 768px) and (max-width: 1279px) {
+    @if $side-padding {
+      padding-left: 36px;
+      padding-right: 36px;
+    }
+    @content;
+  }
+}
+
+@mixin desktop($side-padding: false) {
+  @media only screen and (min-width: 1280px) {
+    @if $side-padding {
+      // calculate width for a smooth transition from tablet to desktop
+      //  1280 - (2 * 36) = 1208px
+      padding-left: calc((100vw - 1208px) / 2);
+      padding-right: calc((100vw - 1208px) / 2);
+    }
+    @content;
+  }
+}
+
+@mixin tablet-desktop($side-padding: false) {
+  @include tablet($side-padding) {
+    @content;
+  }
+  @include desktop($side-padding) {
+    @content;
+  }
+}
+
+// typography mixins
+@mixin font($size: 1.6rem, $weight: 400) {
+  font-size: $size;
+  line-height: calc($size + 1rem);
+  font-weight: $weight;
+}
+
+// other mixins
+@mixin flexbox(
+  $dir: false,
+  $justify: false,
+  $align: false,
+  $wrap: false,
+  $gap: false
+) {
+  display: flex;
+  @if $dir {
+    flex-direction: $dir;
+  }
+  @if $justify {
+    justify-content: $justify;
+  }
+  @if $align {
+    align-items: $align;
+  }
+  @if $wrap {
+    flex-wrap: $wrap;
+  }
+  @if $gap {
+    gap: $gap;
+  }
+}

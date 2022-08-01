@@ -1,0 +1,25 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.header {
+  background-color: $background-gray;
+  padding: 2rem;
+  @include flexbox($justify: space-between);
+
+  &__nav {
+    @include flexbox($gap: 2rem);
+  }
+
+  &__button {
+    padding: 1rem 2rem;
+    background: rgb(3, 139, 255);
+    background: linear-gradient(
+      to bottom right,
+      rgba(109, 188, 255, 1) 0%,
+      rgba(5, 9, 200, 1) 100%
+    );
+
+    border: none;
+    border-radius: 10px;
+  }
+}

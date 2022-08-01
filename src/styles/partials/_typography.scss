@@ -19,3 +19,9 @@ span {
 p {
   @include font($size: 1.4rem);
 }
+
+a {
+  @include font($size: 1.4rem);
+  text-decoration: none;
+  color: white;
+}

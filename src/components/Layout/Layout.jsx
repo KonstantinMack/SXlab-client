@@ -10,9 +10,9 @@ export default function Layout() {
   return (
     <div className="app">
       <SideBar />
-      <div className="app__main">
+      <div className="app__all">
         <Header />
-        <main>
+        <main className="app__main">
           <Outlet />
         </main>
         <Footer />

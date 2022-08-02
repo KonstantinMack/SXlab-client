@@ -3,7 +3,11 @@
 .app {
   @include flexbox;
 
-  &__main {
+  &__all {
     flex-grow: 1;
+  }
+
+  &__main {
+    @include padding($size: big);
   }
 }

@@ -5,9 +5,7 @@ import { useState } from "react";
 
 const sports = ["All", "Football", "Baseball", "Tennis", "Soccer"];
 
-export default function SideBar() {
-  const [selectedSport, setSelectedSport] = useState("All");
-
+export default function SideBar({ selectedSport, setter }) {
   return (
     <div className="sidebar">
       <img src={SXLogo} alt="SX logo" className="sidebar__logo" />
@@ -15,7 +13,7 @@ export default function SideBar() {
         {sports.map((sport, idx) => (
           <SideBarItem
             sport={sport}
-            setter={setSelectedSport}
+            setter={setter}
             selected={sport === selectedSport}
             key={idx}
           />

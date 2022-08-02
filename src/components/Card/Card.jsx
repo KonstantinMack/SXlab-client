@@ -1,5 +1,5 @@
 import "./Card.scss";
 
-export default function Card({ children }) {
-  return <div class="card">{children}</div>;
+export default function Card({ children, addClass }) {
+  return <div className={`card ${addClass}`}>{children}</div>;
 }

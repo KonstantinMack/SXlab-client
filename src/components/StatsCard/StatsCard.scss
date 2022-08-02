@@ -1,0 +1,17 @@
+@use "../../styles/partials/mixins" as *;
+
+.stats-card {
+  @include flexbox($gap: 2rem);
+
+  &__content {
+    @include flexbox($dir: column, $justify: space-around, $align: center);
+  }
+
+  &__stat {
+    @include font($size: 3rem);
+  }
+
+  &__text {
+    @include font($size: 2rem);
+  }
+}

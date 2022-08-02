@@ -1,0 +1,13 @@
+@use "../../../styles/partials/mixins" as *;
+@use "../../../styles/partials/variables" as *;
+
+.sidebar__icon {
+  @include padding($size: small, $x-only: true);
+  fill: $sx-gray;
+  height: 2rem;
+  flex-basis: 30%;
+
+  &--selected {
+    fill: $sx-blue;
+  }
+}

@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Tipsters() {
-  return <div>Tipsters</div>;
+  return <h1>Tipsters</h1>;
 }

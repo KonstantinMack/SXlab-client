@@ -3,7 +3,7 @@
 
 .header {
   background-color: $background-gray;
-  padding: 2rem;
+  @include padding($size: "medium");
   @include flexbox($justify: space-between);
 
   &__nav {

@@ -1,3 +1,5 @@
+@use "sass:map";
+
 // media mixins
 @mixin tablet($side-padding: false) {
   @media only screen and (min-width: 768px) and (max-width: 1279px) {
@@ -60,5 +62,25 @@
   }
   @if $gap {
     gap: $gap;
+  }
+}
+
+@mixin padding($size, $x-only: false, $y-only: false) {
+  $sizes: (
+    "small": 1.2rem,
+    "medium": 2rem,
+    "big": 3.2rem,
+  );
+
+  $size-padding: map.get($sizes, $size);
+
+  @if $x-only {
+    padding-left: $size-padding;
+    padding-right: $size-padding;
+  } @else if $y-only {
+    padding-top: $size-padding;
+    padding-bottom: $size-padding;
+  } @else {
+    padding: $size-padding;
   }
 }

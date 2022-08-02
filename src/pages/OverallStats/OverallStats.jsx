@@ -1,3 +1,3 @@
 export default function OverallStats() {
-  return <div>OverallStats</div>;
+  return <h1>OverallStats</h1>;
 }

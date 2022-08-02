@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function NoMatch() {
-  return <div>Theres nothing here...</div>;
+  return <h1>Theres nothing here... 404</h1>;
 }

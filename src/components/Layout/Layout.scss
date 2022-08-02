@@ -1,0 +1,9 @@
+@use "../../styles/partials/mixins" as *;
+
+.app {
+  @include flexbox;
+
+  &__main {
+    flex-grow: 1;
+  }
+}

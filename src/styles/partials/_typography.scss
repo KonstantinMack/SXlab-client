@@ -12,10 +12,6 @@ h3 {
   @include font($size: 1.8rem, $weight: 700);
 }
 
-span {
-  @include font($size: 4rem, $weight: 300);
-}
-
 p {
   @include font($size: 1.4rem);
 }

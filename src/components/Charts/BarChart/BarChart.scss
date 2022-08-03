@@ -1,0 +1,73 @@
+@use "../../../styles/partials/mixins" as *;
+@use "../../../styles/partials/variables" as *;
+
+.barchart__header {
+  @include flexbox($justify: space-between);
+}
+
+.card__barchart {
+  width: 70%;
+}
+
+.select {
+  &__trigger {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 0 1rem;
+    font-size: 1rem;
+    gap: 5px;
+    background-color: $sx-gray;
+    color: $sx-white;
+    box-shadow: 0 2px 10px black;
+
+    &:hover {
+      background-color: gray;
+    }
+    &[data-placeholder] {
+      color: gray;
+    }
+  }
+
+  &__label {
+    padding: 1rem;
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+    color: $sx-white;
+  }
+
+  &__item {
+    all: unset;
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+    color: $sx-white;
+    border-radius: 3px;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    height: 2.5rem;
+    padding: 0 1rem 0 2rem;
+    position: relative;
+    user-select: none;
+
+    &[data-disabled] {
+      color: gray;
+      pointer-events: none;
+    }
+
+    &[data-highlighted] {
+      background-color: $sx-gray;
+      color: $sx-white;
+    }
+  }
+
+  &__content {
+    overflow: hidden;
+    background-color: gray;
+    border-radius: 6px;
+    box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+      0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+  }
+}

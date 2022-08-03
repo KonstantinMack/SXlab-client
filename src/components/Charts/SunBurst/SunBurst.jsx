@@ -49,7 +49,7 @@ export default function SunBurst({ data }) {
         ]}
         layout={{
           margin: { l: 0, r: 0, b: 0, t: 0 },
-          sunburstcolorway: ["#ff8e00", "#15ff4f", "#00e5ff", "#f94144"],
+          sunburstcolorway: ["#ff8e00", "#00e5ff", "#15ff4f", "#f94144"],
           paper_bgcolor: "#1e1e1e",
           plot_bgcolor: "#1e1e1e",
           autosize: true,

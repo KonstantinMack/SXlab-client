@@ -8,6 +8,7 @@ import { ReactComponent as EsportsLogo } from "../../../assets/icons/esports.svg
 import { ReactComponent as CryptoLogo } from "../../../assets/icons/crypto.svg";
 import { ReactComponent as RacingLogo } from "../../../assets/icons/racing.svg";
 import { ReactComponent as MMALogo } from "../../../assets/icons/mma.svg";
+import { ReactComponent as OtherLogo } from "../../../assets/icons/other.svg";
 import "./SideBarIcon.scss";
 
 export default function SideBarIcon({ sport, selected }) {
@@ -38,7 +39,7 @@ export default function SideBarIcon({ sport, selected }) {
       case "Tennis":
         return <TennisLogo className={classes} />;
       default:
-        return <BaseballLogo className={classes} />;
+        return <OtherLogo className={classes} />;
     }
   };
   return renderSwitch(sport);

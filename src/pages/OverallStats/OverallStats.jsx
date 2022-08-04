@@ -7,6 +7,7 @@ import SunBurst from "../../components/Charts/SunBurst/SunBurst";
 import BarChart from "../../components/Charts/BarChart/BarChart";
 import DonutChart from "../../components/Charts/DonutChart/DonutChart";
 import AvgBetCard from "../../components/AvgBetCard/AvgBetCard";
+import MarketList from "../../components/MarketList/MarketList";
 import { SPORTS } from "../../lib/globals";
 
 import BetsIcon from "../../assets/icons/bets.svg";
@@ -94,6 +95,7 @@ export default function OverallStats() {
       <DonutChart
         data={dataByBetType.filter((ele) => ele.sports === selectedSport)}
       />
+      <MarketList selectedSport={selectedSport} />
     </div>
   );
 }

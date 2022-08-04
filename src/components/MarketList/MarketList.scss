@@ -1,0 +1,28 @@
+@use "../../styles/partials/mixins" as *;
+
+.markets {
+  &__card {
+  }
+
+  &__title {
+  }
+
+  &__list {
+  }
+
+  &__items {
+    @include flexbox;
+  }
+
+  &__item {
+    flex-basis: 20%;
+
+    &--small {
+      flex-basis: 10%;
+    }
+
+    &--large {
+      flex-basis: 40%;
+    }
+  }
+}

@@ -4,8 +4,6 @@ import Plot from "react-plotly.js";
 import Card from "../../Card/Card";
 
 export default function LineChart({ data }) {
-  console.log(data);
-
   const values = [];
   const labels = [];
 

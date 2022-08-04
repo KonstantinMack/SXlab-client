@@ -3,11 +3,26 @@
 
 .header {
   background-color: $background-gray;
-  @include padding($size: "medium");
   @include flexbox($justify: space-between);
+  @include padding($size: small);
 
   &__nav {
     @include flexbox($gap: 2rem);
+
+    &-link {
+      padding: 1rem 2rem;
+      border-radius: 20px;
+
+      &.active,
+      &:hover {
+        color: $background-black;
+        background: linear-gradient(
+          to bottom right,
+          rgba(255, 142, 0, 1) 0%,
+          rgba(255, 209, 151, 1) 100%
+        );
+      }
+    }
   }
 
   &__button {

@@ -3,6 +3,7 @@
 
 .sidebar__item {
   @include flexbox($align: center);
+  cursor: pointer;
 
   &:hover .sidebar__icon {
     fill: $sx-blue;

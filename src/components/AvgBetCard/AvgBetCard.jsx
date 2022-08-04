@@ -6,12 +6,15 @@ import Card from "../Card/Card";
 import EthLogo from "../../assets/icons/eth-logo.svg";
 import DaiLogo from "../../assets/icons/dai-logo.svg";
 import UsdcLogo from "../../assets/icons/usdc-logo.svg";
+import SXLogo from "../../assets/icons/sx-logo.webp";
+
+import ReactTooltip from "react-tooltip";
 
 const logos = {
   USDC: UsdcLogo,
   ETH: EthLogo,
   DAI: DaiLogo,
-  SX: UsdcLogo,
+  SX: SXLogo,
 };
 
 export default function AvgBetCard({ data, other }) {
@@ -39,14 +42,22 @@ export default function AvgBetCard({ data, other }) {
 
   return (
     <Card addClass={"betsize__card"}>
-      <h2>Average Bet Size:</h2>
+      <h2 data-tip="React-tooltip">Average Bet Size:</h2>
+      <ReactTooltip place="top" type="light" effect="float" />
       {data &&
         data
           .sort((a, b) => b.avgDollarBetSize - a.avgDollarBetSize)
           .map((obj, idx) => {
             return (
               <div className="betsize__content" key={idx}>
-                <img src={logos[obj.token]} alt="" className="betsize__icon" />
+                <picture className="betsize__picture">
+                  <source srcset={logos[obj.token]} type="image/webp" />
+                  <img
+                    src={logos[obj.token]}
+                    alt=""
+                    className="betsize__icon"
+                  />
+                </picture>
                 <p className="betsize__text">
                   $ {Math.round(obj.avgDollarBetSize).toLocaleString()}
                 </p>

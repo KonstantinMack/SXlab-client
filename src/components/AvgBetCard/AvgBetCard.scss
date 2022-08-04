@@ -9,12 +9,21 @@
     @include flexbox($align: center, $gap: 2rem);
   }
 
+  &__picture {
+    flex-basis: 10%;
+    @include flexbox($justify: center);
+  }
+
   &__icon {
     height: 4rem;
-    flex-basis: 5%;
+    width: 4rem;
   }
 
   &__text {
     font-size: 3rem;
+  }
+
+  &__tooltip-icon {
+    height: 2.5rem;
   }
 }

@@ -51,7 +51,7 @@ export default function AvgBetCard({ data, other }) {
             return (
               <div className="betsize__content" key={idx}>
                 <picture className="betsize__picture">
-                  <source srcset={logos[obj.token]} type="image/webp" />
+                  <source srcSet={logos[obj.token]} type="image/webp" />
                   <img
                     src={logos[obj.token]}
                     alt=""

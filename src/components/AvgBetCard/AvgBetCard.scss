@@ -2,16 +2,11 @@
 
 .betsize {
   &__card {
-    @include flexbox($dir: column, $gap: 1rem);
+    @include flexbox($dir: column, $gap: 2rem);
   }
 
   &__content {
-    @include flexbox($align: center, $gap: 2rem);
-  }
-
-  &__picture {
-    flex-basis: 10%;
-    @include flexbox($justify: center);
+    @include flexbox($align: center, $gap: 3rem);
   }
 
   &__icon {

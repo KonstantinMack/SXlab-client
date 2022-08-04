@@ -5,6 +5,7 @@ const SPORTS = [
   "Crypto",
   "E Sports",
   "Football",
+  "Hockey",
   "Mixed Martial Arts",
   "Racing",
   "Soccer",

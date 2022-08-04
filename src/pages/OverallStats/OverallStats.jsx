@@ -5,6 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import StatsCard from "../../components/StatsCard/StatsCard";
 import SunBurst from "../../components/Charts/SunBurst/SunBurst";
 import BarChart from "../../components/Charts/BarChart/BarChart";
+import DonutChart from "../../components/Charts/DonutChart/DonutChart";
 import AvgBetCard from "../../components/AvgBetCard/AvgBetCard";
 import { SPORTS } from "../../lib/globals";
 
@@ -16,6 +17,7 @@ export default function OverallStats() {
   const [dataByToken, setDataByToken] = useState([]);
   const [dataBySport, setDataBySport] = useState([]);
   const [dataByMonth, setDataByMonth] = useState([]);
+  const [dataByBetType, setDataByBetType] = useState([]);
 
   useEffect(() => {
     axios
@@ -35,6 +37,17 @@ export default function OverallStats() {
     axios
       .get("http://localhost:8080/api/site-stats-by/time?timeframe=month")
       .then((res) => setDataByMonth(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:8080/api/site-stats-by/bet-type?sports=${SPORTS.join(
+          ","
+        )}`
+      )
+      .then((res) => setDataByBetType(res.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -78,6 +91,9 @@ export default function OverallStats() {
       />
       <SunBurst data={dataByToken} />
       <BarChart data={dataByMonth} />
+      <DonutChart
+        data={dataByBetType.filter((ele) => ele.sports === selectedSport)}
+      />
     </div>
   );
 }

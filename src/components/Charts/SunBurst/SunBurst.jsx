@@ -58,7 +58,7 @@ export default function SunBurst({ data }) {
           displayModeBar: false,
         }}
         useResizeHandler={true}
-        className="test"
+        style={{ width: "100%", height: "400px" }}
       />
     </Card>
   );

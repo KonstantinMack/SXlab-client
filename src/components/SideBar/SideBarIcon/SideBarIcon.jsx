@@ -9,6 +9,7 @@ import { ReactComponent as CryptoLogo } from "../../../assets/icons/crypto.svg";
 import { ReactComponent as RacingLogo } from "../../../assets/icons/racing.svg";
 import { ReactComponent as MMALogo } from "../../../assets/icons/mma.svg";
 import { ReactComponent as OtherLogo } from "../../../assets/icons/other.svg";
+import { ReactComponent as HockeyLogo } from "../../../assets/icons/ice-hockey.svg";
 import "./SideBarIcon.scss";
 
 export default function SideBarIcon({ sport, selected }) {
@@ -30,6 +31,8 @@ export default function SideBarIcon({ sport, selected }) {
         return <EsportsLogo className={classes} />;
       case "Football":
         return <FootballLogo className={classes} />;
+      case "Hockey":
+        return <HockeyLogo className={classes} />;
       case "Mixed Martial Arts":
         return <MMALogo className={classes} />;
       case "Racing":

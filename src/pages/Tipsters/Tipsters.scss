@@ -1,0 +1,43 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.tipsters {
+  &__card {
+  }
+
+  &__title {
+  }
+
+  &__list {
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 3fr repeat(4, 2fr);
+    justify-items: center;
+
+    border-bottom: 1px solid $sx-gray;
+
+    @include padding($size: small);
+  }
+
+  &__item {
+    font-size: 1.6rem;
+
+    &--sort {
+      cursor: pointer;
+    }
+
+    &--profit {
+      color: green;
+    }
+
+    &--loss {
+      color: red;
+    }
+
+    &-link {
+      font-size: 1.6rem;
+    }
+  }
+}

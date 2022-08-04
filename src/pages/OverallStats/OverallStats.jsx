@@ -14,11 +14,15 @@ import BetsIcon from "../../assets/icons/bets.svg";
 import VolumeIcon from "../../assets/icons/volume.svg";
 
 export default function OverallStats() {
-  const selectedSport = useOutletContext();
+  const [selectedSport, setSelectedSport] = useOutletContext();
   const [dataByToken, setDataByToken] = useState([]);
   const [dataBySport, setDataBySport] = useState([]);
   const [dataByMonth, setDataByMonth] = useState([]);
   const [dataByBetType, setDataByBetType] = useState([]);
+
+  useEffect(() => {
+    setSelectedSport("All");
+  }, []);
 
   useEffect(() => {
     axios

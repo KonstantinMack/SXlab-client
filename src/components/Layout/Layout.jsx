@@ -15,7 +15,7 @@ export default function Layout() {
       <div className="app__all">
         <Header />
         <main className="app__main">
-          <Outlet context={selectedSport} />
+          <Outlet context={[selectedSport, setSelectedSport]} />
         </main>
         <Footer />
       </div>

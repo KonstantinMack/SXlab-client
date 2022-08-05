@@ -1,0 +1,32 @@
+@use "../../styles/partials/mixins" as *;
+
+.header__button {
+  @include flexbox($gap: 2rem, $align: center);
+  padding: 1rem 2rem;
+  background: rgb(3, 139, 255);
+  background: linear-gradient(
+    to bottom right,
+    rgba(109, 188, 255, 1) 0%,
+    rgba(5, 9, 200, 1) 100%
+  );
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+
+  &:hover {
+    background: linear-gradient(
+      to bottom right,
+      rgba(5, 9, 200, 1) 0%,
+      rgba(109, 188, 255, 1) 100%
+    );
+  }
+
+  &-icon {
+    height: 2.5rem;
+  }
+
+  &-text {
+    @include font($size: 2rem);
+  }
+}

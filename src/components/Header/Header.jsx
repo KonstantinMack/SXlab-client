@@ -1,7 +1,12 @@
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
+import MetaMaskButton from "../MetaMaskButton/MetaMaskButton";
 
-export default function Header() {
+export default function Header({
+  connectWallet,
+  disconnetWallet,
+  isConnected,
+}) {
   return (
     <header className="header">
       <nav className="header__nav">
@@ -15,7 +20,11 @@ export default function Header() {
           Tipsters
         </NavLink>
       </nav>
-      <button className="header__button">Connect wallet</button>
+      {isConnected ? (
+        <MetaMaskButton clickHandler={disconnetWallet} text="Log Out" />
+      ) : (
+        <MetaMaskButton clickHandler={connectWallet} text="Connect wallet" />
+      )}
     </header>
   );
 }

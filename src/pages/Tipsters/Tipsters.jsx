@@ -3,18 +3,19 @@ import "./Tipsters.scss";
 import { useState, useEffect } from "react";
 import { useOutletContext, Link } from "react-router-dom";
 import Card from "../../components/Card/Card";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 import axios from "axios";
 
 export default function Tipsters() {
   const [selectedSport, setSelectedSport] = useOutletContext();
   const [tipsters, setTipsters] = useState([]);
-  const [ascNumBets, setAscNumBets] = useState(false);
-  const [ascVolume, setAscVolume] = useState(false);
-  const [ascPL, setAscPL] = useState(false);
-  const [ascYield, setAscYield] = useState(false);
-  const [ascOdds, setAscOdds] = useState(false);
-  const [ascWinPerc, setAscWinPerc] = useState(false);
-  const [ascMaker, setAscMaker] = useState(false);
+  const [ascNumBets, setAscNumBets] = useState(true);
+  const [ascVolume, setAscVolume] = useState(true);
+  const [ascPL, setAscPL] = useState(true);
+  const [ascYield, setAscYield] = useState(true);
+  const [ascOdds, setAscOdds] = useState(true);
+  const [ascWinPerc, setAscWinPerc] = useState(true);
+  const [ascMaker, setAscMaker] = useState(true);
 
   const sortTipsters = (sortBy, asc, ascSetter) => {
     if (asc) {
@@ -31,6 +32,8 @@ export default function Tipsters() {
   }, []);
 
   useEffect(() => {
+    setTipsters([]);
+
     axios
       .get(
         `http://localhost:8080/api/user-stats/tipsters?sport=${selectedSport}`
@@ -38,6 +41,8 @@ export default function Tipsters() {
       .then((res) => setTipsters(res.data))
       .catch((err) => console.log(err));
   }, [selectedSport]);
+
+  if (!tipsters.length) return <LoadingScreen />;
 
   return (
     <Card addClass="tipsters__card">

@@ -2,6 +2,7 @@ import "./Layout.scss";
 
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
+import axios from "axios";
 
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -12,6 +13,7 @@ export default function Layout() {
   const [haveMetamask, setHaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const [accountAddress, setAccountAddress] = useState("");
+  const [tipstersAll, setTipstersAll] = useState([]);
 
   const { ethereum } = window;
 
@@ -40,6 +42,13 @@ export default function Layout() {
     setHaveMetamask(!!ethereum);
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/user-stats/tipsters?sport=All`)
+      .then((res) => setTipstersAll(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div className="app">
       <SideBar selectedSport={selectedSport} setter={setSelectedSport} />
@@ -50,7 +59,7 @@ export default function Layout() {
           isConnected={isConnected}
         />
         <main className="app__main">
-          <Outlet context={[selectedSport, setSelectedSport]} />
+          <Outlet context={[selectedSport, tipstersAll]} />
         </main>
         <Footer />
       </div>

@@ -7,7 +7,7 @@ import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 import axios from "axios";
 
 export default function Tipsters() {
-  const [selectedSport, setSelectedSport] = useOutletContext();
+  const [selectedSport, tipstersAll] = useOutletContext();
   const [tipsters, setTipsters] = useState([]);
   const [ascNumBets, setAscNumBets] = useState(true);
   const [ascVolume, setAscVolume] = useState(true);
@@ -28,11 +28,12 @@ export default function Tipsters() {
   };
 
   useEffect(() => {
-    setSelectedSport("All");
-  }, []);
-
-  useEffect(() => {
     setTipsters([]);
+
+    if (selectedSport === "All" && tipstersAll.length) {
+      setTipsters(tipstersAll);
+      return;
+    }
 
     axios
       .get(
@@ -42,7 +43,7 @@ export default function Tipsters() {
       .catch((err) => console.log(err));
   }, [selectedSport]);
 
-  if (!tipsters.length) return <LoadingScreen />;
+  if (!tipsters || !tipsters.length) return <LoadingScreen />;
 
   return (
     <Card addClass="tipsters__card">
@@ -124,7 +125,9 @@ export default function Tipsters() {
                 </p>
                 <p className="tipsters__item">{tipster.avgOdds}</p>
                 <p className="tipsters__item">{tipster.winningPerc}%</p>
-                <p className="tipsters__item">{tipster.isMaker * 100}%</p>
+                <p className="tipsters__item">
+                  {Number.parseFloat(tipster.isMaker * 100).toFixed(0)}%
+                </p>
               </div>
             </Link>
           );

@@ -6,6 +6,7 @@ import Card from "../../components/Card/Card";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import ProfitChart from "../../components/Charts/ProfitChart/ProfitChart";
 import UserDonutCharts from "../../components/Charts/UserDonutCharts/UserDonutCharts";
+import BetsList from "../../components/BetsList/BetsList";
 import axios from "axios";
 
 export default function UserStats() {
@@ -14,6 +15,7 @@ export default function UserStats() {
   const [userStats, setUserStats] = useState({});
   const [userStatsByDate, setUserStatsByDate] = useState([]);
   const [userStatsBySport, setUserStatsBySport] = useState([]);
+  const [userBets, setUserBets] = useState([]);
 
   const { address } = useParams();
   const navigate = useNavigate();
@@ -46,6 +48,16 @@ export default function UserStats() {
           `http://localhost:8080/api/user-stats/address/stats-by-sport?address=${address}`
         )
         .then((res) => setUserStatsBySport(res.data));
+    }
+  }, [address]);
+
+  useEffect(() => {
+    if (address) {
+      axios
+        .get(
+          `http://localhost:8080/api/user-stats/address/bets?address=${address}`
+        )
+        .then((res) => setUserBets(res.data));
     }
   }, [address]);
 
@@ -90,6 +102,7 @@ export default function UserStats() {
           />
         </>
       )}
+      {userBets && <BetsList data={userBets} selectedSport={selectedSport} />}
     </div>
   );
 }

@@ -3,15 +3,8 @@ import "./MarketList.scss";
 import { useState, useEffect } from "react";
 import Card from "../Card/Card";
 import { SPORTS } from "../../lib/globals";
+import { timestampToDate } from "../../lib/helpers";
 import axios from "axios";
-
-const timestampToDate = (ts) => {
-  const date = new Date(ts * 1000);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${year}/${month}/${day}`;
-};
 
 export default function MarketList({ selectedSport }) {
   const [data, setData] = useState([]);

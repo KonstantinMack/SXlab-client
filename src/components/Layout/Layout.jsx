@@ -59,7 +59,7 @@ export default function Layout() {
           isConnected={isConnected}
         />
         <main className="app__main">
-          <Outlet context={[selectedSport, tipstersAll]} />
+          <Outlet context={[selectedSport, tipstersAll, accountAddress]} />
         </main>
         <Footer />
       </div>

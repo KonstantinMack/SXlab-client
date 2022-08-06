@@ -1,0 +1,22 @@
+@use "../../styles/partials/mixins" as *;
+
+.user-stats-card {
+  @include flexbox($dir: column, $gap: 2rem);
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 2rem;
+    justify-content: center;
+  }
+
+  &__stat {
+    padding-left: 2rem;
+
+    &--profit {
+      color: green;
+    }
+    &--loss {
+      color: red;
+    }
+  }
+}

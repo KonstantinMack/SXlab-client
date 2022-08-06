@@ -98,8 +98,8 @@ export default function Tipsters() {
         </div>
         {tipsters.slice(0, 25).map((tipster, idx) => {
           return (
-            <Link to={`/user/${tipster.bettor}`}>
-              <div className="tipsters__items" key={tipster.bettor}>
+            <Link to={`/user/${tipster.bettor}`} key={tipster.bettor}>
+              <div className="tipsters__items">
                 <p className="tipsters__item">{idx + 1}.</p>
                 <p className="tipsters__item">{tipster.numBets}</p>
                 <p className="tipsters__item">

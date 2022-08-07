@@ -10,7 +10,6 @@ import SideBar from "../SideBar/SideBar";
 
 export default function Layout() {
   const [selectedSport, setSelectedSport] = useState("All");
-  const [haveMetamask, setHaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const [accountAddress, setAccountAddress] = useState("");
   const [tipstersAll, setTipstersAll] = useState([]);
@@ -19,14 +18,16 @@ export default function Layout() {
 
   const connectWallet = async () => {
     try {
-      if (!ethereum) {
-        setHaveMetamask(false);
-      }
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
       setAccountAddress(accounts[0]);
       setIsConnected(true);
+      await axios
+        .post("http://localhost:8080/api/user-stats/address", {
+          address: accounts[0],
+        })
+        .catch((err) => console.log(err.response.data));
     } catch (error) {
       setIsConnected(false);
     }
@@ -36,11 +37,6 @@ export default function Layout() {
     setIsConnected(false);
     setAccountAddress("");
   };
-
-  useEffect(() => {
-    const { ethereum } = window;
-    setHaveMetamask(!!ethereum);
-  }, []);
 
   useEffect(() => {
     axios

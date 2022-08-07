@@ -4,7 +4,8 @@
 .tipsters {
   &__items {
     display: grid;
-    grid-template-columns: 1fr 2fr 3fr 3fr repeat(4, 2fr);
+    // grid-template-columns: 1fr 1fr 2fr 3fr 3fr repeat(4, 2fr);
+    grid-template-columns: 1fr 17fr;
     justify-items: center;
     border-bottom: 1px solid $sx-gray;
     @include padding($size: small);
@@ -12,10 +13,21 @@
     &:hover {
       background: $background-black;
     }
+
+    &-small {
+      grid-template-columns: 1fr 2fr 3fr 3fr repeat(4, 2fr);
+    }
+
+    &-content {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 2fr 3fr 3fr repeat(4, 2fr);
+    }
   }
 
   &__item {
     font-size: 1.6rem;
+    @include flexbox($align: center, $gap: 1rem);
 
     &--sort {
       cursor: pointer;
@@ -31,6 +43,21 @@
 
     &-link {
       font-size: 1.6rem;
+    }
+
+    &-icon {
+      height: 2rem;
+      width: 2rem;
+      align-self: center;
+      fill: $background-gray;
+      cursor: pointer;
+      &:hover {
+        fill: $sx-blue;
+      }
+
+      &--selected {
+        fill: $sx-blue;
+      }
     }
   }
 }

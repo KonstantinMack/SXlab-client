@@ -141,7 +141,7 @@ export default function Tipsters() {
         </div>
         {tipsters.slice(0, 25).map((tipster, idx) => {
           return (
-            <div className="tipsters__items">
+            <div className="tipsters__items" key={idx}>
               <StarIcon
                 className={
                   favourites.includes(tipster.bettor)

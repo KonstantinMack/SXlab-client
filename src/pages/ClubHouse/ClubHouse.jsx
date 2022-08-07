@@ -33,7 +33,6 @@ export default function ClubHouse() {
 
   useEffect(() => {
     if (favourites.length) {
-      console.log(favourites);
       const promises = favourites.map((fav) =>
         axios
           .get(
@@ -41,7 +40,6 @@ export default function ClubHouse() {
           )
           .then((res) => res.data)
       );
-      console.log(promises);
       Promise.all(promises).then((values) => setTheirOpenBets(values.flat()));
     }
   }, [favourites]);

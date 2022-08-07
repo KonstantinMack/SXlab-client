@@ -38,10 +38,12 @@ export default function OverallStats() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/site-stats-by/time?timeframe=month")
+      .get(
+        `http://localhost:8080/api/site-stats-by/time?timeframe=month&sport=${selectedSport}`
+      )
       .then((res) => setDataByMonth(res.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [selectedSport]);
 
   useEffect(() => {
     axios

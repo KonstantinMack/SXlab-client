@@ -37,7 +37,7 @@ export default function MarketList({ selectedSport, addClass }) {
         {data &&
           data.map((market, idx) => {
             return (
-              <div className="markets__items">
+              <div className="markets__items" key={idx}>
                 <p className="markets__item--small">{idx + 1}.</p>
                 <p className="markets__item--small">
                   {DateTime.fromSeconds(market.gameTime).toFormat("dd-LL-yy")}

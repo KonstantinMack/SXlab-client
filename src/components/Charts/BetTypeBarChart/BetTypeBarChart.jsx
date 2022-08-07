@@ -13,7 +13,7 @@ export default function BetTypeBarChart({ data, addClass }) {
   }
   return (
     <Card addClass={addClass}>
-      <h2>Volume by bet-type:</h2>
+      <h2>Bet-type:</h2>
       <Plot
         data={[
           {

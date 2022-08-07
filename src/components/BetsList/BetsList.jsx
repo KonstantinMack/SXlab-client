@@ -28,7 +28,7 @@ export default function BetsList({ data, selectedSport, title }) {
           <h3>Odds</h3>
           <h3>Stake</h3>
         </div>
-        {betsBySport.map((bet) => {
+        {betsBySport.map((bet, idx) => {
           return (
             <a
               href={`https://sx.bet/${convertSportName(
@@ -40,6 +40,7 @@ export default function BetsList({ data, selectedSport, title }) {
               target="_blank"
               rel="noopener noreferrer"
               className="bets-list__item"
+              key={idx}
             >
               <p className="bets-list__item-text">
                 {DateTime.fromSeconds(bet.market.gameTime).toFormat(

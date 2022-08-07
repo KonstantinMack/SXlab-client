@@ -1,4 +1,77 @@
-.user__container {
-  display: grid;
-  gap: 2rem;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.user {
+  &__container {
+    display: grid;
+    gap: 2rem;
+  }
+
+  &__form {
+    @include flexbox($gap: 1rem);
+  }
+
+  &__search {
+    background-image: url("../../assets/icons/search.svg");
+    background-repeat: no-repeat;
+    background-position: 1rem;
+    background-size: 1.5rem;
+    width: 25%;
+    max-width: 500px;
+    min-width: 400px;
+    font: inherit;
+    font-size: 1.6rem;
+    border-radius: 20px;
+    padding-left: 30px;
+  }
+
+  &__search-button {
+    @include flexbox($gap: 2rem, $align: center);
+    padding: 0.5rem 2rem;
+    background: rgb(3, 139, 255);
+    background: linear-gradient(
+      to bottom right,
+      rgba(109, 188, 255, 1) 0%,
+      rgba(5, 9, 200, 1) 100%
+    );
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    width: 250px;
+    font-size: 1.6rem;
+
+    &:hover #light1 {
+      transform: translateX(20%);
+    }
+
+    &:hover #dark1 {
+      transform: translateX(40%);
+      opacity: 0;
+    }
+
+    &:hover #dark2 {
+      transform: translateX(0%);
+    }
+
+    &-icon {
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+}
+
+#darkGroup {
+  fill: $background-black;
+}
+#lightGroup {
+  fill: $sx-gray;
+}
+#dark1,
+#light1,
+#dark2 {
+  transition: all 1s ease;
+}
+#dark2 {
+  transform: translateX(-100%);
 }

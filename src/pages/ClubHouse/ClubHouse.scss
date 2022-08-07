@@ -1,0 +1,5 @@
+@use "../../styles/partials/mixins" as *;
+
+.club-house {
+  @include flexbox($dir: column, $gap: 2rem);
+}

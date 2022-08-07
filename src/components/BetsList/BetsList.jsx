@@ -5,7 +5,7 @@ import { SPORTS } from "../../lib/globals";
 import { DateTime } from "luxon";
 import Card from "../Card/Card";
 
-export default function BetsList({ data, selectedSport }) {
+export default function BetsList({ data, selectedSport, title }) {
   let betsBySport;
   if (selectedSport === "All") {
     betsBySport = data;
@@ -17,7 +17,7 @@ export default function BetsList({ data, selectedSport }) {
 
   return (
     <Card addClass={"bets-list"}>
-      <h2>Current bets:</h2>
+      <h2>{title}:</h2>
       <div className="bets-list__container">
         <div className="bets-list__header">
           <h3>Date</h3>
@@ -41,23 +41,25 @@ export default function BetsList({ data, selectedSport }) {
               rel="noopener noreferrer"
               className="bets-list__item"
             >
-              <p>
+              <p className="bets-list__item-text">
                 {DateTime.fromSeconds(bet.market.gameTime).toFormat(
                   "dd-LL-yy T"
                 )}
               </p>
-              <p>{bet.market.sportLabel}</p>
-              <p>{bet.market.leagueLabel}</p>
-              <p>
+              <p className="bets-list__item-text">{bet.market.sportLabel}</p>
+              <p className="bets-list__item-text">{bet.market.leagueLabel}</p>
+              <p className="bets-list__item-text">
                 {bet.market.teamOneName} vs. {bet.market.teamTwoName}
               </p>
-              <p>
+              <p className="bets-list__item-text">
                 {bet.bettingOutcomeOne
                   ? bet.market.outcomeOneName
                   : bet.market.outcomeTwoName}
               </p>
-              <p>{convertOdds(bet.odds)}</p>
-              <p>{convertStake(bet.stake, bet.baseToken)}</p>
+              <p className="bets-list__item-text">{convertOdds(bet.odds)}</p>
+              <p className="bets-list__item-text">
+                {convertStake(bet.stake, bet.baseToken)}
+              </p>
             </a>
           );
         })}

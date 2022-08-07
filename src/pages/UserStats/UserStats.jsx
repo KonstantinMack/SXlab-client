@@ -7,6 +7,7 @@ import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import ProfitChart from "../../components/Charts/ProfitChart/ProfitChart";
 import UserDonutCharts from "../../components/Charts/UserDonutCharts/UserDonutCharts";
 import BetsList from "../../components/BetsList/BetsList";
+import { ReactComponent as ArrowIcon } from "../../assets/icons/arrow.svg";
 import axios from "axios";
 
 export default function UserStats() {
@@ -70,14 +71,18 @@ export default function UserStats() {
     <div className="user__container">
       <Card>
         <h1>Find bets by address:</h1>
-        <form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler} className="user__form">
           <input
             type="text"
             value={searchAddress}
             onChange={(e) => setSearchAddress(e.target.value)}
             name="address"
+            className="user__search"
           />
-          <button>Analyse wallet!</button>
+          <button className="user__search-button">
+            <ArrowIcon className="user__search-button-icon" />
+            Analyse wallet!
+          </button>
         </form>
       </Card>
       {address && userStats && userStatsBySport && (
@@ -100,9 +105,13 @@ export default function UserStats() {
             title={"Betting volume by sport"}
             showLegend={false}
           />
+          <BetsList
+            data={userBets}
+            selectedSport={selectedSport}
+            title={"Open Bets"}
+          />
         </>
       )}
-      {userBets && <BetsList data={userBets} selectedSport={selectedSport} />}
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 .stats-card {
   @include flexbox($gap: 2rem);
+  // max-height: 150px;
 
   &__content {
     @include flexbox($dir: column, $justify: space-around, $align: center);

@@ -3,7 +3,7 @@ import "./SunBurst.scss";
 import Plot from "react-plotly.js";
 import Card from "../../Card/Card";
 
-export default function SunBurst({ data }) {
+export default function SunBurst({ data, addClass }) {
   const ids = ["Total Volume"];
   const labels = ["Total Volume"];
   const parents = [""];
@@ -30,7 +30,7 @@ export default function SunBurst({ data }) {
   }
 
   return (
-    <Card>
+    <Card addClass={addClass}>
       <h2>Betting Volume Distribution:</h2>
       <Plot
         data={[

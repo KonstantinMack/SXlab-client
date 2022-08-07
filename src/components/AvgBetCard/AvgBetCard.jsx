@@ -17,7 +17,7 @@ const logos = {
   SX: SXLogo,
 };
 
-export default function AvgBetCard({ data, other }) {
+export default function AvgBetCard({ data, other, addClass }) {
   const dataOther = [];
 
   if (other) {
@@ -41,7 +41,7 @@ export default function AvgBetCard({ data, other }) {
   }
 
   return (
-    <Card addClass={"betsize__card"}>
+    <Card addClass={`betsize__card ${addClass || ""}`}>
       <h2 data-tip="React-tooltip">Average Bet Size:</h2>
       <ReactTooltip place="top" type="light" effect="float" />
       {data &&

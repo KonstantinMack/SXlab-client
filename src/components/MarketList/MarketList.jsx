@@ -7,7 +7,7 @@ import { DateTime } from "luxon";
 import { SPORTS } from "../../lib/globals";
 import Card from "../Card/Card";
 
-export default function MarketList({ selectedSport }) {
+export default function MarketList({ selectedSport, addClass }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -22,10 +22,10 @@ export default function MarketList({ selectedSport }) {
   }, [selectedSport]);
 
   return (
-    <Card addClass={"markets__card"}>
+    <Card addClass={addClass}>
       <h2 className="markets__title">Markets with most volume:</h2>
       <div className="markets__list">
-        <div className="markets__items">
+        <div className="markets__headers">
           <h3 className="markets__item--small">Rank</h3>
           <h3 className="markets__item--small">Date</h3>
           <h3 className="markets__item--small">Sports</h3>

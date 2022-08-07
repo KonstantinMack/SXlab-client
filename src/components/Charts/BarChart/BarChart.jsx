@@ -12,7 +12,7 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 
-export default function BarChart({ data }) {
+export default function BarChart({ data, addClass }) {
   const [metric, setMetric] = useState("totalDollarMatched");
 
   const titles = {
@@ -51,7 +51,7 @@ export default function BarChart({ data }) {
   }%{y}`;
 
   return (
-    <Card addClass={"card__barchart"}>
+    <Card addClass={addClass}>
       <div className="barchart__header">
         <h2>Monthly breakdown:</h2>
         <Select.Root
@@ -181,8 +181,6 @@ export default function BarChart({ data }) {
         ]}
         layout={{
           margin: { l: 75, r: 50, b: 100, t: 50 },
-          // width: 1000,
-          // height: 500,
           barmode: "stack",
           paper_bgcolor: "#1e1e1e",
           plot_bgcolor: "#1e1e1e",

@@ -1,9 +1,9 @@
 import "./StatsCard.scss";
 import Card from "../Card/Card";
 
-export default function StatsCard({ image, data, text, attribute }) {
+export default function StatsCard({ image, data, text, attribute, addClass }) {
   return (
-    <Card addClass={"stats-card"}>
+    <Card addClass={`stats-card ${addClass || ""}`}>
       <img src={image} alt="icon" className="stats-card__image" />
       <div className="stats-card__content">
         <p className="stats-card__stat">

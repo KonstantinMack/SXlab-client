@@ -5,10 +5,6 @@
   @include flexbox($justify: space-between);
 }
 
-.card__barchart {
-  width: 70%;
-}
-
 .select {
   &__trigger {
     all: unset;

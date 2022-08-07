@@ -5,7 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import StatsCard from "../../components/StatsCard/StatsCard";
 import SunBurst from "../../components/Charts/SunBurst/SunBurst";
 import BarChart from "../../components/Charts/BarChart/BarChart";
-import DonutChart from "../../components/Charts/DonutChart/DonutChart";
+import BetTypeBarChart from "../../components/Charts/BetTypeBarChart/BetTypeBarChart";
 import AvgBetCard from "../../components/AvgBetCard/AvgBetCard";
 import MarketList from "../../components/MarketList/MarketList";
 import { SPORTS } from "../../lib/globals";
@@ -63,39 +63,45 @@ export default function OverallStats() {
   return (
     <div className="card__container">
       <StatsCard
-        image={BetsIcon}
-        data={dataByToken.filter((ele) => findSport(ele, selectedSport))}
-        attribute={"numberOfBets"}
-        text={"Number of bets placed"}
-      />
-      <StatsCard
         image={VolumeIcon}
         data={dataByToken.filter((ele) => findSport(ele, selectedSport))}
         attribute={"totalDollarMatched"}
         text={"Total volume matched"}
+        addClass="card__volume"
+      />
+      <StatsCard
+        image={BetsIcon}
+        data={dataByToken.filter((ele) => findSport(ele, selectedSport))}
+        attribute={"numberOfBets"}
+        text={"Number of bets placed"}
+        addClass="card__num-bets"
       />
       <StatsCard
         image={VolumeIcon}
         data={dataBySport.filter((ele) => findSport(ele, selectedSport))}
         attribute={"numUniqAddresses"}
         text={"Number of unique addresses"}
+        addClass="card__num-addresses"
       />
       <StatsCard
         image={VolumeIcon}
         data={dataBySport.filter((ele) => findSport(ele, selectedSport))}
         attribute={"numMarkets"}
         text={"Number of betting markets"}
+        addClass="card__num-markets"
       />
       <AvgBetCard
         data={dataByToken.filter((ele) => findSport(ele, selectedSport))}
         other={selectedSport === "Other"}
+        addClass={"card__avg-betsize"}
       />
-      <SunBurst data={dataByToken} />
-      <BarChart data={dataByMonth} />
-      <DonutChart
+      <SunBurst data={dataByToken} addClass="card__sunburst" />
+      <BarChart data={dataByMonth} addClass="card__barchart" />
+      <MarketList selectedSport={selectedSport} addClass="card__market-list" />
+      <BetTypeBarChart
         data={dataByBetType.filter((ele) => ele.sports === selectedSport)}
+        addClass={"card__treemap"}
       />
-      <MarketList selectedSport={selectedSport} />
     </div>
   );
 }

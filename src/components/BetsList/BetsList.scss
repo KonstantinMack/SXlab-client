@@ -1,19 +1,23 @@
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
 
 .bets-list {
   @include flexbox($dir: column, $gap: 2rem);
 
   &__container {
-    @include flexbox($dir: column, $gap: 1rem);
+    @include flexbox($dir: column);
   }
 
   &__header {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: 2fr 2fr repeat(3, 3fr) 1fr 2fr;
+    padding-bottom: 2rem;
   }
 
   &__item {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: 2fr 2fr repeat(3, 3fr) 1fr 2fr;
+    border-top: 1px solid $sx-gray;
+    padding: 1rem 0;
   }
 }

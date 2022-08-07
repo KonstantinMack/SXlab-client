@@ -1,10 +1,11 @@
 import "./MarketList.scss";
 
-import { useState, useEffect } from "react";
-import Card from "../Card/Card";
-import { SPORTS } from "../../lib/globals";
-import { timestampToDate } from "../../lib/helpers";
 import axios from "axios";
+import { useState, useEffect } from "react";
+import { DateTime } from "luxon";
+
+import { SPORTS } from "../../lib/globals";
+import Card from "../Card/Card";
 
 export default function MarketList({ selectedSport }) {
   const [data, setData] = useState([]);
@@ -39,7 +40,7 @@ export default function MarketList({ selectedSport }) {
               <div className="markets__items">
                 <p className="markets__item--small">{idx + 1}.</p>
                 <p className="markets__item--small">
-                  {timestampToDate(market.gameTime)}
+                  {DateTime.fromSeconds(market.gameTime).toFormat("dd-LL-yy")}
                 </p>
                 <p className="markets__item--small">{market.sports}</p>
                 <p className="markets__item">{market.league}</p>

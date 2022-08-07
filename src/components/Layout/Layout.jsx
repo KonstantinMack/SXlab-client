@@ -44,7 +44,7 @@ export default function Layout() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/user-stats/tipsters?sport=All`)
+      .get(`http://localhost:8080/api/tipster/tipsters?sport=All`)
       .then((res) => setTipstersAll(res.data))
       .catch((err) => console.log(err));
   }, []);

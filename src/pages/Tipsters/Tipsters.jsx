@@ -36,9 +36,7 @@ export default function Tipsters() {
     }
 
     axios
-      .get(
-        `http://localhost:8080/api/user-stats/tipsters?sport=${selectedSport}`
-      )
+      .get(`http://localhost:8080/api/tipster/tipsters?sport=${selectedSport}`)
       .then((res) => setTipsters(res.data))
       .catch((err) => console.log(err));
   }, [selectedSport]);

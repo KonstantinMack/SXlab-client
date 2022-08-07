@@ -21,7 +21,12 @@ export default function Header({
         </NavLink>
       </nav>
       {isConnected ? (
-        <MetaMaskButton clickHandler={disconnetWallet} text="Log Out" />
+        <div className="header__nav-login">
+          <NavLink to="/club-house" className="header__nav-link">
+            Club House
+          </NavLink>
+          <MetaMaskButton clickHandler={disconnetWallet} text="Log Out" />
+        </div>
       ) : (
         <MetaMaskButton clickHandler={connectWallet} text="Connect wallet" />
       )}

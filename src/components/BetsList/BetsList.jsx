@@ -1,6 +1,5 @@
 import "./BetsList.scss";
 
-import { Link } from "react-router-dom";
 import { convertOdds, convertSportName, convertStake } from "../../lib/helpers";
 import { SPORTS } from "../../lib/globals";
 import { DateTime } from "luxon";
@@ -28,11 +27,20 @@ export default function BetsList({ data, selectedSport }) {
           <h3>Bet</h3>
           <h3>Odds</h3>
           <h3>Stake</h3>
-          <h3>Link</h3>
         </div>
         {betsBySport.map((bet) => {
           return (
-            <div className="bets-list__item">
+            <a
+              href={`https://sx.bet/${convertSportName(
+                bet.market.sportLabel
+              )}/${bet.market.leagueLabel
+                .toLowerCase()
+                .split(" ")
+                .join("-")}/game-lines/${bet.market.sportXeventId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bets-list__item"
+            >
               <p>
                 {DateTime.fromSeconds(bet.market.gameTime).toFormat(
                   "dd-LL-yy T"
@@ -50,19 +58,7 @@ export default function BetsList({ data, selectedSport }) {
               </p>
               <p>{convertOdds(bet.odds)}</p>
               <p>{convertStake(bet.stake, bet.baseToken)}</p>
-              <a
-                href={`https://sx.bet/${convertSportName(
-                  bet.market.sportLabel
-                )}/${bet.market.leagueLabel
-                  .toLowerCase()
-                  .split(" ")
-                  .join("-")}/game-lines/${bet.market.sportXeventId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                link
-              </a>
-            </div>
+            </a>
           );
         })}
       </div>

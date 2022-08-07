@@ -6,7 +6,7 @@
   }
 
   &__content {
-    @include flexbox($align: center, $gap: 3rem);
+    @include flexbox($justify: center, $align: center, $gap: 3rem);
   }
 
   &__icon {

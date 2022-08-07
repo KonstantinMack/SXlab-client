@@ -3,8 +3,8 @@
 .card {
   &__container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 200px 200px 500px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 150px 150px 350px;
     gap: 2rem;
   }
   &__volume {
@@ -22,43 +22,50 @@
   }
 
   &__num-addresses {
-    grid-column-start: 1;
+    grid-column-start: 5;
     grid-column-end: span 2;
-    grid-row-start: 2;
+    grid-row-start: 1;
     grid-row-end: span 1;
   }
 
   &__num-markets {
-    grid-column-start: 3;
+    grid-column-start: 5;
     grid-column-end: span 2;
     grid-row-start: 2;
     grid-row-end: span 1;
   }
 
-  &__treemap {
+  &__avg-betsize {
     grid-column-start: 5;
-    grid-column-end: 5;
+    grid-column-end: span 2;
+    grid-row-start: 3;
+    grid-row-end: span 1;
+  }
+
+  &__treemap {
+    grid-column-start: 7;
+    grid-column-end: span 1;
     grid-row-start: 1;
     grid-row-end: span 3;
   }
 
   &__sunburst {
     grid-column-start: 1;
-    grid-column-end: span 3;
-    grid-row-start: 3;
-    grid-row-end: span 1;
+    grid-column-end: span 4;
+    grid-row-start: 2;
+    grid-row-end: span 2;
   }
 
   &__barchart {
     grid-column-start: 1;
-    grid-column-end: span 5;
+    grid-column-end: span 7;
     grid-row-start: 4;
     grid-row-end: span 1;
   }
 
   &__market-list {
     grid-column-start: 1;
-    grid-column-end: span 5;
+    grid-column-end: span 7;
     grid-row-start: 5;
     grid-row-end: span 1;
   }

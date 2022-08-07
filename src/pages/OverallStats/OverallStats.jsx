@@ -12,6 +12,8 @@ import { SPORTS } from "../../lib/globals";
 
 import BetsIcon from "../../assets/icons/bets.svg";
 import VolumeIcon from "../../assets/icons/volume.svg";
+import AddressIcon from "../../assets/icons/address-book.svg";
+import MarketsIcon from "../../assets/icons/markets.svg";
 
 export default function OverallStats() {
   const [selectedSport] = useOutletContext();
@@ -77,14 +79,14 @@ export default function OverallStats() {
         addClass="card__num-bets"
       />
       <StatsCard
-        image={VolumeIcon}
+        image={AddressIcon}
         data={dataBySport.filter((ele) => findSport(ele, selectedSport))}
         attribute={"numUniqAddresses"}
-        text={"Number of unique addresses"}
+        text={"Unique addresses"}
         addClass="card__num-addresses"
       />
       <StatsCard
-        image={VolumeIcon}
+        image={MarketsIcon}
         data={dataBySport.filter((ele) => findSport(ele, selectedSport))}
         attribute={"numMarkets"}
         text={"Number of betting markets"}

@@ -2,15 +2,6 @@
 @use "../../styles/partials/variables" as *;
 
 .markets {
-  &__card {
-  }
-
-  &__title {
-  }
-
-  &__list {
-  }
-
   &__headers {
     @include flexbox;
     padding: 1rem 0;

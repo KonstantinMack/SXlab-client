@@ -13,7 +13,7 @@ export default function BetTypeBarChart({ data, addClass }) {
   }
   return (
     <Card addClass={addClass}>
-      <h2>Betting volume by bet-type:</h2>
+      <h2>Volume by bet-type:</h2>
       <Plot
         data={[
           {
@@ -41,7 +41,7 @@ export default function BetTypeBarChart({ data, addClass }) {
           displayModeBar: false,
         }}
         useResizeHandler={true}
-        style={{ width: "100%", height: "90%" }}
+        style={{ width: "100%", height: "95%" }}
       />
     </Card>
   );

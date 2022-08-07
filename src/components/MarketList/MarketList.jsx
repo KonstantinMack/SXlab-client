@@ -23,7 +23,7 @@ export default function MarketList({ selectedSport, addClass }) {
 
   return (
     <Card addClass={addClass}>
-      <h2 className="markets__title">Markets with most volume:</h2>
+      <h2 className="markets__title">All-time most popular markets:</h2>
       <div className="markets__list">
         <div className="markets__headers">
           <h3 className="markets__item--small">Rank</h3>

@@ -2,7 +2,6 @@
 @use "../../styles/partials/mixins" as *;
 
 .sidebar {
-  height: 100vh;
   min-width: 200px;
   max-width: 225px;
   background-color: $background-gray;

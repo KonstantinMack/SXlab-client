@@ -5,15 +5,32 @@ import { SPORTS } from "../../lib/globals";
 import { DateTime } from "luxon";
 import Card from "../Card/Card";
 
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 export default function BetsList({ data, selectedSport, title }) {
   let betsBySport;
-  if (selectedSport === "All") {
-    betsBySport = data;
-  } else if (betsBySport === "Other") {
-    betsBySport = data.filter((bet) => SPORTS.includes(bet.market.sportLabel));
-  } else {
-    betsBySport = data.filter((bet) => bet.market.sportLabel === selectedSport);
+  if (data) {
+    if (selectedSport === "All") {
+      betsBySport = data;
+    } else if (betsBySport === "Other") {
+      betsBySport = data.filter((bet) =>
+        SPORTS.includes(bet.market.sportLabel)
+      );
+    } else {
+      betsBySport = data.filter(
+        (bet) => bet.market.sportLabel === selectedSport
+      );
+    }
   }
+
+  const loadingScreen = (
+    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+      <p>
+        <Skeleton count={5} height="3rem" />
+      </p>
+    </SkeletonTheme>
+  );
 
   return (
     <Card addClass={"bets-list"}>
@@ -28,42 +45,50 @@ export default function BetsList({ data, selectedSport, title }) {
           <h3>Odds</h3>
           <h3>Stake</h3>
         </div>
-        {betsBySport.map((bet, idx) => {
-          return (
-            <a
-              href={`https://sx.bet/${convertSportName(
-                bet.market.sportLabel
-              )}/${bet.market.leagueLabel
-                .toLowerCase()
-                .split(" ")
-                .join("-")}/game-lines/${bet.market.sportXeventId}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bets-list__item"
-              key={idx}
-            >
-              <p className="bets-list__item-text">
-                {DateTime.fromSeconds(bet.market.gameTime).toFormat(
-                  "dd-LL-yy T"
-                )}
-              </p>
-              <p className="bets-list__item-text">{bet.market.sportLabel}</p>
-              <p className="bets-list__item-text">{bet.market.leagueLabel}</p>
-              <p className="bets-list__item-text">
-                {bet.market.teamOneName} vs. {bet.market.teamTwoName}
-              </p>
-              <p className="bets-list__item-text">
-                {bet.bettingOutcomeOne
-                  ? bet.market.outcomeOneName
-                  : bet.market.outcomeTwoName}
-              </p>
-              <p className="bets-list__item-text">{convertOdds(bet.odds)}</p>
-              <p className="bets-list__item-text">
-                {convertStake(bet.stake, bet.baseToken)}
-              </p>
-            </a>
-          );
-        })}
+        {!betsBySport
+          ? loadingScreen
+          : betsBySport.map((bet, idx) => {
+              return (
+                <a
+                  href={`https://sx.bet/${convertSportName(
+                    bet.market.sportLabel
+                  )}/${bet.market.leagueLabel
+                    .toLowerCase()
+                    .split(" ")
+                    .join("-")}/game-lines/${bet.market.sportXeventId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bets-list__item"
+                  key={idx}
+                >
+                  <p className="bets-list__item-text">
+                    {DateTime.fromSeconds(bet.market.gameTime).toFormat(
+                      "dd-LL-yy T"
+                    )}
+                  </p>
+                  <p className="bets-list__item-text">
+                    {bet.market.sportLabel}
+                  </p>
+                  <p className="bets-list__item-text">
+                    {bet.market.leagueLabel}
+                  </p>
+                  <p className="bets-list__item-text">
+                    {bet.market.teamOneName} vs. {bet.market.teamTwoName}
+                  </p>
+                  <p className="bets-list__item-text">
+                    {bet.bettingOutcomeOne
+                      ? bet.market.outcomeOneName
+                      : bet.market.outcomeTwoName}
+                  </p>
+                  <p className="bets-list__item-text">
+                    {convertOdds(bet.odds)}
+                  </p>
+                  <p className="bets-list__item-text">
+                    {convertStake(bet.stake, bet.baseToken)}
+                  </p>
+                </a>
+              );
+            })}
       </div>
     </Card>
   );

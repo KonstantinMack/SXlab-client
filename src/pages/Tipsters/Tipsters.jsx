@@ -3,9 +3,11 @@ import "./Tipsters.scss";
 import { useState, useEffect } from "react";
 import { useOutletContext, Link } from "react-router-dom";
 import Card from "../../components/Card/Card";
-import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 import { ReactComponent as StarIcon } from "../../assets/icons/star.svg";
 import axios from "axios";
+
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Tipsters() {
   const [selectedSport, tipstersAll, accountAddress] = useOutletContext();
@@ -81,7 +83,13 @@ export default function Tipsters() {
     }
   };
 
-  if (!tipsters || !tipsters.length) return <LoadingScreen />;
+  const LoadingScreen = (
+    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+      <p>
+        <Skeleton count={25} height="3rem" />
+      </p>
+    </SkeletonTheme>
+  );
 
   return (
     <Card addClass="tipsters__card">
@@ -139,54 +147,56 @@ export default function Tipsters() {
             </h3>
           </div>
         </div>
-        {tipsters.slice(0, 25).map((tipster, idx) => {
-          return (
-            <div className="tipsters__items" key={idx}>
-              <StarIcon
-                className={
-                  favourites.includes(tipster.bettor)
-                    ? "tipsters__item-icon tipsters__item-icon--selected"
-                    : "tipsters__item-icon"
-                }
-                onClick={() => clickHandler(tipster.bettor)}
-              />
-              <Link
-                to={`/user/${tipster.bettor}`}
-                key={tipster.bettor}
-                className="tipsters__items-content"
-              >
-                <p className="tipsters__item">{idx + 1}.</p>
-                <p className="tipsters__item">{tipster.numBets}</p>
-                <p className="tipsters__item">
-                  $ {tipster.dollarStake.toLocaleString()}
-                </p>
-                <p
-                  className={`tipsters__item ${
-                    tipster.dollarProfitLoss >= 0
-                      ? "tipsters__item--profit"
-                      : "tipsters__item--loss"
-                  }`}
-                >
-                  $ {tipster.dollarProfitLoss.toLocaleString()}
-                </p>
-                <p
-                  className={`tipsters__item ${
-                    tipster.yield >= 0
-                      ? "tipsters__item--profit"
-                      : "tipsters__item--loss"
-                  }`}
-                >
-                  {tipster.yield}%
-                </p>
-                <p className="tipsters__item">{tipster.avgOdds}</p>
-                <p className="tipsters__item">{tipster.winningPerc}%</p>
-                <p className="tipsters__item">
-                  {Number.parseFloat(tipster.isMaker * 100).toFixed(0)}%
-                </p>
-              </Link>
-            </div>
-          );
-        })}
+        {!tipsters || !tipsters.length
+          ? LoadingScreen
+          : tipsters.slice(0, 25).map((tipster, idx) => {
+              return (
+                <div className="tipsters__items" key={idx}>
+                  <StarIcon
+                    className={
+                      favourites.includes(tipster.bettor)
+                        ? "tipsters__item-icon tipsters__item-icon--selected"
+                        : "tipsters__item-icon"
+                    }
+                    onClick={() => clickHandler(tipster.bettor)}
+                  />
+                  <Link
+                    to={`/user/${tipster.bettor}`}
+                    key={tipster.bettor}
+                    className="tipsters__items-content"
+                  >
+                    <p className="tipsters__item">{idx + 1}.</p>
+                    <p className="tipsters__item">{tipster.numBets}</p>
+                    <p className="tipsters__item">
+                      $ {tipster.dollarStake.toLocaleString()}
+                    </p>
+                    <p
+                      className={`tipsters__item ${
+                        tipster.dollarProfitLoss >= 0
+                          ? "tipsters__item--profit"
+                          : "tipsters__item--loss"
+                      }`}
+                    >
+                      $ {tipster.dollarProfitLoss.toLocaleString()}
+                    </p>
+                    <p
+                      className={`tipsters__item ${
+                        tipster.yield >= 0
+                          ? "tipsters__item--profit"
+                          : "tipsters__item--loss"
+                      }`}
+                    >
+                      {tipster.yield}%
+                    </p>
+                    <p className="tipsters__item">{tipster.avgOdds}</p>
+                    <p className="tipsters__item">{tipster.winningPerc}%</p>
+                    <p className="tipsters__item">
+                      {Number.parseFloat(tipster.isMaker * 100).toFixed(0)}%
+                    </p>
+                  </Link>
+                </div>
+              );
+            })}
       </div>
     </Card>
   );

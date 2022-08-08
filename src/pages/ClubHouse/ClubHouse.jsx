@@ -9,8 +9,8 @@ import BetsList from "../../components/BetsList/BetsList";
 
 export default function ClubHouse() {
   const [selectedSport, , accountAddress] = useOutletContext();
-  const [myOpenBets, setMyOpenBets] = useState([]);
-  const [theirOpenBets, setTheirOpenBets] = useState([]);
+  const [myOpenBets, setMyOpenBets] = useState();
+  const [theirOpenBets, setTheirOpenBets] = useState();
   const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
@@ -59,14 +59,22 @@ export default function ClubHouse() {
         <h2>Welcome to your Club House:</h2>
       </Card>
       <BetsList
-        data={myOpenBets.sort((a, b) => a.market.gameTime - b.market.gameTime)}
+        data={
+          myOpenBets
+            ? myOpenBets.sort((a, b) => a.market.gameTime - b.market.gameTime)
+            : myOpenBets
+        }
         selectedSport={selectedSport}
         title="My Bets"
       />
       <BetsList
-        data={theirOpenBets.sort(
-          (a, b) => a.market.gameTime - b.market.gameTime
-        )}
+        data={
+          theirOpenBets
+            ? theirOpenBets.sort(
+                (a, b) => a.market.gameTime - b.market.gameTime
+              )
+            : theirOpenBets
+        }
         selectedSport={selectedSport}
         title="Tipster Bets"
       />

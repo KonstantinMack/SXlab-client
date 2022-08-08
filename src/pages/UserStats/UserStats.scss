@@ -74,6 +74,17 @@
   &-stats__combined {
     @include flexbox($dir: row, $gap: 2rem);
   }
+
+  &__loading-screen {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+
+    &--long {
+      grid-column-start: 1;
+      grid-column-end: span 3;
+    }
+  }
 }
 
 .card__sports-treemap {

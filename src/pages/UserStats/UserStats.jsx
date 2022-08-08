@@ -12,7 +12,9 @@ import { ReactComponent as ArrowIcon } from "../../assets/icons/arrow.svg";
 import MicroscopeIcon from "../../assets/icons/microscope.svg";
 import axios from "axios";
 
-export default function UserStats() {
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
+export default function UserStats({ showLoadingScreen }) {
   const [selectedSport, , accountAddress] = useOutletContext();
   const [searchAddress, setSearchAddress] = useState("");
   const [userStats, setUserStats] = useState();
@@ -69,6 +71,41 @@ export default function UserStats() {
     navigate(`/user/${e.target.address.value}`);
   };
 
+  const LoadingScreen = showLoadingScreen ? (
+    <div className="user__loading-screen">
+      <Card>
+        <SkeletonTheme baseColor="#202020" highlightColor="#444">
+          <p>
+            <Skeleton count={7} height="3rem" />
+          </p>
+        </SkeletonTheme>
+      </Card>
+      <Card>
+        <SkeletonTheme baseColor="#202020" highlightColor="#444">
+          <p>
+            <Skeleton count={7} height="3rem" />
+          </p>
+        </SkeletonTheme>
+      </Card>
+      <Card>
+        <SkeletonTheme baseColor="#202020" highlightColor="#444">
+          <p>
+            <Skeleton count={7} height="3rem" />
+          </p>
+        </SkeletonTheme>
+      </Card>
+      <Card addClass={"user__loading-screen--long"}>
+        <SkeletonTheme baseColor="#202020" highlightColor="#444">
+          <p>
+            <Skeleton count={7} height="3rem" />
+          </p>
+        </SkeletonTheme>
+      </Card>
+    </div>
+  ) : (
+    <></>
+  );
+
   return (
     <div className="user__container">
       <Card addClass={"user__form-card"}>
@@ -97,7 +134,7 @@ export default function UserStats() {
           </button>
         </form>
       </Card>
-      {address && userStats && userStatsBySport && (
+      {address && userStats && userStatsBySport ? (
         <>
           <div className="user-stats__combined">
             <UserStatsCard data={userStats} address={address} />
@@ -124,6 +161,8 @@ export default function UserStats() {
             title={"Open Bets"}
           />
         </>
+      ) : (
+        LoadingScreen
       )}
     </div>
   );

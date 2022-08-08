@@ -3,6 +3,7 @@ import "./Tipsters.scss";
 import { useState, useEffect } from "react";
 import { useOutletContext, Link } from "react-router-dom";
 import Card from "../../components/Card/Card";
+import ModalComponent from "../../components/ModalComponent/ModalComponent";
 import { ReactComponent as StarIcon } from "../../assets/icons/star.svg";
 import axios from "axios";
 
@@ -20,6 +21,7 @@ export default function Tipsters() {
   const [ascWinPerc, setAscWinPerc] = useState(true);
   const [ascMaker, setAscMaker] = useState(true);
   const [favourites, setFavourites] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const sortTipsters = (sortBy, asc, ascSetter) => {
     if (asc) {
@@ -60,7 +62,7 @@ export default function Tipsters() {
 
   const clickHandler = (bettor) => {
     if (!accountAddress) {
-      alert("Please connect wallet first.");
+      setModalIsOpen(true);
       return;
     }
 
@@ -94,6 +96,10 @@ export default function Tipsters() {
   return (
     <Card addClass="tipsters__card">
       <h1 className="tipsters__title">Tipsters</h1>
+      <ModalComponent
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+      />
       <div className="tipsters__list">
         <div className="tipsters__items">
           <h3></h3>

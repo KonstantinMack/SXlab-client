@@ -48,6 +48,9 @@ export default function ProfitChart({ data }) {
           paper_bgcolor: "#1e1e1e",
           plot_bgcolor: "#1e1e1e",
           autosize: true,
+          font: {
+            family: "Roboto",
+          },
           xaxis: {
             title: "Date",
             titlefont: {
@@ -64,7 +67,7 @@ export default function ProfitChart({ data }) {
           yaxis: {
             title: "Cumulative Profit/Loss $",
             titlefont: {
-              size: 16,
+              size: 18,
               color: "#00e5ff",
             },
             tickfont: {
@@ -77,7 +80,7 @@ export default function ProfitChart({ data }) {
             overlaying: "y",
             side: "right",
             titlefont: {
-              size: 16,
+              size: 18,
               color: "#ff8e00",
             },
             tickfont: {

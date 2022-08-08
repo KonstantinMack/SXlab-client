@@ -1,19 +1,19 @@
 import Plot from "react-plotly.js";
 import Card from "../../Card/Card";
 
-export default function BetTypeBarChart({ data, addClass }) {
+export default function SportsTreeMap({ data, addClass }) {
   const values = [];
   const labels = [];
   const parents = [];
 
   for (const obj of data) {
-    values.push(obj.totalDollarMatched);
-    labels.push(obj.betType);
-    parents.push("Bet Type");
+    values.push(obj.dollarStake);
+    labels.push(obj.sports);
+    parents.push("Sports");
   }
   return (
     <Card addClass={addClass}>
-      <h2>Bet-type:</h2>
+      <h2>Betting Volume by Sports:</h2>
       <Plot
         data={[
           {
@@ -22,7 +22,7 @@ export default function BetTypeBarChart({ data, addClass }) {
             parents,
             type: "treemap",
             textinfo: "label+value",
-            hoverinfo: "percent root",
+            hoverinfo: "label+percent root",
             opacity: 0.8,
             insidetextfont: { size: 14, color: "black" },
             outsidetextfont: { size: 1, color: "white" },
@@ -44,7 +44,7 @@ export default function BetTypeBarChart({ data, addClass }) {
           displayModeBar: false,
         }}
         useResizeHandler={true}
-        style={{ width: "100%", height: "95%" }}
+        style={{ width: "100%", height: "85%" }}
       />
     </Card>
   );

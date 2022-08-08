@@ -59,6 +59,14 @@
       height: 4rem;
     }
   }
+
+  &-stats__combined {
+    @include flexbox($dir: row, $gap: 2rem);
+  }
+}
+
+.card__sports-treemap {
+  flex-grow: 1;
 }
 
 #darkGroup {
@@ -74,4 +82,9 @@
 }
 #dark2 {
   transform: translateX(-100%);
+}
+
+.hovertext text {
+  font-size: 1.5rem !important;
+  font-family: $font-stack !important;
 }

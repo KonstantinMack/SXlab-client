@@ -6,6 +6,7 @@ import Card from "../../components/Card/Card";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import ProfitChart from "../../components/Charts/ProfitChart/ProfitChart";
 import UserDonutCharts from "../../components/Charts/UserDonutCharts/UserDonutCharts";
+import SportsTreeMap from "../../components/Charts/SportsTreeMap/SportsTreeMap";
 import BetsList from "../../components/BetsList/BetsList";
 import { ReactComponent as ArrowIcon } from "../../assets/icons/arrow.svg";
 import axios from "axios";
@@ -13,7 +14,7 @@ import axios from "axios";
 export default function UserStats() {
   const [selectedSport, , accountAddress] = useOutletContext();
   const [searchAddress, setSearchAddress] = useState("");
-  const [userStats, setUserStats] = useState({});
+  const [userStats, setUserStats] = useState();
   const [userStatsByDate, setUserStatsByDate] = useState([]);
   const [userStatsBySport, setUserStatsBySport] = useState([]);
   const [userBets, setUserBets] = useState([]);
@@ -87,24 +88,25 @@ export default function UserStats() {
       </Card>
       {address && userStats && userStatsBySport && (
         <>
-          <UserStatsCard data={userStats} address={address} />
+          <div className="user-stats__combined">
+            <UserStatsCard data={userStats} address={address} />
+            <UserDonutCharts
+              values={[
+                userStats.betsWon,
+                userStats.betsPushed,
+                userStats.betsLost,
+              ]}
+              labels={["Win", "Push", "Loss"]}
+              title={"Win Percentage"}
+              showLegend={true}
+            />
+
+            <SportsTreeMap
+              data={userStatsBySport}
+              addClass={"card__sports-treemap"}
+            />
+          </div>
           <ProfitChart data={userStatsByDate} />
-          <UserDonutCharts
-            values={[
-              userStats.betsWon,
-              userStats.betsPushed,
-              userStats.betsLost,
-            ]}
-            labels={["Win", "Push", "Loss"]}
-            title={"Win Percentage"}
-            showLegend={true}
-          />
-          <UserDonutCharts
-            values={userStatsBySport.map((obj) => obj.dollarStake)}
-            labels={userStatsBySport.map((obj) => obj.sports)}
-            title={"Betting volume by sport"}
-            showLegend={false}
-          />
           <BetsList
             data={userBets}
             selectedSport={selectedSport}

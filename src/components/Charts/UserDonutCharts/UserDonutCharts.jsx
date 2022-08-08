@@ -15,11 +15,18 @@ export default function UserDonutCharts({ values, labels, title, showLegend }) {
             name: "Win Percentage",
             hole: 0.4,
             type: "pie",
+            text: {
+              font: {
+                family: "Roboto",
+                size: 12,
+                color: "white",
+              },
+            },
             textinfo: "label+percent",
             opacity: 0.8,
 
             marker: {
-              colors: ["#00e5ff", "#15ff4f", "#f94144", "#ff8e00"],
+              colors: ["#15ff4f", "#00e5ff", "#f94144", "#ff8e00"],
             },
           },
         ]}
@@ -31,6 +38,9 @@ export default function UserDonutCharts({ values, labels, title, showLegend }) {
           plot_bgcolor: "#1e1e1e",
           autosize: true,
           showlegend: showLegend,
+          font: {
+            family: "Roboto",
+          },
           legend: {
             x: 0.6,
             xanchor: "right",

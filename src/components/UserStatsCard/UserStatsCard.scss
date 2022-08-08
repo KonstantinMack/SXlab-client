@@ -4,13 +4,18 @@
   @include flexbox($dir: column, $gap: 2rem);
   &__container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 3rem;
     justify-content: center;
+  }
+
+  &__address {
+    padding-left: 2rem;
   }
 
   &__stat {
     padding-left: 2rem;
+    font-size: 2rem;
 
     &--profit {
       color: green;

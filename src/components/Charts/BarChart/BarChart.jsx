@@ -185,6 +185,9 @@ export default function BarChart({ data, addClass }) {
           paper_bgcolor: "#1e1e1e",
           plot_bgcolor: "#1e1e1e",
           autosize: true,
+          font: {
+            family: "Roboto",
+          },
           title: {
             text: titles[metric],
             font: {
@@ -196,11 +199,11 @@ export default function BarChart({ data, addClass }) {
           xaxis: {
             title: "Date",
             titlefont: {
-              size: 16,
+              size: 18,
               color: "white",
             },
             tickfont: {
-              size: 14,
+              size: 16,
               color: "white",
             },
             type: "date",
@@ -209,11 +212,11 @@ export default function BarChart({ data, addClass }) {
           yaxis: {
             title: metric,
             titlefont: {
-              size: 16,
+              size: 18,
               color: "white",
             },
             tickfont: {
-              size: 14,
+              size: 16,
               color: "white",
             },
           },

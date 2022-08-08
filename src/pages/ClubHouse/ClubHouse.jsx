@@ -7,6 +7,8 @@ import { useOutletContext } from "react-router-dom";
 import Card from "../../components/Card/Card";
 import BetsList from "../../components/BetsList/BetsList";
 
+import TrophyIcon from "../../assets/icons/trophy.svg";
+
 export default function ClubHouse() {
   const [selectedSport, , accountAddress] = useOutletContext();
   const [myOpenBets, setMyOpenBets] = useState();
@@ -55,8 +57,15 @@ export default function ClubHouse() {
 
   return (
     <div className="club-house">
-      <Card>
-        <h2>Welcome to your Club House:</h2>
+      <Card addClass={"club-house__overview"}>
+        <img src={TrophyIcon} alt="trophy" className="club-house__icon" />
+        <div>
+          <h1>Welcome to your Club House</h1>
+          <p>
+            Here you can find currently open bets from yourself and any of the
+            tipsters you follow.
+          </p>
+        </div>
       </Card>
       <BetsList
         data={

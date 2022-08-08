@@ -9,6 +9,7 @@ import UserDonutCharts from "../../components/Charts/UserDonutCharts/UserDonutCh
 import SportsTreeMap from "../../components/Charts/SportsTreeMap/SportsTreeMap";
 import BetsList from "../../components/BetsList/BetsList";
 import { ReactComponent as ArrowIcon } from "../../assets/icons/arrow.svg";
+import MicroscopeIcon from "../../assets/icons/microscope.svg";
 import axios from "axios";
 
 export default function UserStats() {
@@ -70,8 +71,18 @@ export default function UserStats() {
 
   return (
     <div className="user__container">
-      <Card>
-        <h1>Find bets by address:</h1>
+      <Card addClass={"user__form-card"}>
+        <div className="user__description">
+          <img
+            src={MicroscopeIcon}
+            alt="microscope"
+            className="user__description-icon"
+          />
+          <div>
+            <h1>Wallet Analyser:</h1>
+            <p>Take a deep dive into the nitty-gritty bits of any wallet.</p>
+          </div>
+        </div>
         <form onSubmit={submitHandler} className="user__form">
           <input
             type="text"
@@ -82,7 +93,7 @@ export default function UserStats() {
           />
           <button className="user__search-button">
             <ArrowIcon className="user__search-button-icon" />
-            Analyse wallet!
+            <p>Analyse wallet!</p>
           </button>
         </form>
       </Card>

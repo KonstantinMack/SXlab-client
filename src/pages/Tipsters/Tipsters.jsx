@@ -7,6 +7,9 @@ import ModalComponent from "../../components/ModalComponent/ModalComponent";
 import { ReactComponent as StarIcon } from "../../assets/icons/star.svg";
 import axios from "axios";
 
+import SortIcon from "../../assets/icons/sort.svg";
+import MoneyIcon from "../../assets/icons/money.svg";
+
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -95,13 +98,22 @@ export default function Tipsters() {
 
   return (
     <Card addClass="tipsters__card">
-      <h1 className="tipsters__title">Tipsters</h1>
+      <div className="tipsters__card-description">
+        <img src={MoneyIcon} alt="money" className="tipsters__card-icon" />
+        <div>
+          <h1 className="tipsters__title">Tipsters</h1>
+          <p>
+            Can't decide what to bet on? Why not get some inspiration from
+            successful wallets?
+          </p>
+        </div>
+      </div>
       <ModalComponent
         modalIsOpen={modalIsOpen}
         setModalIsOpen={setModalIsOpen}
       />
       <div className="tipsters__list">
-        <div className="tipsters__items">
+        <div className="tipsters__items tipsters__items-header">
           <h3></h3>
           <div className="tipsters__items-content">
             <h3 className="tipsters__item">Rank</h3>
@@ -110,6 +122,7 @@ export default function Tipsters() {
               onClick={() => sortTipsters("numBets", ascNumBets, setAscNumBets)}
             >
               Num. Bets
+              <img src={SortIcon} alt="sort" />
             </h3>
             <h3
               className="tipsters__item tipsters__item--sort"
@@ -118,24 +131,28 @@ export default function Tipsters() {
               }
             >
               Volume
+              <img src={SortIcon} alt="sort" />
             </h3>
             <h3
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortTipsters("dollarProfitLoss", ascPL, setAscPL)}
             >
               Profit/Loss
+              <img src={SortIcon} alt="sort" />
             </h3>
             <h3
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortTipsters("yield", ascYield, setAscYield)}
             >
               Yield
+              <img src={SortIcon} alt="sort" />
             </h3>
             <h3
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortTipsters("avgOdds", ascOdds, setAscOdds)}
             >
               Avg. Odds
+              <img src={SortIcon} alt="sort" />
             </h3>
             <h3
               className="tipsters__item tipsters__item--sort"
@@ -144,15 +161,18 @@ export default function Tipsters() {
               }
             >
               Win %
+              <img src={SortIcon} alt="sort" />
             </h3>
             <h3
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortTipsters("isMaker", ascMaker, setAscMaker)}
             >
               Maker %
+              <img src={SortIcon} alt="sort" />
             </h3>
           </div>
         </div>
+
         {!tipsters || !tipsters.length
           ? LoadingScreen
           : tipsters.slice(0, 25).map((tipster, idx) => {

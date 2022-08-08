@@ -13,7 +13,6 @@
   border-radius: 4px;
   outline: none;
   padding: 2rem;
-  font-size: 2rem;
   @include flexbox($dir: column, $justify: center, $align: center, $gap: 2rem);
 }
 

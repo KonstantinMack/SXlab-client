@@ -2,9 +2,20 @@
 @use "../../styles/partials/variables" as *;
 
 .tipsters {
+  &__card {
+    @include flexbox($dir: column, $gap: 3rem);
+
+    &-description {
+      @include flexbox($align: center, $gap: 3rem);
+    }
+
+    &-icon {
+      height: 5rem;
+    }
+  }
+
   &__items {
     display: grid;
-    // grid-template-columns: 1fr 1fr 2fr 3fr 3fr repeat(4, 2fr);
     grid-template-columns: 1fr 17fr;
     justify-items: center;
     border-bottom: 1px solid $sx-gray;
@@ -14,35 +25,32 @@
       background: $background-black;
     }
 
-    &-small {
-      grid-template-columns: 1fr 2fr 3fr 3fr repeat(4, 2fr);
-    }
-
     &-content {
       width: 100%;
       display: grid;
       grid-template-columns: 1fr 2fr 3fr 3fr repeat(4, 2fr);
+      justify-items: center;
+    }
+
+    &-header {
+      &:hover {
+        background: $background-gray;
+      }
     }
   }
 
   &__item {
-    font-size: 1.6rem;
-    @include flexbox($align: center, $gap: 1rem);
-
     &--sort {
       cursor: pointer;
+      @include flexbox($align: center, $gap: 0.5rem);
     }
 
     &--profit {
-      color: green;
+      color: $sx-green;
     }
 
     &--loss {
-      color: red;
-    }
-
-    &-link {
-      font-size: 1.6rem;
+      color: $sx-red;
     }
 
     &-icon {

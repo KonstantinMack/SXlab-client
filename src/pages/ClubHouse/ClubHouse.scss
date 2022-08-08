@@ -2,4 +2,12 @@
 
 .club-house {
   @include flexbox($dir: column, $gap: 2rem);
+
+  &__overview {
+    @include flexbox($gap: 2rem, $align: center);
+  }
+
+  &__icon {
+    height: 5rem;
+  }
 }

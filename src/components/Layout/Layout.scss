@@ -5,6 +5,8 @@
 
   &__all {
     flex-grow: 1;
+    min-height: 100vh;
+    @include flexbox($dir: column);
   }
 
   &__main {

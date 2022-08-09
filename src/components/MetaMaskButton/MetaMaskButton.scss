@@ -1,7 +1,7 @@
 @use "../../styles/partials/mixins" as *;
 
 .header__button {
-  @include flexbox($gap: 2rem, $align: center);
+  @include flexbox($gap: 1rem, $align: center);
   padding: 1rem 2rem;
   background: rgb(3, 139, 255);
   background: linear-gradient(

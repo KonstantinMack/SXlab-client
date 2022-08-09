@@ -14,7 +14,7 @@ export default function BetTypeBarChart({ data, addClass }) {
   return (
     <Card addClass={addClass}>
       <h2 data-tip="Breakdown of volume for <br> ML, Spread, and Total markets">
-        Bet-types
+        Bet types
       </h2>
       <Plot
         data={[

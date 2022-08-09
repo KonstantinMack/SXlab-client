@@ -6,6 +6,8 @@
   @include flexbox($justify: space-between);
   @include padding($size: small);
 
+  box-shadow: 6px 6px 5px 0 black;
+
   &__nav {
     @include flexbox($gap: 2rem);
 

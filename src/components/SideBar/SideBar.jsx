@@ -9,7 +9,12 @@ export default function SideBar({ selectedSport, setter }) {
     <div className="sidebar">
       <div className="sidebar__content">
         <Link to="/">
-          <img src={SXLogo} alt="SX logo" className="sidebar__logo" />
+          <img
+            src={SXLogo}
+            alt="SX logo"
+            className="sidebar__logo"
+            onClick={() => setter("All")}
+          />
         </Link>
         <div className="sidebar__icons">
           {SPORTS.map((sport, idx) => (

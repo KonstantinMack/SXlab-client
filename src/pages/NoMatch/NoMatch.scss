@@ -1,0 +1,11 @@
+@use "../../styles/partials/mixins" as *;
+
+.nomatch {
+  @include flexbox($align: center, $gap: 2rem);
+  justify-self: center;
+  align-self: center;
+
+  &__icon {
+    height: 5rem;
+  }
+}

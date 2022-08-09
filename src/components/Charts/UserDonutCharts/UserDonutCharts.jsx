@@ -23,10 +23,8 @@ export default function UserDonutCharts({ values, labels, title, showLegend }) {
               },
             },
             textinfo: "label+percent",
-            opacity: 0.8,
-
             marker: {
-              colors: ["#15ff4f", "#00e5ff", "#f94144", "#ff8e00"],
+              colors: ["#06db3c", "#00e5ff", "#f94144", "#ff8e00"],
             },
           },
         ]}

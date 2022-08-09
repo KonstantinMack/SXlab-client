@@ -23,11 +23,10 @@ export default function SportsTreeMap({ data, addClass }) {
             type: "treemap",
             textinfo: "label+value",
             hoverinfo: "label+percent root",
-            opacity: 0.8,
             insidetextfont: { size: 14, color: "black" },
             outsidetextfont: { size: 1, color: "white" },
             marker: {
-              colors: ["#00e5ff", "#15ff4f", "#ff8e00"],
+              colors: ["#00e5ff", "#06db3c", "#ff8e00"],
             },
           },
         ]}

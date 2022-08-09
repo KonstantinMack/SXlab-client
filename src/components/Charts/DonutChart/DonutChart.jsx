@@ -26,7 +26,7 @@ export default function LineChart({ data }) {
             textinfo: "label+percent",
             opacity: 0.8,
             marker: {
-              colors: ["#00e5ff", "#15ff4f", "#ff8e00"],
+              colors: ["#00e5ff", "#06db3c", "#ff8e00"],
             },
           },
         ]}

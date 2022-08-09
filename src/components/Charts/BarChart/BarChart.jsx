@@ -125,7 +125,6 @@ export default function BarChart({ data, addClass }) {
             hovertemplate: hoverTemplate,
             marker: {
               color: "#ff8e00",
-              // opacity: 0.8,
               line: {
                 color: "rgb(8,48,107)",
                 width: 1.5,
@@ -140,8 +139,7 @@ export default function BarChart({ data, addClass }) {
             hovertemplate: hoverTemplate,
             name: "DAI",
             marker: {
-              color: "#15ff4f",
-              // opacity: 0.8,
+              color: "#06db3c",
               line: {
                 color: "rgb(8,48,107)",
                 width: 1.5,
@@ -157,7 +155,6 @@ export default function BarChart({ data, addClass }) {
             type: "bar",
             marker: {
               color: "#00e5ff",
-              // opacity: 0.8,
               line: {
                 color: "rgb(8,48,107)",
                 width: 1.5,
@@ -173,7 +170,6 @@ export default function BarChart({ data, addClass }) {
             type: "bar",
             marker: {
               color: "#f94144",
-              // opacity: 0.8,
               line: {
                 color: "rgb(8,48,107)",
                 width: 1.5,

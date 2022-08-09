@@ -42,8 +42,15 @@ export default function AvgBetCard({ data, other, addClass }) {
 
   return (
     <Card addClass={`betsize__card ${addClass || ""}`}>
-      <h2 data-tip="React-tooltip">Average Bet Size:</h2>
-      <ReactTooltip place="top" type="light" effect="float" />
+      <h2 data-tip="Average bet size in $ using exchange <br> rates from the time of the bet.">
+        Average Bet Size
+      </h2>
+      <ReactTooltip
+        type="dark"
+        backgroundColor="#161616"
+        multiline={true}
+        effect="float"
+      />
       {data &&
         data
           .sort((a, b) => b.avgDollarBetSize - a.avgDollarBetSize)

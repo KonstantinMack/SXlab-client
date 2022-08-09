@@ -71,6 +71,7 @@ export default function OverallStats() {
         data={dataByToken.filter((ele) => findSport(ele, selectedSport))}
         attribute={"totalDollarMatched"}
         text={"Total volume matched"}
+        tooltip="Total volume in $ using exchange rates <br> from the time of the bets "
         addClass="card__volume"
       />
       <StatsCard
@@ -78,6 +79,7 @@ export default function OverallStats() {
         data={dataByToken.filter((ele) => findSport(ele, selectedSport))}
         attribute={"numberOfBets"}
         text={"Number of bets placed"}
+        tooltip="Each bet counts, so if an order gets filled it counts as two bets, <br> one from the maker and one from the taker."
         addClass="card__num-bets"
       />
       <StatsCard
@@ -85,6 +87,7 @@ export default function OverallStats() {
         data={dataBySport.filter((ele) => findSport(ele, selectedSport))}
         attribute={"numUniqAddresses"}
         text={"Unique addresses"}
+        tooltip="Number of unique addresses <br> that have places at least one bet"
         addClass="card__num-addresses"
       />
       <StatsCard
@@ -92,6 +95,7 @@ export default function OverallStats() {
         data={dataBySport.filter((ele) => findSport(ele, selectedSport))}
         attribute={"numMarkets"}
         text={"Number of betting markets"}
+        tooltip="A single game can have up to <br> three markets (i.e. ML, Spread, Totals)"
         addClass="card__num-markets"
       />
       <AvgBetCard

@@ -1,7 +1,14 @@
 import "./StatsCard.scss";
 import Card from "../Card/Card";
 
-export default function StatsCard({ image, data, text, attribute, addClass }) {
+export default function StatsCard({
+  image,
+  data,
+  text,
+  tooltip,
+  attribute,
+  addClass,
+}) {
   return (
     <Card addClass={`stats-card ${addClass || ""}`}>
       <img src={image} alt="icon" className="stats-card__image" />
@@ -15,7 +22,9 @@ export default function StatsCard({ image, data, text, attribute, addClass }) {
               }, 0)
             ).toLocaleString()}
         </p>
-        <p className="stats-card__text">{text}</p>
+        <p data-tip={tooltip} data-place="bottom" className="stats-card__text">
+          {text}
+        </p>
       </div>
     </Card>
   );

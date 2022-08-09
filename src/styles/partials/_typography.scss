@@ -151,15 +151,15 @@
 }
 
 h1 {
-  @include font($size: 3.2rem, $weight: 700);
+  @include font($size: 3.2rem, $weight: 500);
 }
 
 h2 {
-  @include font($size: 2.4rem, $weight: 700);
+  @include font($size: 2.4rem, $weight: 500);
 }
 
 h3 {
-  @include font($size: 1.8rem, $weight: 700);
+  @include font($size: 1.8rem, $weight: 500);
 }
 
 p {
@@ -167,7 +167,7 @@ p {
 }
 
 a {
-  @include font($size: 2rem);
+  @include font($size: 1.6rem);
   text-decoration: none;
   color: white;
 }

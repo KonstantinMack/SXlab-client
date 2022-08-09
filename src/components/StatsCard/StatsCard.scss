@@ -6,6 +6,7 @@
 
   &__content {
     @include flexbox($dir: column, $justify: center, $align: center);
+    flex-grow: 1;
   }
 
   &__stat {

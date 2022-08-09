@@ -13,7 +13,9 @@ export default function BetTypeBarChart({ data, addClass }) {
   }
   return (
     <Card addClass={addClass}>
-      <h2>Bet-type:</h2>
+      <h2 data-tip="Breakdown of volume for <br> ML, Spread, and Total markets">
+        Bet-types
+      </h2>
       <Plot
         data={[
           {
@@ -23,7 +25,7 @@ export default function BetTypeBarChart({ data, addClass }) {
             type: "treemap",
             textinfo: "label+value",
             hoverinfo: "percent root",
-            opacity: 0.8,
+            // opacity: 0.8,
             insidetextfont: { size: 14, color: "black" },
             outsidetextfont: { size: 1, color: "white" },
             marker: {

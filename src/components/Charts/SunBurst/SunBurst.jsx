@@ -31,7 +31,9 @@ export default function SunBurst({ data, addClass }) {
 
   return (
     <Card addClass={addClass}>
-      <h2>Betting Volume Distribution:</h2>
+      <h2 data-tip="Betting volume distribution by currency and sports. <br> Clicking into a currency shows a breakdown for that currency.">
+        Betting Volume Distribution
+      </h2>
       <Plot
         data={[
           {

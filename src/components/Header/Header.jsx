@@ -14,7 +14,7 @@ export default function Header({
           Stats
         </NavLink>
         <NavLink to="/user" className="header__nav-link">
-          Analyser
+          Analyzer
         </NavLink>
         <NavLink to="/tipsters" className="header__nav-link">
           Tipsters

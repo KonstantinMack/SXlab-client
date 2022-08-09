@@ -116,7 +116,7 @@ export default function UserStats({ showLoadingScreen }) {
             className="user__description-icon"
           />
           <div>
-            <h1>Wallet Analyser:</h1>
+            <h1>Wallet Analyzer:</h1>
             <p>Take a deep dive into the nitty-gritty bits of any wallet.</p>
           </div>
         </div>

@@ -34,7 +34,7 @@ export default function BetsList({ data, selectedSport, title }) {
 
   return (
     <Card addClass={"bets-list"}>
-      <h2>{title}:</h2>
+      <h2>{title}</h2>
       <div className="bets-list__container">
         <div className="bets-list__header">
           <h3>Date</h3>
@@ -45,9 +45,8 @@ export default function BetsList({ data, selectedSport, title }) {
           <h3>Odds</h3>
           <h3>Stake</h3>
         </div>
-        {!betsBySport
-          ? loadingScreen
-          : betsBySport.map((bet, idx) => {
+        {betsBySport
+          ? betsBySport.map((bet, idx) => {
               return (
                 <a
                   href={`https://sx.bet/${convertSportName(
@@ -88,7 +87,8 @@ export default function BetsList({ data, selectedSport, title }) {
                   </p>
                 </a>
               );
-            })}
+            })
+          : loadingScreen}
       </div>
     </Card>
   );

@@ -14,6 +14,7 @@ export default function ClubHouse() {
   const [myOpenBets, setMyOpenBets] = useState();
   const [theirOpenBets, setTheirOpenBets] = useState();
   const [favourites, setFavourites] = useState([]);
+  const [selectedFavourites, setSelectedFavourites] = useState([]);
 
   useEffect(() => {
     if (accountAddress) {
@@ -28,7 +29,10 @@ export default function ClubHouse() {
         .get(
           `http://localhost:8080/api/tipster/favourites?address=${accountAddress}`
         )
-        .then((favs) => setFavourites(favs.data))
+        .then((favs) => {
+          setFavourites(favs.data);
+          setSelectedFavourites(favs.data);
+        })
         .catch((err) => console.log(err));
     }
   }, [accountAddress]);
@@ -49,7 +53,7 @@ export default function ClubHouse() {
   if (!accountAddress) {
     return (
       <Card>
-        <h2>Soory we can't find your Club House</h2>
+        <h2>Sorry we can't find your Club House</h2>
         <p>Please connect your MetaMask wallet</p>
       </Card>
     );
@@ -76,12 +80,42 @@ export default function ClubHouse() {
         selectedSport={selectedSport}
         title="My Bets"
       />
+      <Card addClass={"club-house__tipsters"}>
+        <div>
+          <h2>My Tipsters</h2>
+          <p>
+            Select or deselect your tipsters to filter their currently open
+            bets.
+          </p>
+        </div>
+        <div className="club-house__tipsters-list">
+          {favourites.map((fav) => (
+            <p
+              onClick={() =>
+                setSelectedFavourites((state) =>
+                  state.includes(fav)
+                    ? state.filter((oldFav) => oldFav !== fav)
+                    : [...state, fav]
+                )
+              }
+              className={`club-house__tipster
+              ${
+                selectedFavourites.includes(fav)
+                  ? "club-house__tipster--selected"
+                  : "club-house__tipster--unselected"
+              }`}
+            >
+              {fav}
+            </p>
+          ))}
+        </div>
+      </Card>
       <BetsList
         data={
           theirOpenBets
-            ? theirOpenBets.sort(
-                (a, b) => a.market.gameTime - b.market.gameTime
-              )
+            ? theirOpenBets
+                .filter((bet) => selectedFavourites.includes(bet.bettor))
+                .sort((a, b) => a.market.gameTime - b.market.gameTime)
             : theirOpenBets
         }
         selectedSport={selectedSport}

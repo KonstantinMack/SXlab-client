@@ -3,7 +3,7 @@
 
 .sidebar__icon {
   @include padding($size: small, $x-only: true);
-  fill: $sx-gray;
+  fill: $sx-light-gray;
   height: 2rem;
   flex-basis: 30%;
 

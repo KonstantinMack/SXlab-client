@@ -34,13 +34,13 @@ export default function UserStats({ showLoadingScreen }) {
     if (address) {
       axios
         .get(
-          `http://localhost:8080/api/user-stats/address/stats?sport=${selectedSport}&address=${address}`
+          `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/stats?sport=${selectedSport}&address=${address}`
         )
         .then((res) => setUserStats(res.data[0]));
 
       axios
         .get(
-          `http://localhost:8080/api/user-stats/address/stats-by-date?sport=${selectedSport}&address=${address}`
+          `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/stats-by-date?sport=${selectedSport}&address=${address}`
         )
         .then((res) => setUserStatsByDate(res.data));
     }
@@ -50,7 +50,7 @@ export default function UserStats({ showLoadingScreen }) {
     if (address) {
       axios
         .get(
-          `http://localhost:8080/api/user-stats/address/stats-by-sport?address=${address}`
+          `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/stats-by-sport?address=${address}`
         )
         .then((res) => setUserStatsBySport(res.data));
     }
@@ -60,7 +60,7 @@ export default function UserStats({ showLoadingScreen }) {
     if (address) {
       axios
         .get(
-          `http://localhost:8080/api/user-stats/address/bets?address=${address}`
+          `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/bets?address=${address}`
         )
         .then((res) => setUserBets(res.data));
     }

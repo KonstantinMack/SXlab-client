@@ -5,6 +5,7 @@
   background-color: $background-gray;
   @include padding($size: medium);
   margin-top: auto;
+  box-shadow: 10px 0 5px 5px black;
 
   &__header {
     font-size: 1.6rem;

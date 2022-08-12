@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="footer">
       <h3 className="footer__header">Contact:</h3>
       <img src={DiscordIcon} alt="discord" className="footer__icon" />
-      {/* <h3 className="footer__header">Disclaimer:</h3>
+      <h3 className="footer__header">Disclaimer:</h3>
       <p className="footer__text">
         The material and information contained on this website is for general
         information purposes only. You are responsible for your own decisions.
@@ -24,7 +24,7 @@ export default function Footer() {
         liable for any loss or damage caused by a reader's reliance on
         information obtained in our assets. If you don't accept this
         responsibility for yourself, then you should not use SX Lab.
-      </p> */}
+      </p>
     </footer>
   );
 }

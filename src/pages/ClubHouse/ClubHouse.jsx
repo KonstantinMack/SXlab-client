@@ -20,14 +20,14 @@ export default function ClubHouse() {
     if (accountAddress) {
       axios
         .get(
-          `http://localhost:8080/api/user-stats/address/bets?address=${accountAddress}`
+          `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/bets?address=${accountAddress}`
         )
         .then((res) => setMyOpenBets(res.data))
         .catch((err) => console.log(err));
 
       axios
         .get(
-          `http://localhost:8080/api/tipster/favourites?address=${accountAddress}`
+          `${process.env.REACT_APP_BACKEND_URL}/tipster/favourites?address=${accountAddress}`
         )
         .then((favs) => {
           setFavourites(favs.data);
@@ -42,7 +42,7 @@ export default function ClubHouse() {
       const promises = favourites.map((fav) =>
         axios
           .get(
-            `http://localhost:8080/api/user-stats/address/bets?address=${fav}`
+            `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/bets?address=${fav}`
           )
           .then((res) => res.data)
       );

@@ -45,7 +45,9 @@ export default function Tipsters() {
     }
 
     axios
-      .get(`http://localhost:8080/api/tipster/tipsters?sport=${selectedSport}`)
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/tipster/tipsters?sport=${selectedSport}`
+      )
       .then((res) => setTipsters(res.data))
       .catch((err) => console.log(err));
   }, [selectedSport]);
@@ -54,7 +56,7 @@ export default function Tipsters() {
     if (accountAddress) {
       axios
         .get(
-          `http://localhost:8080/api/tipster/favourites?address=${accountAddress}`
+          `${process.env.REACT_APP_BACKEND_URL}/tipster/favourites?address=${accountAddress}`
         )
         .then((favs) => setFavourites(favs.data))
         .catch((err) => console.log(err));
@@ -72,7 +74,7 @@ export default function Tipsters() {
     if (favourites.includes(bettor)) {
       console.log({ accountAddress });
       console.log({ bettor });
-      axios.delete("http://localhost:8080/api/tipster/unstar", {
+      axios.delete(`${process.env.REACT_APP_BACKEND_URL}/tipster/unstar`, {
         data: {
           address: accountAddress,
           bettor,
@@ -80,7 +82,7 @@ export default function Tipsters() {
       });
       setFavourites((state) => state.filter((item) => item !== bettor));
     } else {
-      axios.post("http://localhost:8080/api/tipster/star", {
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/tipster/star`, {
         address: accountAddress,
         bettor,
       });
@@ -104,7 +106,8 @@ export default function Tipsters() {
           <h1 className="tipsters__title">Tipsters</h1>
           <p>
             Can't decide what to bet on? Why not get some inspiration from
-            successful wallets?
+            successful wallets? Here's a ranking of the most successful wallets
+            with at least 100 bets.
           </p>
         </div>
       </div>

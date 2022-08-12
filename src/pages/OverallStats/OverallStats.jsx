@@ -24,14 +24,14 @@ export default function OverallStats() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/site-stats-by/token-sports")
+      .get(`${process.env.REACT_APP_BACKEND_URL}/site-stats-by/token-sports`)
       .then((res) => setDataByToken(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/site-stats-by/sports")
+      .get(`${process.env.REACT_APP_BACKEND_URL}/site-stats-by/sports`)
       .then((res) => setDataBySport(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -39,7 +39,7 @@ export default function OverallStats() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8080/api/site-stats-by/time?timeframe=month&sport=${selectedSport}`
+        `${process.env.REACT_APP_BACKEND_URL}/site-stats-by/time?timeframe=month&sport=${selectedSport}`
       )
       .then((res) => setDataByMonth(res.data))
       .catch((err) => console.log(err));
@@ -48,9 +48,9 @@ export default function OverallStats() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8080/api/site-stats-by/bet-type?sports=${SPORTS.join(
-          ","
-        )}`
+        `${
+          process.env.REACT_APP_BACKEND_URL
+        }/site-stats-by/bet-type?sports=${SPORTS.join(",")}`
       )
       .then((res) => setDataByBetType(res.data))
       .catch((err) => console.log(err));

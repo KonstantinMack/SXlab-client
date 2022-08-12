@@ -13,7 +13,9 @@ export default function MarketList({ selectedSport, addClass }) {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8080/api/site-stats-by/markets?number=10&sport=${
+        `${
+          process.env.REACT_APP_BACKEND_URL
+        }/site-stats-by/markets?number=10&sport=${
           selectedSport === "Other" ? SPORTS.join(",") : selectedSport
         }&other=${selectedSport === "Other"}`
       )
@@ -23,7 +25,12 @@ export default function MarketList({ selectedSport, addClass }) {
 
   return (
     <Card addClass={addClass}>
-      <h2 className="markets__title">All-time most popular markets:</h2>
+      <h2
+        className="markets__title"
+        data-tip="Money line, spread and totals markets combined"
+      >
+        All-time most popular markets:
+      </h2>
       <div className="markets__list">
         <div className="markets__headers">
           <h3 className="markets__item--small">Rank</h3>

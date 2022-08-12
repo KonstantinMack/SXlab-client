@@ -24,7 +24,7 @@ export default function Layout() {
       setAccountAddress(accounts[0]);
       setIsConnected(true);
       await axios
-        .post("http://localhost:8080/api/user-stats/address", {
+        .post(`${process.env.REACT_APP_BACKEND_URL}/user-stats/address`, {
           address: accounts[0],
         })
         .catch((err) => console.log(err.response.data));
@@ -40,7 +40,7 @@ export default function Layout() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/tipster/tipsters?sport=All`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/tipster/tipsters?sport=All`)
       .then((res) => setTipstersAll(res.data))
       .catch((err) => console.log(err));
   }, []);

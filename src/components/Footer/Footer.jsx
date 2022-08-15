@@ -1,12 +1,40 @@
 import "./Footer.scss";
 
 import DiscordIcon from "../../assets/icons/discord.svg";
+import EmailIcon from "../../assets/icons/email.svg";
+
+import { useState } from "react";
 
 export default function Footer() {
+  const [showEmail, setShowEmail] = useState(false);
+
   return (
     <footer className="footer">
       <h3 className="footer__header">Contact:</h3>
-      <img src={DiscordIcon} alt="discord" className="footer__icon" />
+      <div className="footer__email">
+        <img
+          src={EmailIcon}
+          alt="email"
+          className="footer__icon"
+          onClick={() => {
+            navigator.clipboard.writeText("admin@sx-lab.bet");
+            setShowEmail(true);
+            setTimeout(() => setShowEmail(false), 2000);
+          }}
+        />
+        {showEmail && (
+          <p className="footer__email-text">
+            Email address copied to clipboard!
+          </p>
+        )}
+      </div>
+      <a
+        href="https://discord.gg/xfv4mdNMTp"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src={DiscordIcon} alt="discord" className="footer__icon" />
+      </a>
       <h3 className="footer__header">Disclaimer:</h3>
       <p className="footer__text">
         The material and information contained on this website is for general

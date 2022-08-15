@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 
+import useMediaQuery from "../../lib/hooks";
+
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import SideBar from "../SideBar/SideBar";
@@ -45,6 +47,8 @@ export default function Layout() {
       .catch((err) => console.log(err));
   }, []);
 
+  const isDesktop = useMediaQuery("(min-width: 1280px)");
+
   return (
     <div className="app">
       <SideBar selectedSport={selectedSport} setter={setSelectedSport} />
@@ -55,7 +59,13 @@ export default function Layout() {
           isConnected={isConnected}
         />
         <main className="app__main">
-          <Outlet context={[selectedSport, tipstersAll, accountAddress]} />
+          {isDesktop ? (
+            <Outlet context={[selectedSport, tipstersAll, accountAddress]} />
+          ) : (
+            <p>
+              There is no mobile version yet, <br></br>please use a desktop.
+            </p>
+          )}
         </main>
         <Footer />
       </div>

@@ -3,7 +3,7 @@ import "./Tipsters.scss";
 import { useState, useEffect } from "react";
 import { useOutletContext, Link } from "react-router-dom";
 
-import { API_URL } from "../config";
+import { API_URL } from "../../config";
 import Card from "../../components/Card/Card";
 import ModalComponent from "../../components/ModalComponent/ModalComponent";
 import { ReactComponent as StarIcon } from "../../assets/icons/star.svg";

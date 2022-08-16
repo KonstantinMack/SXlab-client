@@ -8,7 +8,7 @@ import BarChart from "../../components/Charts/BarChart/BarChart";
 import BetTypeBarChart from "../../components/Charts/BetTypeBarChart/BetTypeBarChart";
 import AvgBetCard from "../../components/AvgBetCard/AvgBetCard";
 import MarketList from "../../components/MarketList/MarketList";
-import { API_URL } from "../config";
+import { API_URL } from "../../config";
 import { SPORTS } from "../../lib/globals";
 
 import BetsIcon from "../../assets/icons/bets.svg";

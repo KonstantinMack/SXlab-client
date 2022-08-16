@@ -3,7 +3,7 @@ import "./UserStats.scss";
 import { useState, useEffect } from "react";
 import { useOutletContext, useParams, useNavigate } from "react-router-dom";
 
-import { API_URL } from "../config";
+import { API_URL } from "../../config";
 import Card from "../../components/Card/Card";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import ProfitChart from "../../components/Charts/ProfitChart/ProfitChart";

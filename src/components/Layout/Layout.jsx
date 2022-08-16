@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 
-import { API_URL } from "../config";
+import { API_URL } from "../../config";
 import useMediaQuery from "../../lib/hooks";
 
 import Header from "../Header/Header";

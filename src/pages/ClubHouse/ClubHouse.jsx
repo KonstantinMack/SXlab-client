@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 
-import { API_URL } from "../config";
+import { API_URL } from "../../config";
 import Card from "../../components/Card/Card";
 import BetsList from "../../components/BetsList/BetsList";
 

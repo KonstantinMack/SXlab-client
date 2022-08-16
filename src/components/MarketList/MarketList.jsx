@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
-import { API_URL } from "../config";
+import { API_URL } from "../../config";
 import { SPORTS } from "../../lib/globals";
 import Card from "../Card/Card";
 

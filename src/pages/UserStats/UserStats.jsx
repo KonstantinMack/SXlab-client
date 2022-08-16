@@ -2,6 +2,8 @@ import "./UserStats.scss";
 
 import { useState, useEffect } from "react";
 import { useOutletContext, useParams, useNavigate } from "react-router-dom";
+
+import { API_URL } from "../config";
 import Card from "../../components/Card/Card";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import ProfitChart from "../../components/Charts/ProfitChart/ProfitChart";
@@ -34,13 +36,13 @@ export default function UserStats({ showLoadingScreen }) {
     if (address) {
       axios
         .get(
-          `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/stats?sport=${selectedSport}&address=${address}`
+          `${API_URL}/user-stats/address/stats?sport=${selectedSport}&address=${address}`
         )
         .then((res) => setUserStats(res.data[0]));
 
       axios
         .get(
-          `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/stats-by-date?sport=${selectedSport}&address=${address}`
+          `${API_URL}/user-stats/address/stats-by-date?sport=${selectedSport}&address=${address}`
         )
         .then((res) => setUserStatsByDate(res.data));
     }
@@ -49,9 +51,7 @@ export default function UserStats({ showLoadingScreen }) {
   useEffect(() => {
     if (address) {
       axios
-        .get(
-          `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/stats-by-sport?address=${address}`
-        )
+        .get(`${API_URL}/user-stats/address/stats-by-sport?address=${address}`)
         .then((res) => setUserStatsBySport(res.data));
     }
   }, [address]);
@@ -59,9 +59,7 @@ export default function UserStats({ showLoadingScreen }) {
   useEffect(() => {
     if (address) {
       axios
-        .get(
-          `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/bets?address=${address}`
-        )
+        .get(`${API_URL}/user-stats/address/bets?address=${address}`)
         .then((res) => setUserBets(res.data));
     }
   }, [address]);

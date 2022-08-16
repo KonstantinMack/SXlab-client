@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
+import { API_URL } from "../config";
 import { SPORTS } from "../../lib/globals";
 import Card from "../Card/Card";
 
@@ -13,9 +14,7 @@ export default function MarketList({ selectedSport, addClass }) {
   useEffect(() => {
     axios
       .get(
-        `${
-          process.env.REACT_APP_BACKEND_URL
-        }/site-stats-by/markets?number=10&sport=${
+        `${API_URL}/site-stats-by/markets?number=10&sport=${
           selectedSport === "Other" ? SPORTS.join(",") : selectedSport
         }&other=${selectedSport === "Other"}`
       )

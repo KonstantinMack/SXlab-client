@@ -8,6 +8,7 @@ import BarChart from "../../components/Charts/BarChart/BarChart";
 import BetTypeBarChart from "../../components/Charts/BetTypeBarChart/BetTypeBarChart";
 import AvgBetCard from "../../components/AvgBetCard/AvgBetCard";
 import MarketList from "../../components/MarketList/MarketList";
+import { API_URL } from "../config";
 import { SPORTS } from "../../lib/globals";
 
 import BetsIcon from "../../assets/icons/bets.svg";
@@ -24,14 +25,14 @@ export default function OverallStats() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/site-stats-by/token-sports`)
+      .get(`${API_URL}/site-stats-by/token-sports`)
       .then((res) => setDataByToken(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/site-stats-by/sports`)
+      .get(`${API_URL}/site-stats-by/sports`)
       .then((res) => setDataBySport(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -39,7 +40,7 @@ export default function OverallStats() {
   useEffect(() => {
     axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/site-stats-by/time?timeframe=month&sport=${selectedSport}`
+        `${API_URL}/site-stats-by/time?timeframe=month&sport=${selectedSport}`
       )
       .then((res) => setDataByMonth(res.data))
       .catch((err) => console.log(err));
@@ -47,11 +48,7 @@ export default function OverallStats() {
 
   useEffect(() => {
     axios
-      .get(
-        `${
-          process.env.REACT_APP_BACKEND_URL
-        }/site-stats-by/bet-type?sports=${SPORTS.join(",")}`
-      )
+      .get(`${API_URL}/site-stats-by/bet-type?sports=${SPORTS.join(",")}`)
       .then((res) => setDataByBetType(res.data))
       .catch((err) => console.log(err));
   }, []);

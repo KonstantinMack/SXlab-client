@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 
+import { API_URL } from "../config";
 import useMediaQuery from "../../lib/hooks";
 
 import Header from "../Header/Header";
@@ -26,7 +27,7 @@ export default function Layout() {
       setAccountAddress(accounts[0]);
       setIsConnected(true);
       await axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/user-stats/address`, {
+        .post(`${API_URL}/user-stats/address`, {
           address: accounts[0],
         })
         .catch((err) => console.log(err.response.data));
@@ -42,7 +43,7 @@ export default function Layout() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/tipster/tipsters?sport=All`)
+      .get(`${API_URL}/tipster/tipsters?sport=All`)
       .then((res) => setTipstersAll(res.data))
       .catch((err) => console.log(err));
   }, []);

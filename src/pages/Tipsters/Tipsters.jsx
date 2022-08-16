@@ -2,6 +2,8 @@ import "./Tipsters.scss";
 
 import { useState, useEffect } from "react";
 import { useOutletContext, Link } from "react-router-dom";
+
+import { API_URL } from "../config";
 import Card from "../../components/Card/Card";
 import ModalComponent from "../../components/ModalComponent/ModalComponent";
 import { ReactComponent as StarIcon } from "../../assets/icons/star.svg";
@@ -45,9 +47,7 @@ export default function Tipsters() {
     }
 
     axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/tipster/tipsters?sport=${selectedSport}`
-      )
+      .get(`${API_URL}/tipster/tipsters?sport=${selectedSport}`)
       .then((res) => setTipsters(res.data))
       .catch((err) => console.log(err));
   }, [selectedSport]);
@@ -55,9 +55,7 @@ export default function Tipsters() {
   useEffect(() => {
     if (accountAddress) {
       axios
-        .get(
-          `${process.env.REACT_APP_BACKEND_URL}/tipster/favourites?address=${accountAddress}`
-        )
+        .get(`${API_URL}/tipster/favourites?address=${accountAddress}`)
         .then((favs) => setFavourites(favs.data))
         .catch((err) => console.log(err));
     } else {
@@ -74,7 +72,7 @@ export default function Tipsters() {
     if (favourites.includes(bettor)) {
       console.log({ accountAddress });
       console.log({ bettor });
-      axios.delete(`${process.env.REACT_APP_BACKEND_URL}/tipster/unstar`, {
+      axios.delete(`${API_URL}/tipster/unstar`, {
         data: {
           address: accountAddress,
           bettor,
@@ -82,7 +80,7 @@ export default function Tipsters() {
       });
       setFavourites((state) => state.filter((item) => item !== bettor));
     } else {
-      axios.post(`${process.env.REACT_APP_BACKEND_URL}/tipster/star`, {
+      axios.post(`${API_URL}/tipster/star`, {
         address: accountAddress,
         bettor,
       });

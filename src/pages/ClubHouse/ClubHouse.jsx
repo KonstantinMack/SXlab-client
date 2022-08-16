@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 
+import { API_URL } from "../config";
 import Card from "../../components/Card/Card";
 import BetsList from "../../components/BetsList/BetsList";
 
@@ -19,16 +20,12 @@ export default function ClubHouse() {
   useEffect(() => {
     if (accountAddress) {
       axios
-        .get(
-          `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/bets?address=${accountAddress}`
-        )
+        .get(`${API_URL}/user-stats/address/bets?address=${accountAddress}`)
         .then((res) => setMyOpenBets(res.data))
         .catch((err) => console.log(err));
 
       axios
-        .get(
-          `${process.env.REACT_APP_BACKEND_URL}/tipster/favourites?address=${accountAddress}`
-        )
+        .get(`${API_URL}/tipster/favourites?address=${accountAddress}`)
         .then((favs) => {
           setFavourites(favs.data);
           setSelectedFavourites(favs.data);
@@ -41,9 +38,7 @@ export default function ClubHouse() {
     if (favourites.length) {
       const promises = favourites.map((fav) =>
         axios
-          .get(
-            `${process.env.REACT_APP_BACKEND_URL}/user-stats/address/bets?address=${fav}`
-          )
+          .get(`${API_URL}/user-stats/address/bets?address=${fav}`)
           .then((res) => res.data)
       );
       Promise.all(promises).then((values) => setTheirOpenBets(values.flat()));

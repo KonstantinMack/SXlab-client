@@ -9,7 +9,7 @@ import { SPORTS } from "../../lib/globals";
 import Card from "../Card/Card";
 
 export default function MarketList({ selectedSport, addClass }) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
 
   useEffect(() => {
     axios

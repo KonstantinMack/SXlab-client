@@ -102,7 +102,7 @@ export default function OverallStats() {
       />
       <SunBurst data={dataByToken} addClass="card__sunburst" />
       <BarChart data={dataByMonth} addClass="card__barchart" />
-      <MarketList selectedSport={selectedSport} addClass="card__market-list" />
+      {/* <MarketList selectedSport={selectedSport} addClass="card__market-list" /> */}
       <BetTypeBarChart
         data={dataByBetType.filter((ele) => ele.sports === selectedSport)}
         addClass={"card__treemap"}

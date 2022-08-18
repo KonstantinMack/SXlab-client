@@ -101,6 +101,12 @@ export default function Tipsters() {
             successful wallets? Here's a ranking of the most successful wallets
             with at least 100 bets.
           </p>
+          <p>
+            Click into a wallet to see a further breakdown of their bets, or
+            star them to see a list of all open bets from your starred tipsters
+            in your clubhouse section (only visible after you've connected your
+            wallet).
+          </p>
         </div>
       </div>
       <ModalComponent

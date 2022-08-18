@@ -16,7 +16,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Tipsters() {
-  const [selectedSport, tipstersAll, accountAddress] = useOutletContext();
+  const [selectedSport, accountAddress] = useOutletContext();
   const [tipsters, setTipsters] = useState([]);
   const [ascNumBets, setAscNumBets] = useState(true);
   const [ascVolume, setAscVolume] = useState(true);
@@ -40,12 +40,6 @@ export default function Tipsters() {
 
   useEffect(() => {
     setTipsters([]);
-
-    if (selectedSport === "All" && tipstersAll.length) {
-      setTipsters(tipstersAll);
-      return;
-    }
-
     axios
       .get(`${API_URL}/tipster/tipsters?sport=${selectedSport}`)
       .then((res) => setTipsters(res.data))
@@ -115,7 +109,7 @@ export default function Tipsters() {
       />
       <div className="tipsters__list">
         <div className="tipsters__items tipsters__items-header">
-          <h3></h3>
+          <div></div>
           <div className="tipsters__items-content">
             <h3 className="tipsters__item">Rank</h3>
             <h3

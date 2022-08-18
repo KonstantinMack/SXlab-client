@@ -15,7 +15,6 @@ export default function Layout() {
   const [selectedSport, setSelectedSport] = useState("All");
   const [isConnected, setIsConnected] = useState(false);
   const [accountAddress, setAccountAddress] = useState("");
-  const [tipstersAll, setTipstersAll] = useState([]);
 
   const { ethereum } = window;
 
@@ -41,13 +40,6 @@ export default function Layout() {
     setAccountAddress("");
   };
 
-  useEffect(() => {
-    axios
-      .get(`${API_URL}/tipster/tipsters?sport=All`)
-      .then((res) => setTipstersAll(res.data))
-      .catch((err) => console.log(err));
-  }, []);
-
   const isDesktop = useMediaQuery("(min-width: 1280px)");
 
   return (
@@ -61,7 +53,7 @@ export default function Layout() {
         />
         <main className="app__main">
           {isDesktop ? (
-            <Outlet context={[selectedSport, tipstersAll, accountAddress]} />
+            <Outlet context={[selectedSport, accountAddress]} />
           ) : (
             <p>
               There is no mobile version yet, <br></br>please use a desktop.

@@ -17,7 +17,7 @@ import axios from "axios";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 export default function UserStats({ showLoadingScreen }) {
-  const [selectedSport, , accountAddress] = useOutletContext();
+  const [selectedSport, accountAddress] = useOutletContext();
   const [searchAddress, setSearchAddress] = useState("");
   const [userStats, setUserStats] = useState();
   const [userStatsByDate, setUserStatsByDate] = useState([]);

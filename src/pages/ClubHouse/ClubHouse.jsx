@@ -11,7 +11,7 @@ import BetsList from "../../components/BetsList/BetsList";
 import TrophyIcon from "../../assets/icons/trophy.svg";
 
 export default function ClubHouse() {
-  const [selectedSport, , accountAddress] = useOutletContext();
+  const [selectedSport, accountAddress] = useOutletContext();
   const [myOpenBets, setMyOpenBets] = useState();
   const [theirOpenBets, setTheirOpenBets] = useState();
   const [favourites, setFavourites] = useState([]);

@@ -111,7 +111,7 @@ export default function ClubHouse() {
             ? theirOpenBets
                 .filter((bet) => selectedFavourites.includes(bet.bettor))
                 .sort((a, b) => a.market.gameTime - b.market.gameTime)
-            : theirOpenBets
+            : []
         }
         selectedSport={selectedSport}
         title="Tipster Bets"

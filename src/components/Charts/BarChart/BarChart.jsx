@@ -19,6 +19,7 @@ export default function BarChart({ data, addClass }) {
     totalDollarMatched: "Total volume matched (in $)",
     totalDollarFees: "Total fees generated (in $)",
     numberOfBets: "Total number of bets placed",
+    numberOfAddresses: "Number of unique addresses",
   };
 
   const x = {
@@ -101,6 +102,17 @@ export default function BarChart({ data, addClass }) {
                   <Select.Item value="numberOfBets" className="select__item">
                     <Select.ItemText className="select__text">
                       <p>Total Bets</p>
+                    </Select.ItemText>
+                    <Select.ItemIndicator className="select__indicator">
+                      <CheckIcon />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                  <Select.Item
+                    value="numberOfAddresses"
+                    className="select__item"
+                  >
+                    <Select.ItemText className="select__text">
+                      <p>Total Addresses</p>
                     </Select.ItemText>
                     <Select.ItemIndicator className="select__indicator">
                       <CheckIcon />

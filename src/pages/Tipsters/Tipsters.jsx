@@ -8,6 +8,7 @@ import Card from "../../components/Card/Card";
 import ModalComponent from "../../components/ModalComponent/ModalComponent";
 import { ReactComponent as StarIcon } from "../../assets/icons/star.svg";
 import axios from "axios";
+import { shortenAddress } from "../../lib/helpers";
 
 import SortIcon from "../../assets/icons/sort.svg";
 import MoneyIcon from "../../assets/icons/money.svg";
@@ -118,6 +119,7 @@ export default function Tipsters() {
           <div></div>
           <div className="tipsters__items-content">
             <h3 className="tipsters__item">Rank</h3>
+            <h3 className="tipsters__item">Address</h3>
             <h3
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortTipsters("numBets", ascNumBets, setAscNumBets)}
@@ -193,6 +195,9 @@ export default function Tipsters() {
                     className="tipsters__items-content"
                   >
                     <p className="tipsters__item">{idx + 1}.</p>
+                    <p className="tipsters__item">
+                      {shortenAddress(tipster.bettor)}
+                    </p>
                     <p className="tipsters__item">{tipster.numBets}</p>
                     <p className="tipsters__item">
                       $ {tipster.dollarStake.toLocaleString()}

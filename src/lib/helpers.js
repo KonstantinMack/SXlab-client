@@ -21,4 +21,8 @@ const convertSportName = (sport) => {
   return sport.toLowerCase();
 };
 
-export { convertOdds, convertStake, convertSportName };
+const shortenAddress = (address) => {
+  return address.slice(0, 4) + "..." + address.slice(-4);
+};
+
+export { convertOdds, convertStake, convertSportName, shortenAddress };

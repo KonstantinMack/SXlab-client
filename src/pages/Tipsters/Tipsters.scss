@@ -16,7 +16,7 @@
 
   &__items {
     display: grid;
-    grid-template-columns: 1fr 17fr;
+    grid-template-columns: 1fr 19fr;
     justify-items: center;
     border-bottom: 1px solid $sx-gray;
     @include padding($size: small);
@@ -28,7 +28,7 @@
     &-content {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 2fr 3fr 3fr repeat(4, 2fr);
+      grid-template-columns: 1fr 2fr 2fr 3fr 3fr repeat(4, 2fr);
       justify-items: center;
     }
 

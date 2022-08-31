@@ -14,7 +14,7 @@ export default function ProfitChart({ data }) {
     x.push(obj.betDate);
     profitCounter += obj.dollarProfitLoss;
     yProfit.push(profitCounter);
-    yBets.push(obj.numBets);
+    yBets.push(obj.dollarStake);
   }
 
   return (
@@ -36,7 +36,7 @@ export default function ProfitChart({ data }) {
             x: x,
             y: yBets,
             yaxis: "y2",
-            name: "Number of bets",
+            name: "Stake ($)",
             marker: {
               color: "#ff8e00",
               opacity: 0.6,
@@ -76,7 +76,7 @@ export default function ProfitChart({ data }) {
             },
           },
           yaxis2: {
-            title: "Number of bets",
+            title: "Stake ($)",
             overlaying: "y",
             side: "right",
             titlefont: {

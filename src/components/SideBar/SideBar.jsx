@@ -1,10 +1,22 @@
 import "./SideBar.scss";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { DateTime } from "luxon";
 import { Link } from "react-router-dom";
 import SXLogo from "../../assets/logos/sx-lab-logo.svg";
 import SideBarItem from "./SideBarItem/SideBarItem";
 import { SPORTS } from "../../lib/globals";
+import { API_URL } from "../../config";
 
 export default function SideBar({ selectedSport, setter }) {
+  const [lastUpdated, setLastUpdated] = useState();
+
+  useEffect(() => {
+    axios
+      .get(`${API_URL}/site-stats-by/update-time`)
+      .then((res) => setLastUpdated(res.data[0].updatedAt));
+  }, []);
+
   return (
     <div className="sidebar">
       <div className="sidebar__content">
@@ -25,6 +37,10 @@ export default function SideBar({ selectedSport, setter }) {
               key={idx}
             />
           ))}
+        </div>
+        <div className="sidebar__updateTime">
+          <p>Data last updated at:</p>
+          <p>{DateTime.fromSeconds(lastUpdated).toFormat("dd-LL-yy T")}</p>
         </div>
       </div>
     </div>

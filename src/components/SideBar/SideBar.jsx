@@ -38,10 +38,12 @@ export default function SideBar({ selectedSport, setter }) {
             />
           ))}
         </div>
-        <div className="sidebar__updateTime">
-          <p>Data last updated at:</p>
-          <p>{DateTime.fromSeconds(lastUpdated).toFormat("dd-LL-yy T")}</p>
-        </div>
+        {lastUpdated && (
+          <div className="sidebar__updateTime">
+            <p>Data last updated at:</p>
+            <p>{DateTime.fromSeconds(lastUpdated).toFormat("dd-LL-yy T")}</p>
+          </div>
+        )}
       </div>
     </div>
   );

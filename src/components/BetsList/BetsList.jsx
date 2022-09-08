@@ -13,9 +13,9 @@ export default function BetsList({ data, selectedSport, title }) {
   if (data) {
     if (selectedSport === "All") {
       betsBySport = data;
-    } else if (betsBySport === "Other") {
-      betsBySport = data.filter((bet) =>
-        SPORTS.includes(bet.market.sportLabel)
+    } else if (selectedSport === "Other") {
+      betsBySport = data.filter(
+        (bet) => !SPORTS.includes(bet.market.sportLabel)
       );
     } else {
       betsBySport = data.filter(
@@ -44,6 +44,7 @@ export default function BetsList({ data, selectedSport, title }) {
           <h3>Bet</h3>
           <h3>Odds</h3>
           <h3>Stake</h3>
+          <h3>Maker</h3>
         </div>
         {betsBySport
           ? betsBySport.map((bet, idx) => {
@@ -85,6 +86,7 @@ export default function BetsList({ data, selectedSport, title }) {
                   <p className="bets-list__item-text">
                     {convertStake(bet.stake, bet.baseToken)}
                   </p>
+                  <p className="bets-list__item-text">{Number(bet.maker)}</p>
                 </a>
               );
             })

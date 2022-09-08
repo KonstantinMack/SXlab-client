@@ -15,7 +15,7 @@ export default function SideBar({ selectedSport, setter }) {
     axios
       .get(`${API_URL}/site-stats-by/update-time`)
       .then((res) => setLastUpdated(res.data[0].updatedAt));
-  }, []);
+  }, [selectedSport]);
 
   return (
     <div className="sidebar">
@@ -39,7 +39,11 @@ export default function SideBar({ selectedSport, setter }) {
           ))}
         </div>
         {lastUpdated && (
-          <div className="sidebar__updateTime">
+          <div
+            className="sidebar__updateTime"
+            data-tip="Data gets updated every 6 hours"
+            data-place="top"
+          >
             <p>Data last updated at:</p>
             <p>{DateTime.fromSeconds(lastUpdated).toFormat("dd-LL-yy T")}</p>
           </div>

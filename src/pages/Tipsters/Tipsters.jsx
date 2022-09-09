@@ -29,6 +29,10 @@ export default function Tipsters() {
   const [favourites, setFavourites] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const [numBetsFilter, setNumBetsFilter] = useState(100);
+  const [yieldFilter, setYieldFilter] = useState(-100);
+  const [makerFilter, setMakerFilter] = useState(101);
+
   const sortTipsters = (sortBy, asc, ascSetter) => {
     if (asc) {
       ascSetter((state) => !state);
@@ -83,6 +87,14 @@ export default function Tipsters() {
     }
   };
 
+  const checkAndSetNumber = (value, setter, defaultValue) => {
+    if (!value) {
+      setter(defaultValue);
+    } else {
+      setter(Number(value));
+    }
+  };
+
   const LoadingScreen = (
     <SkeletonTheme baseColor="#202020" highlightColor="#444">
       <p>
@@ -114,6 +126,77 @@ export default function Tipsters() {
         modalIsOpen={modalIsOpen}
         setModalIsOpen={setModalIsOpen}
       />
+      <div className="tipsters__filter">
+        <label htmlFor="numBets" className="tipsters__filter-text">
+          Min. number of bets:
+          <input
+            type="text"
+            name="numBets"
+            placeholder="e.g. 1000"
+            className={`tipsters__filter-input ${
+              isNaN(numBetsFilter) ? "tipsters__filter-input-error--border" : ""
+            }`}
+            onChange={(e) =>
+              checkAndSetNumber(e.target.value, setNumBetsFilter, 0)
+            }
+          />
+          <p
+            className={
+              isNaN(numBetsFilter)
+                ? "tipsters__filter-input-error"
+                : "tipsters__filter-input-error--hidden"
+            }
+          >
+            Only numbers work as input <br /> (has to be greater than 100)
+          </p>
+        </label>
+        <label htmlFor="yield" className="tipsters__filter-text">
+          Min. yield %:
+          <input
+            type="text"
+            name="yield"
+            placeholder="e.g. 5"
+            className={`tipsters__filter-input ${
+              isNaN(yieldFilter) ? "tipsters__filter-input-error--border" : ""
+            }`}
+            onChange={(e) =>
+              checkAndSetNumber(e.target.value, setYieldFilter, -100)
+            }
+          />
+          <p
+            className={
+              isNaN(yieldFilter)
+                ? "tipsters__filter-input-error"
+                : "tipsters__filter-input-error--hidden"
+            }
+          >
+            Only numbers work as input
+          </p>
+        </label>
+        <label htmlFor="maker" className="tipsters__filter-text">
+          Max. maker %:
+          <input
+            type="text"
+            name="maker"
+            placeholder="e.g. 20"
+            className={`tipsters__filter-input ${
+              isNaN(makerFilter) ? "tipsters__filter-input-error--border" : ""
+            }`}
+            onChange={(e) =>
+              checkAndSetNumber(e.target.value, setMakerFilter, 101)
+            }
+          />
+          <p
+            className={
+              isNaN(makerFilter)
+                ? "tipsters__filter-input-error"
+                : "tipsters__filter-input-error--hidden"
+            }
+          >
+            Only numbers work as input
+          </p>
+        </label>
+      </div>
       <div className="tipsters__list">
         <div className="tipsters__items tipsters__items-header">
           <div></div>
@@ -178,57 +261,66 @@ export default function Tipsters() {
 
         {!tipsters || !tipsters.length
           ? LoadingScreen
-          : tipsters.slice(0, 25).map((tipster, idx) => {
-              return (
-                <div className="tipsters__items" key={idx}>
-                  <StarIcon
-                    className={
-                      favourites.includes(tipster.bettor)
-                        ? "tipsters__item-icon tipsters__item-icon--selected"
-                        : "tipsters__item-icon"
-                    }
-                    onClick={() => clickHandler(tipster.bettor)}
-                  />
-                  <Link
-                    to={`/user/${tipster.bettor}`}
-                    key={tipster.bettor}
-                    className="tipsters__items-content"
-                  >
-                    <p className="tipsters__item">{idx + 1}.</p>
-                    <p className="tipsters__item">
-                      {shortenAddress(tipster.bettor)}
-                    </p>
-                    <p className="tipsters__item">{tipster.numBets}</p>
-                    <p className="tipsters__item">
-                      $ {tipster.dollarStake.toLocaleString()}
-                    </p>
-                    <p
-                      className={`tipsters__item ${
-                        tipster.dollarProfitLoss >= 0
-                          ? "tipsters__item--profit"
-                          : "tipsters__item--loss"
-                      }`}
+          : tipsters
+              .filter((tipster) => {
+                return (
+                  tipster.numBets >= numBetsFilter &&
+                  tipster.yield >= yieldFilter &&
+                  tipster.isMaker <= makerFilter / 100
+                );
+              })
+              .slice(0, 25)
+              .map((tipster, idx) => {
+                return (
+                  <div className="tipsters__items" key={idx}>
+                    <StarIcon
+                      className={
+                        favourites.includes(tipster.bettor)
+                          ? "tipsters__item-icon tipsters__item-icon--selected"
+                          : "tipsters__item-icon"
+                      }
+                      onClick={() => clickHandler(tipster.bettor)}
+                    />
+                    <Link
+                      to={`/user/${tipster.bettor}`}
+                      key={tipster.bettor}
+                      className="tipsters__items-content"
                     >
-                      $ {tipster.dollarProfitLoss.toLocaleString()}
-                    </p>
-                    <p
-                      className={`tipsters__item ${
-                        tipster.yield >= 0
-                          ? "tipsters__item--profit"
-                          : "tipsters__item--loss"
-                      }`}
-                    >
-                      {tipster.yield}%
-                    </p>
-                    <p className="tipsters__item">{tipster.avgOdds}</p>
-                    <p className="tipsters__item">{tipster.winningPerc}%</p>
-                    <p className="tipsters__item">
-                      {Number.parseFloat(tipster.isMaker * 100).toFixed(0)}%
-                    </p>
-                  </Link>
-                </div>
-              );
-            })}
+                      <p className="tipsters__item">{idx + 1}.</p>
+                      <p className="tipsters__item">
+                        {shortenAddress(tipster.bettor)}
+                      </p>
+                      <p className="tipsters__item">{tipster.numBets}</p>
+                      <p className="tipsters__item">
+                        $ {tipster.dollarStake.toLocaleString()}
+                      </p>
+                      <p
+                        className={`tipsters__item ${
+                          tipster.dollarProfitLoss >= 0
+                            ? "tipsters__item--profit"
+                            : "tipsters__item--loss"
+                        }`}
+                      >
+                        $ {tipster.dollarProfitLoss.toLocaleString()}
+                      </p>
+                      <p
+                        className={`tipsters__item ${
+                          tipster.yield >= 0
+                            ? "tipsters__item--profit"
+                            : "tipsters__item--loss"
+                        }`}
+                      >
+                        {tipster.yield}%
+                      </p>
+                      <p className="tipsters__item">{tipster.avgOdds}</p>
+                      <p className="tipsters__item">{tipster.winningPerc}%</p>
+                      <p className="tipsters__item">
+                        {Number.parseFloat(tipster.isMaker * 100).toFixed(0)}%
+                      </p>
+                    </Link>
+                  </div>
+                );
+              })}
       </div>
     </Card>
   );

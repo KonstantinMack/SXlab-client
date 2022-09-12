@@ -24,7 +24,7 @@ export default function SportsTreeMap({ data, addClass }) {
             textinfo: "label+value",
             hoverinfo: "label+percent root",
             insidetextfont: { size: 14, color: "black" },
-            outsidetextfont: { size: 1, color: "white" },
+            outsidetextfont: { size: 1, color: "transparent" },
             marker: {
               colors: ["#00e5ff", "#06db3c", "#ff8e00"],
             },

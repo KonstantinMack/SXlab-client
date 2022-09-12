@@ -9,6 +9,7 @@ import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import ProfitChart from "../../components/Charts/ProfitChart/ProfitChart";
 import UserDonutCharts from "../../components/Charts/UserDonutCharts/UserDonutCharts";
 import SportsTreeMap from "../../components/Charts/SportsTreeMap/SportsTreeMap";
+import BetTypeBarChart from "../../components/Charts/BetTypeBarChart/BetTypeBarChart";
 import BetsList from "../../components/BetsList/BetsList";
 import { ReactComponent as ArrowIcon } from "../../assets/icons/arrow.svg";
 import MicroscopeIcon from "../../assets/icons/microscope.svg";
@@ -20,6 +21,7 @@ export default function UserStats({ showLoadingScreen }) {
   const [selectedSport, accountAddress] = useOutletContext();
   const [searchAddress, setSearchAddress] = useState("");
   const [userStats, setUserStats] = useState();
+  const [userTypeStats, setUserTypeStats] = useState();
   const [userStatsByDate, setUserStatsByDate] = useState([]);
   const [userStatsBySport, setUserStatsBySport] = useState([]);
   const [userBets, setUserBets] = useState([]);
@@ -39,6 +41,12 @@ export default function UserStats({ showLoadingScreen }) {
           `${API_URL}/user-stats/address/stats?sport=${selectedSport}&address=${address}`
         )
         .then((res) => setUserStats(res.data[0]));
+
+      axios
+        .get(
+          `${API_URL}/user-stats/address/type-stats?sport=${selectedSport}&address=${address}`
+        )
+        .then((res) => setUserTypeStats(res.data));
 
       axios
         .get(
@@ -132,7 +140,7 @@ export default function UserStats({ showLoadingScreen }) {
           </button>
         </form>
       </Card>
-      {address && userStats && userStatsBySport ? (
+      {address && userStats && userTypeStats && userStatsBySport ? (
         <>
           <div className="user-stats__combined">
             <UserStatsCard data={userStats} address={address} />
@@ -153,6 +161,11 @@ export default function UserStats({ showLoadingScreen }) {
             />
           </div>
           <ProfitChart data={userStatsByDate} />
+          <BetTypeBarChart
+            data={userTypeStats}
+            addClass={"user-stats__type-chart"}
+            height="85%"
+          />
           <BetsList
             data={userBets}
             selectedSport={selectedSport}

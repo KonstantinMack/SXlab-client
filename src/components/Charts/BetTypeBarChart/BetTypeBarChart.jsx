@@ -1,7 +1,7 @@
 import Plot from "react-plotly.js";
 import Card from "../../Card/Card";
 
-export default function BetTypeBarChart({ data, addClass }) {
+export default function BetTypeBarChart({ data, addClass, height }) {
   const values = [];
   const labels = [];
   const parents = [];
@@ -26,7 +26,7 @@ export default function BetTypeBarChart({ data, addClass }) {
             textinfo: "label+value",
             hoverinfo: "percent root",
             insidetextfont: { size: 14, color: "black" },
-            outsidetextfont: { size: 1, color: "white" },
+            outsidetextfont: { size: 1, color: "transparent" },
             marker: {
               colors: ["#00e5ff", "#06db3c", "#ff8e00"],
             },
@@ -45,7 +45,7 @@ export default function BetTypeBarChart({ data, addClass }) {
           displayModeBar: false,
         }}
         useResizeHandler={true}
-        style={{ width: "100%", height: "95%" }}
+        style={{ width: "100%", height: height }}
       />
     </Card>
   );

@@ -7,7 +7,7 @@ export default function UserStatsCard({ data, address }) {
     <Card addClass={"user-stats-card"}>
       <h2>Bets Analysis for wallet:</h2>
       <a
-        href={`https://polygonscan.com/address/${address}`}
+        href={`https://explorer.sx.technology/address/${address}`}
         target="_blank"
         rel="noopener noreferrer"
         className="user-stats-card__address"

@@ -75,6 +75,10 @@
     @include flexbox($dir: row, $gap: 2rem);
   }
 
+  &-stats__type-chart {
+    max-height: 200px;
+  }
+
   &__loading-screen {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

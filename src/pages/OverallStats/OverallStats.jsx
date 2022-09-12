@@ -150,6 +150,7 @@ export default function OverallStats() {
           <BetTypeBarChart
             data={dataByBetType.filter((ele) => ele.sports === selectedSport)}
             addClass={"card__treemap"}
+            height="95%"
           />
         </div>
       ) : (

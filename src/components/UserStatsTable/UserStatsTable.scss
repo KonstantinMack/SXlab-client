@@ -1,0 +1,15 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.stats-table {
+  &__card {
+    @include flexbox($dir: column, $gap: 2rem);
+  }
+
+  &__table-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    border-bottom: 1px solid $sx-gray;
+    padding: 1rem 0;
+  }
+}

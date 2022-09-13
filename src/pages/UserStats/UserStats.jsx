@@ -9,6 +9,7 @@ import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import ProfitChart from "../../components/Charts/ProfitChart/ProfitChart";
 import UserDonutCharts from "../../components/Charts/UserDonutCharts/UserDonutCharts";
 import SportsTreeMap from "../../components/Charts/SportsTreeMap/SportsTreeMap";
+import UserStatsTable from "../../components/UserStatsTable/UserStatsTable";
 import BetTypeBarChart from "../../components/Charts/BetTypeBarChart/BetTypeBarChart";
 import BetsList from "../../components/BetsList/BetsList";
 import { ReactComponent as ArrowIcon } from "../../assets/icons/arrow.svg";
@@ -24,6 +25,8 @@ export default function UserStats({ showLoadingScreen }) {
   const [userTypeStats, setUserTypeStats] = useState();
   const [userStatsByDate, setUserStatsByDate] = useState([]);
   const [userStatsBySport, setUserStatsBySport] = useState([]);
+  const [userStatsByOdds, setUserStatsByOdds] = useState([]);
+  const [userStatsByBetTime, setUserStatsByBetTime] = useState([]);
   const [userBets, setUserBets] = useState([]);
 
   const { address } = useParams();
@@ -53,6 +56,18 @@ export default function UserStats({ showLoadingScreen }) {
           `${API_URL}/user-stats/address/stats-by-date?sport=${selectedSport}&address=${address}`
         )
         .then((res) => setUserStatsByDate(res.data));
+
+      axios
+        .get(
+          `${API_URL}/user-stats/address/stats-by-odds?sport=${selectedSport}&address=${address}`
+        )
+        .then((res) => setUserStatsByOdds(res.data));
+
+      axios
+        .get(
+          `${API_URL}/user-stats/address/stats-by-bet-time?sport=${selectedSport}&address=${address}`
+        )
+        .then((res) => setUserStatsByBetTime(res.data));
     }
   }, [address, selectedSport]);
 
@@ -140,7 +155,12 @@ export default function UserStats({ showLoadingScreen }) {
           </button>
         </form>
       </Card>
-      {address && userStats && userTypeStats && userStatsBySport ? (
+      {address &&
+      userStats &&
+      userTypeStats &&
+      userStatsBySport &&
+      userStatsByBetTime &&
+      userStatsByOdds ? (
         <>
           <div className="user-stats__combined">
             <UserStatsCard data={userStats} address={address} />
@@ -161,11 +181,31 @@ export default function UserStats({ showLoadingScreen }) {
             />
           </div>
           <ProfitChart data={userStatsByDate} />
-          <BetTypeBarChart
-            data={userTypeStats}
-            addClass={"user-stats__type-chart"}
-            height="85%"
-          />
+          <div className="user-stats__combined2">
+            <div className="user-stats__combined2--subcontainer">
+              <UserStatsTable
+                data={userStatsByOdds}
+                stat="oddsRange"
+                label="Odds range"
+              />
+              <UserStatsTable
+                data={userStatsByBetTime}
+                stat="betTiming"
+                label="Bet timing"
+              />
+            </div>
+            <BetTypeBarChart
+              data={userTypeStats}
+              addClass={"user-stats__bettype-treemap"}
+              height="92%"
+            />
+            {/* <UserDonutCharts
+              values={userTypeStats.map((item) => item.totalDollarMatched)}
+              labels={userTypeStats.map((item) => item.betType)}
+              title={"Bet type distribution:"}
+              showLegend={false}
+            /> */}
+          </div>
           <BetsList
             data={userBets}
             selectedSport={selectedSport}

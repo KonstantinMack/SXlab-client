@@ -75,6 +75,19 @@
     @include flexbox($dir: row, $gap: 2rem);
   }
 
+  &-stats__combined2 {
+    @include flexbox($dir: row, $gap: 2rem);
+
+    &--subcontainer {
+      @include flexbox($dir: column, $gap: 2rem);
+      flex-grow: 1;
+    }
+  }
+
+  &-stats__bettype-treemap {
+    width: 20vw;
+  }
+
   &-stats__type-chart {
     max-height: 200px;
   }

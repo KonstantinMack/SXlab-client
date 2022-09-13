@@ -13,7 +13,7 @@ export default function UserStatsTable({ data, stat, label }) {
           <h3>Avg odds</h3>
           <h3>Stake</h3>
           <h3>Yield</h3>
-          <h3>Win percentage</h3>
+          <h3>Win %</h3>
         </div>
         {data.map((stats) => {
           return (

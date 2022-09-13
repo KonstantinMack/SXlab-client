@@ -199,12 +199,6 @@ export default function UserStats({ showLoadingScreen }) {
               addClass={"user-stats__bettype-treemap"}
               height="92%"
             />
-            {/* <UserDonutCharts
-              values={userTypeStats.map((item) => item.totalDollarMatched)}
-              labels={userTypeStats.map((item) => item.betType)}
-              title={"Bet type distribution:"}
-              showLegend={false}
-            /> */}
           </div>
           <BetsList
             data={userBets}

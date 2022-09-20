@@ -201,61 +201,65 @@ export default function Tipsters() {
         <div className="tipsters__items tipsters__items-header">
           <div></div>
           <div className="tipsters__items-content">
-            <h3 className="tipsters__item">Rank</h3>
-            <h3 className="tipsters__item">Address</h3>
-            <h3
+            <div className="tipsters__item">
+              <h3 className="tipsters__item-header">Rank</h3>
+            </div>
+            <div className="tipsters__item">
+              <h3 className="tipsters__item-header">Address</h3>
+            </div>
+            <div
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortTipsters("numBets", ascNumBets, setAscNumBets)}
             >
-              Num. Bets
+              <h3 className="tipsters__item-header">Num. Bets</h3>
               <img src={SortIcon} alt="sort" />
-            </h3>
-            <h3
+            </div>
+            <div
               className="tipsters__item tipsters__item--sort"
               onClick={() =>
                 sortTipsters("dollarStake", ascVolume, setAscVolume)
               }
             >
-              Volume
+              <h3 className="tipsters__item-header">Volume</h3>
               <img src={SortIcon} alt="sort" />
-            </h3>
-            <h3
+            </div>
+            <div
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortTipsters("dollarProfitLoss", ascPL, setAscPL)}
             >
-              Profit/Loss
+              <h3 className="tipsters__item-header">Profit/Loss</h3>
               <img src={SortIcon} alt="sort" />
-            </h3>
-            <h3
+            </div>
+            <div
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortTipsters("yield", ascYield, setAscYield)}
             >
-              Yield
+              <h3 className="tipsters__item-header">Yield</h3>
               <img src={SortIcon} alt="sort" />
-            </h3>
-            <h3
+            </div>
+            <div
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortTipsters("avgOdds", ascOdds, setAscOdds)}
             >
-              Avg. Odds
+              <h3 className="tipsters__item-header">Avg. Odds</h3>
               <img src={SortIcon} alt="sort" />
-            </h3>
-            <h3
+            </div>
+            <div
               className="tipsters__item tipsters__item--sort"
               onClick={() =>
                 sortTipsters("winningPerc", ascWinPerc, setAscWinPerc)
               }
             >
-              Win %
+              <h3 className="tipsters__item-header">Win %</h3>
               <img src={SortIcon} alt="sort" />
-            </h3>
-            <h3
+            </div>
+            <div
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortTipsters("isMaker", ascMaker, setAscMaker)}
             >
-              Maker %
+              <h3 className="tipsters__item-header">Maker %</h3>
               <img src={SortIcon} alt="sort" />
-            </h3>
+            </div>
           </div>
         </div>
 

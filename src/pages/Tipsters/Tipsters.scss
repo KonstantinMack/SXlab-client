@@ -74,6 +74,10 @@
       @include flexbox($align: center, $gap: 0.5rem);
     }
 
+    &-header {
+      text-align: center;
+    }
+
     &--profit {
       color: $sx-green;
     }

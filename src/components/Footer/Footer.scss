@@ -20,7 +20,7 @@
   }
 
   &__email {
-    @include flexbox($align: center, $gap: 2rem);
+    @include flexbox($align: center, $gap: 10rem);
 
     &-text {
       border-radius: 10px;

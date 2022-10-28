@@ -15,9 +15,9 @@ export default function UserStatsTable({ data, stat, label }) {
           <h3>Yield</h3>
           <h3>Win %</h3>
         </div>
-        {data.map((stats) => {
+        {data.map((stats, idx) => {
           return (
-            <div className="stats-table__table-row">
+            <div key={idx} className="stats-table__table-row">
               <p>{stats[stat]}</p>
               <p>{stats.betsWon + stats.betsPushed + stats.betsLost}</p>
               <p>{stats.avgOdds}</p>

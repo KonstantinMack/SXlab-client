@@ -14,10 +14,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<OverallStats />} />
         <Route path="/user" element={<UserStats />} />
-        <Route
-          path="/user/:address"
-          element={<UserStats showLoadingScreen={true} />}
-        />
+        <Route path="/user/:address" element={<UserStats />} />
         <Route path="/tipsters" element={<Tipsters />} />
         <Route path="/club-house" element={<ClubHouse />} />
         <Route path="*" element={<NoMatch />} />

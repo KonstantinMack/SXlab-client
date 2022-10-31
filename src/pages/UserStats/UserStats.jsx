@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useOutletContext, useParams, useNavigate } from "react-router-dom";
 
 import { API_URL } from "../../config";
-import Card from "../../components/Card/Card";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import ProfitChart from "../../components/Charts/ProfitChart/ProfitChart";
 import UserDonutCharts from "../../components/Charts/UserDonutCharts/UserDonutCharts";
@@ -12,22 +11,15 @@ import SportsTreeMap from "../../components/Charts/SportsTreeMap/SportsTreeMap";
 import UserStatsTable from "../../components/UserStatsTable/UserStatsTable";
 import BetTypeBarChart from "../../components/Charts/BetTypeBarChart/BetTypeBarChart";
 import BetsList from "../../components/BetsList/BetsList";
-import { ReactComponent as ArrowIcon } from "../../assets/icons/arrow.svg";
-import MicroscopeIcon from "../../assets/icons/microscope.svg";
+import AddressSearchBar from "../../components/AddressSearchBar/AddressSearchBar";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 import axios from "axios";
 
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { useQuery } from "@tanstack/react-query";
 
-export default function UserStats({ showLoadingScreen }) {
+export default function UserStats() {
   const [selectedSport, accountAddress] = useOutletContext();
   const [searchAddress, setSearchAddress] = useState("");
-  const [userStats, setUserStats] = useState();
-  const [userTypeStats, setUserTypeStats] = useState();
-  const [userStatsByDate, setUserStatsByDate] = useState([]);
-  const [userStatsBySport, setUserStatsBySport] = useState([]);
-  const [userStatsByOdds, setUserStatsByOdds] = useState([]);
-  const [userStatsByBetTime, setUserStatsByBetTime] = useState([]);
-  const [userBets, setUserBets] = useState([]);
 
   const { address } = useParams();
   const navigate = useNavigate();
@@ -37,178 +29,147 @@ export default function UserStats({ showLoadingScreen }) {
     else if (accountAddress) setSearchAddress(accountAddress);
   }, [address, accountAddress]);
 
-  useEffect(() => {
-    if (address) {
+  function getSportAddressQueries(selectedSport, address) {
+    return Promise.all([
       axios
         .get(
           `${API_URL}/user-stats/address/stats?sport=${selectedSport}&address=${address}`
         )
-        .then((res) => setUserStats(res.data[0]));
-
+        .then((res) => res.data[0]),
       axios
         .get(
           `${API_URL}/user-stats/address/type-stats?sport=${selectedSport}&address=${address}`
         )
-        .then((res) => setUserTypeStats(res.data));
-
+        .then((res) => res.data),
       axios
         .get(
           `${API_URL}/user-stats/address/stats-by-date?sport=${selectedSport}&address=${address}`
         )
-        .then((res) => setUserStatsByDate(res.data));
-
+        .then((res) => res.data),
       axios
         .get(
           `${API_URL}/user-stats/address/stats-by-odds?sport=${selectedSport}&address=${address}`
         )
-        .then((res) => setUserStatsByOdds(res.data));
+        .then((res) => res.data),
 
       axios
         .get(
           `${API_URL}/user-stats/address/stats-by-bet-time?sport=${selectedSport}&address=${address}`
         )
-        .then((res) => setUserStatsByBetTime(res.data));
-    }
-  }, [address, selectedSport]);
+        .then((res) => res.data),
+    ]);
+  }
 
-  useEffect(() => {
-    if (address) {
+  const sportAddressQueries = useQuery(
+    ["user-stats", selectedSport, address],
+    () => getSportAddressQueries(selectedSport, address),
+    {
+      enabled: !!address,
+    }
+  );
+
+  function getAddressQueries(address) {
+    return Promise.all([
       axios
         .get(`${API_URL}/user-stats/address/stats-by-sport?address=${address}`)
-        .then((res) => setUserStatsBySport(res.data));
-    }
-  }, [address]);
-
-  useEffect(() => {
-    if (address) {
+        .then((res) => res.data),
       axios
         .get(`${API_URL}/user-stats/address/bets?address=${address}`)
-        .then((res) => setUserBets(res.data));
+        .then((res) => res.data),
+    ]);
+  }
+
+  const addressQueries = useQuery(
+    ["user-stats", address],
+    () => getAddressQueries(address),
+    {
+      enabled: !!address,
     }
-  }, [address]);
+  );
 
   const submitHandler = (e) => {
     e.preventDefault();
     navigate(`/user/${e.target.address.value}`);
   };
 
-  const LoadingScreen = showLoadingScreen ? (
-    <div className="user__loading-screen">
-      <Card>
-        <SkeletonTheme baseColor="#202020" highlightColor="#444">
-          <p>
-            <Skeleton count={7} height="3rem" />
-          </p>
-        </SkeletonTheme>
-      </Card>
-      <Card>
-        <SkeletonTheme baseColor="#202020" highlightColor="#444">
-          <p>
-            <Skeleton count={7} height="3rem" />
-          </p>
-        </SkeletonTheme>
-      </Card>
-      <Card>
-        <SkeletonTheme baseColor="#202020" highlightColor="#444">
-          <p>
-            <Skeleton count={7} height="3rem" />
-          </p>
-        </SkeletonTheme>
-      </Card>
-      <Card addClass={"user__loading-screen--long"}>
-        <SkeletonTheme baseColor="#202020" highlightColor="#444">
-          <p>
-            <Skeleton count={7} height="3rem" />
-          </p>
-        </SkeletonTheme>
-      </Card>
-    </div>
-  ) : (
-    <></>
-  );
+  if (
+    (sportAddressQueries.fetchStatus === "idle" &&
+      sportAddressQueries.isLoading) ||
+    (addressQueries.fetchStatus === "idle" && addressQueries.isLoading)
+  ) {
+    return (
+      <div className="user__container">
+        <AddressSearchBar
+          submitHandler={submitHandler}
+          searchAddress={searchAddress}
+          setSearchAddress={setSearchAddress}
+        />
+      </div>
+    );
+  }
+
+  if (sportAddressQueries.isLoading || addressQueries.isLoading) {
+    return <LoadingScreen />;
+  }
+
+  const [
+    userStats,
+    userTypeStats,
+    userStatsByDate,
+    userStatsByOdds,
+    userStatsByBetTime,
+  ] = sportAddressQueries.data;
+
+  const [userStatsBySport, userBets] = addressQueries.data;
+
+  console.log({ userStats });
 
   return (
     <div className="user__container">
-      <Card addClass={"user__form-card"}>
-        <div className="user__description">
-          <img
-            src={MicroscopeIcon}
-            alt="microscope"
-            className="user__description-icon"
-          />
-          <div>
-            <h1>Wallet Analyzer:</h1>
-            <p>Take a deep dive into the nitty-gritty bits of any wallet.</p>
-          </div>
-        </div>
-        <form onSubmit={submitHandler} className="user__form">
-          <input
-            type="text"
-            value={searchAddress}
-            onChange={(e) => setSearchAddress(e.target.value)}
-            name="address"
-            className="user__search"
-          />
-          <button className="user__search-button">
-            <ArrowIcon className="user__search-button-icon" />
-            <p>Analyse wallet!</p>
-          </button>
-        </form>
-      </Card>
-      {address &&
-      userStats &&
-      userTypeStats &&
-      userStatsBySport &&
-      userStatsByBetTime &&
-      userStatsByOdds ? (
-        <>
-          <div className="user-stats__combined">
-            <UserStatsCard data={userStats} address={address} />
-            <UserDonutCharts
-              values={[
-                userStats.betsWon,
-                userStats.betsPushed,
-                userStats.betsLost,
-              ]}
-              labels={["Win", "Push", "Loss"]}
-              title={"Win Percentage"}
-              showLegend={true}
-            />
+      <AddressSearchBar
+        submitHandler={submitHandler}
+        searchAddress={searchAddress}
+        setSearchAddress={setSearchAddress}
+      />
+      <div className="user-stats__combined">
+        <UserStatsCard data={userStats} address={address} />
+        <UserDonutCharts
+          values={[userStats.betsWon, userStats.betsPushed, userStats.betsLost]}
+          labels={["Win", "Push", "Loss"]}
+          title={"Win Percentage"}
+          showLegend={true}
+        />
 
-            <SportsTreeMap
-              data={userStatsBySport}
-              addClass={"card__sports-treemap"}
-            />
-          </div>
-          <ProfitChart data={userStatsByDate} />
-          <div className="user-stats__combined2">
-            <div className="user-stats__combined2--subcontainer">
-              <UserStatsTable
-                data={userStatsByOdds}
-                stat="oddsRange"
-                label="Odds range"
-              />
-              <UserStatsTable
-                data={userStatsByBetTime}
-                stat="betTiming"
-                label="Bet timing"
-              />
-            </div>
-            <BetTypeBarChart
-              data={userTypeStats}
-              addClass={"user-stats__bettype-treemap"}
-              height="92%"
-            />
-          </div>
-          <BetsList
-            data={userBets}
-            selectedSport={selectedSport}
-            title={"Open Bets"}
+        <SportsTreeMap
+          data={userStatsBySport}
+          addClass={"card__sports-treemap"}
+        />
+      </div>
+      <ProfitChart data={userStatsByDate} />
+      <div className="user-stats__combined2">
+        <div className="user-stats__combined2--subcontainer">
+          <UserStatsTable
+            data={userStatsByOdds}
+            stat="oddsRange"
+            label="Odds range"
           />
-        </>
-      ) : (
-        LoadingScreen
-      )}
+          <UserStatsTable
+            data={userStatsByBetTime}
+            stat="betTiming"
+            label="Bet timing"
+          />
+        </div>
+        <BetTypeBarChart
+          data={userTypeStats}
+          addClass={"user-stats__bettype-treemap"}
+          height="92%"
+        />
+      </div>
+      <BetsList
+        data={userBets}
+        selectedSport={selectedSport}
+        title={"Open Bets"}
+      />
     </div>
   );
 }

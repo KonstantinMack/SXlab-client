@@ -6,50 +6,26 @@ import { useOutletContext, Link } from "react-router-dom";
 import { API_URL } from "../../config";
 import Card from "../../components/Card/Card";
 import ModalComponent from "../../components/ModalComponent/ModalComponent";
+import LoadingScreenWide from "../../components/LoadingScreen/LoadingScreenWide";
 import { ReactComponent as StarIcon } from "../../assets/icons/star.svg";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+
 import { shortenAddress } from "../../lib/helpers";
 
 import SortIcon from "../../assets/icons/sort.svg";
 import MoneyIcon from "../../assets/icons/money.svg";
 
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-
 export default function Tipsters() {
   const [selectedSport, accountAddress] = useOutletContext();
-  const [tipsters, setTipsters] = useState([]);
-  const [ascNumBets, setAscNumBets] = useState(true);
-  const [ascVolume, setAscVolume] = useState(true);
-  const [ascPL, setAscPL] = useState(true);
-  const [ascYield, setAscYield] = useState(true);
-  const [ascOdds, setAscOdds] = useState(true);
-  const [ascWinPerc, setAscWinPerc] = useState(true);
-  const [ascMaker, setAscMaker] = useState(true);
   const [favourites, setFavourites] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [sortColumn, setSortColumn] = useState("dollarProfitLoss");
+  const [sortAsc, setSortAsc] = useState(true);
 
   const [numBetsFilter, setNumBetsFilter] = useState(100);
   const [yieldFilter, setYieldFilter] = useState(-100);
   const [makerFilter, setMakerFilter] = useState(101);
-
-  const sortTipsters = (sortBy, asc, ascSetter) => {
-    if (asc) {
-      ascSetter((state) => !state);
-      setTipsters(tipsters.sort((a, b) => b[sortBy] - a[sortBy]));
-    } else {
-      ascSetter((state) => !state);
-      setTipsters(tipsters.sort((a, b) => a[sortBy] - b[sortBy]));
-    }
-  };
-
-  useEffect(() => {
-    setTipsters([]);
-    axios
-      .get(`${API_URL}/tipster/tipsters?sport=${selectedSport}`)
-      .then((res) => setTipsters(res.data))
-      .catch((err) => console.log(err));
-  }, [selectedSport]);
 
   useEffect(() => {
     if (accountAddress) {
@@ -62,6 +38,17 @@ export default function Tipsters() {
     }
   }, [accountAddress]);
 
+  const tipsterQuery = useQuery(["tipsters", selectedSport], () => {
+    return axios
+      .get(`${API_URL}/tipster/tipsters?sport=${selectedSport}`)
+      .then((res) => res.data);
+  });
+
+  const sortHandler = (column) => {
+    column === sortColumn ? setSortAsc((state) => !state) : setSortAsc(true);
+    setSortColumn(column);
+  };
+
   const clickHandler = (bettor) => {
     if (!accountAddress) {
       setModalIsOpen(true);
@@ -69,8 +56,6 @@ export default function Tipsters() {
     }
 
     if (favourites.includes(bettor)) {
-      console.log({ accountAddress });
-      console.log({ bettor });
       axios.delete(`${API_URL}/tipster/unstar`, {
         data: {
           address: accountAddress,
@@ -94,14 +79,6 @@ export default function Tipsters() {
       setter(Number(value));
     }
   };
-
-  const LoadingScreen = (
-    <SkeletonTheme baseColor="#202020" highlightColor="#444">
-      <p>
-        <Skeleton count={25} height="3rem" />
-      </p>
-    </SkeletonTheme>
-  );
 
   return (
     <Card addClass="tipsters__card">
@@ -209,53 +186,49 @@ export default function Tipsters() {
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
-              onClick={() => sortTipsters("numBets", ascNumBets, setAscNumBets)}
+              onClick={() => sortHandler("numBets")}
             >
               <h3 className="tipsters__item-header">Num. Bets</h3>
               <img src={SortIcon} alt="sort" />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
-              onClick={() =>
-                sortTipsters("dollarStake", ascVolume, setAscVolume)
-              }
+              onClick={() => sortHandler("dollarStake")}
             >
               <h3 className="tipsters__item-header">Volume</h3>
               <img src={SortIcon} alt="sort" />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
-              onClick={() => sortTipsters("dollarProfitLoss", ascPL, setAscPL)}
+              onClick={() => sortHandler("dollarProfitLoss")}
             >
               <h3 className="tipsters__item-header">Profit/Loss</h3>
               <img src={SortIcon} alt="sort" />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
-              onClick={() => sortTipsters("yield", ascYield, setAscYield)}
+              onClick={() => sortHandler("yield")}
             >
               <h3 className="tipsters__item-header">Yield</h3>
               <img src={SortIcon} alt="sort" />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
-              onClick={() => sortTipsters("avgOdds", ascOdds, setAscOdds)}
+              onClick={() => sortHandler("avgOdds")}
             >
               <h3 className="tipsters__item-header">Avg. Odds</h3>
               <img src={SortIcon} alt="sort" />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
-              onClick={() =>
-                sortTipsters("winningPerc", ascWinPerc, setAscWinPerc)
-              }
+              onClick={() => sortHandler("winningPerc")}
             >
               <h3 className="tipsters__item-header">Win %</h3>
               <img src={SortIcon} alt="sort" />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
-              onClick={() => sortTipsters("isMaker", ascMaker, setAscMaker)}
+              onClick={() => sortHandler("isMaker")}
             >
               <h3 className="tipsters__item-header">Maker %</h3>
               <img src={SortIcon} alt="sort" />
@@ -263,68 +236,75 @@ export default function Tipsters() {
           </div>
         </div>
 
-        {!tipsters || !tipsters.length
-          ? LoadingScreen
-          : tipsters
-              .filter((tipster) => {
-                return (
-                  tipster.numBets >= numBetsFilter &&
-                  tipster.yield >= yieldFilter &&
-                  tipster.isMaker <= makerFilter / 100
-                );
-              })
-              .slice(0, 25)
-              .map((tipster, idx) => {
-                return (
-                  <div className="tipsters__items" key={idx}>
-                    <StarIcon
-                      className={
-                        favourites.includes(tipster.bettor)
-                          ? "tipsters__item-icon tipsters__item-icon--selected"
-                          : "tipsters__item-icon"
-                      }
-                      onClick={() => clickHandler(tipster.bettor)}
-                    />
-                    <Link
-                      to={`/user/${tipster.bettor}`}
-                      key={tipster.bettor}
-                      className="tipsters__items-content"
+        {tipsterQuery.isLoading ? (
+          <LoadingScreenWide count={25} />
+        ) : (
+          tipsterQuery.data
+            .filter((tipster) => {
+              return (
+                tipster.numBets >= numBetsFilter &&
+                tipster.yield >= yieldFilter &&
+                tipster.isMaker <= makerFilter / 100
+              );
+            })
+            .sort((a, b) =>
+              sortAsc
+                ? b[sortColumn] - a[sortColumn]
+                : a[sortColumn] - b[sortColumn]
+            )
+            .slice(0, 25)
+            .map((tipster, idx) => {
+              return (
+                <div className="tipsters__items" key={idx}>
+                  <StarIcon
+                    className={
+                      favourites.includes(tipster.bettor)
+                        ? "tipsters__item-icon tipsters__item-icon--selected"
+                        : "tipsters__item-icon"
+                    }
+                    onClick={() => clickHandler(tipster.bettor)}
+                  />
+                  <Link
+                    to={`/user/${tipster.bettor}`}
+                    key={tipster.bettor}
+                    className="tipsters__items-content"
+                  >
+                    <p className="tipsters__item">{idx + 1}.</p>
+                    <p className="tipsters__item">
+                      {shortenAddress(tipster.bettor)}
+                    </p>
+                    <p className="tipsters__item">{tipster.numBets}</p>
+                    <p className="tipsters__item">
+                      $ {tipster.dollarStake.toLocaleString()}
+                    </p>
+                    <p
+                      className={`tipsters__item ${
+                        tipster.dollarProfitLoss >= 0
+                          ? "tipsters__item--profit"
+                          : "tipsters__item--loss"
+                      }`}
                     >
-                      <p className="tipsters__item">{idx + 1}.</p>
-                      <p className="tipsters__item">
-                        {shortenAddress(tipster.bettor)}
-                      </p>
-                      <p className="tipsters__item">{tipster.numBets}</p>
-                      <p className="tipsters__item">
-                        $ {tipster.dollarStake.toLocaleString()}
-                      </p>
-                      <p
-                        className={`tipsters__item ${
-                          tipster.dollarProfitLoss >= 0
-                            ? "tipsters__item--profit"
-                            : "tipsters__item--loss"
-                        }`}
-                      >
-                        $ {tipster.dollarProfitLoss.toLocaleString()}
-                      </p>
-                      <p
-                        className={`tipsters__item ${
-                          tipster.yield >= 0
-                            ? "tipsters__item--profit"
-                            : "tipsters__item--loss"
-                        }`}
-                      >
-                        {tipster.yield}%
-                      </p>
-                      <p className="tipsters__item">{tipster.avgOdds}</p>
-                      <p className="tipsters__item">{tipster.winningPerc}%</p>
-                      <p className="tipsters__item">
-                        {Number.parseFloat(tipster.isMaker * 100).toFixed(0)}%
-                      </p>
-                    </Link>
-                  </div>
-                );
-              })}
+                      $ {tipster.dollarProfitLoss.toLocaleString()}
+                    </p>
+                    <p
+                      className={`tipsters__item ${
+                        tipster.yield >= 0
+                          ? "tipsters__item--profit"
+                          : "tipsters__item--loss"
+                      }`}
+                    >
+                      {tipster.yield}%
+                    </p>
+                    <p className="tipsters__item">{tipster.avgOdds}</p>
+                    <p className="tipsters__item">{tipster.winningPerc}%</p>
+                    <p className="tipsters__item">
+                      {Number.parseFloat(tipster.isMaker * 100).toFixed(0)}%
+                    </p>
+                  </Link>
+                </div>
+              );
+            })
+        )}
       </div>
     </Card>
   );

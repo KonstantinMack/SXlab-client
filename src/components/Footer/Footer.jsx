@@ -40,7 +40,7 @@ export default function Footer() {
           </a>
         </div>
         <a href="https://sx.bet" target="_blank" rel="noopener noreferrer">
-          <img src={SXBanner} />
+          <img src={SXBanner} alt="SX Banner" />
         </a>
       </div>
       <h3 className="footer__header">Disclaimer:</h3>

@@ -1,49 +1,61 @@
 import "./ClubHouse.scss";
 
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 import { API_URL } from "../../config";
 import Card from "../../components/Card/Card";
 import BetsList from "../../components/BetsList/BetsList";
+import LoadingScreenWide from "../../components/LoadingScreen/LoadingScreenWide";
 
 import TrophyIcon from "../../assets/icons/trophy.svg";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ClubHouse() {
   const [selectedSport, accountAddress] = useOutletContext();
-  const [myOpenBets, setMyOpenBets] = useState();
-  const [theirOpenBets, setTheirOpenBets] = useState();
-  const [favourites, setFavourites] = useState([]);
   const [selectedFavourites, setSelectedFavourites] = useState([]);
 
-  useEffect(() => {
-    if (accountAddress) {
-      axios
+  const ownBetsQuery = useQuery(
+    ["club-house", "own-bets", accountAddress],
+    () => {
+      return axios
         .get(`${API_URL}/user-stats/address/bets?address=${accountAddress}`)
-        .then((res) => setMyOpenBets(res.data))
-        .catch((err) => console.log(err));
-
-      axios
-        .get(`${API_URL}/tipster/favourites?address=${accountAddress}`)
-        .then((favs) => {
-          setFavourites(favs.data);
-          setSelectedFavourites(favs.data);
-        })
-        .catch((err) => console.log(err));
+        .then((res) => res.data);
+    },
+    {
+      enabled: !!accountAddress,
     }
-  }, [accountAddress]);
+  );
 
-  useEffect(() => {
-    if (favourites.length) {
+  const favouritesQuery = useQuery(
+    ["favourites", accountAddress],
+    () => {
+      return axios
+        .get(`${API_URL}/tipster/favourites?address=${accountAddress}`)
+        .then((favs) => favs.data);
+    },
+    {
+      enabled: !!accountAddress,
+    }
+  );
+
+  const favourites = favouritesQuery.data;
+
+  const favBetsQuery = useQuery(
+    ["club-house", "fav-bets", favourites],
+    () => {
       const promises = favourites.map((fav) =>
         axios
           .get(`${API_URL}/user-stats/address/bets?address=${fav}`)
           .then((res) => res.data)
       );
-      Promise.all(promises).then((values) => setTheirOpenBets(values.flat()));
+      return Promise.all(promises).then((values) => values.flat());
+    },
+    {
+      enabled: !!favourites,
     }
-  }, [favourites]);
+  );
 
   if (!accountAddress) {
     return (
@@ -66,15 +78,18 @@ export default function ClubHouse() {
           </p>
         </div>
       </Card>
-      <BetsList
-        data={
-          myOpenBets
-            ? myOpenBets.sort((a, b) => a.market.gameTime - b.market.gameTime)
-            : myOpenBets
-        }
-        selectedSport={selectedSport}
-        title="My Bets"
-      />
+      {ownBetsQuery.fetchStatus === "idle" &&
+      ownBetsQuery.isLoading ? null : ownBetsQuery.isLoading ? (
+        <LoadingScreenWide count={3} />
+      ) : (
+        <BetsList
+          data={ownBetsQuery.data.sort(
+            (a, b) => a.market.gameTime - b.market.gameTime
+          )}
+          selectedSport={selectedSport}
+          title="My Bets"
+        />
+      )}
       <Card addClass={"club-house__tipsters"}>
         <div>
           <h2>My Tipsters</h2>
@@ -84,38 +99,44 @@ export default function ClubHouse() {
           </p>
         </div>
         <div className="club-house__tipsters-list">
-          {favourites.map((fav) => (
-            <p
-              onClick={() =>
-                setSelectedFavourites((state) =>
-                  state.includes(fav)
-                    ? state.filter((oldFav) => oldFav !== fav)
-                    : [...state, fav]
-                )
-              }
-              className={`club-house__tipster
+          {favouritesQuery.fetchStatus === "idle" &&
+          favouritesQuery.isLoading ? null : favouritesQuery.isLoading ? (
+            <LoadingScreenWide count={3} />
+          ) : (
+            favouritesQuery.data.map((fav) => (
+              <p
+                onClick={() =>
+                  setSelectedFavourites((state) =>
+                    state.includes(fav)
+                      ? state.filter((oldFav) => oldFav !== fav)
+                      : [...state, fav]
+                  )
+                }
+                className={`club-house__tipster
               ${
-                selectedFavourites.includes(fav)
+                !selectedFavourites.includes(fav)
                   ? "club-house__tipster--selected"
                   : "club-house__tipster--unselected"
               }`}
-            >
-              {fav}
-            </p>
-          ))}
+              >
+                {fav}
+              </p>
+            ))
+          )}
         </div>
       </Card>
-      <BetsList
-        data={
-          theirOpenBets
-            ? theirOpenBets
-                .filter((bet) => selectedFavourites.includes(bet.bettor))
-                .sort((a, b) => a.market.gameTime - b.market.gameTime)
-            : []
-        }
-        selectedSport={selectedSport}
-        title="Tipster Bets"
-      />
+      {favBetsQuery.fetchStatus === "idle" &&
+      favBetsQuery.isLoading ? null : favBetsQuery.isLoading ? (
+        <LoadingScreenWide count={3} />
+      ) : (
+        <BetsList
+          data={favBetsQuery.data
+            .filter((bet) => !selectedFavourites.includes(bet.bettor))
+            .sort((a, b) => a.market.gameTime - b.market.gameTime)}
+          selectedSport={selectedSport}
+          title="Tipster Bets"
+        />
+      )}
     </div>
   );
 }

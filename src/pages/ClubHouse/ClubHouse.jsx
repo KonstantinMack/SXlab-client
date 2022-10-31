@@ -7,6 +7,7 @@ import { useOutletContext } from "react-router-dom";
 import { API_URL } from "../../config";
 import Card from "../../components/Card/Card";
 import BetsList from "../../components/BetsList/BetsList";
+import LoadingScreenWide from "../../components/LoadingScreen/LoadingScreenWide";
 
 import TrophyIcon from "../../assets/icons/trophy.svg";
 import { useQuery } from "@tanstack/react-query";
@@ -28,7 +29,7 @@ export default function ClubHouse() {
   );
 
   const favouritesQuery = useQuery(
-    ["club-house", "favourites", accountAddress],
+    ["favourites", accountAddress],
     () => {
       return axios
         .get(`${API_URL}/tipster/favourites?address=${accountAddress}`)
@@ -79,7 +80,7 @@ export default function ClubHouse() {
       </Card>
       {ownBetsQuery.fetchStatus === "idle" &&
       ownBetsQuery.isLoading ? null : ownBetsQuery.isLoading ? (
-        <p>Loading...</p>
+        <LoadingScreenWide count={3} />
       ) : (
         <BetsList
           data={ownBetsQuery.data.sort(
@@ -100,7 +101,7 @@ export default function ClubHouse() {
         <div className="club-house__tipsters-list">
           {favouritesQuery.fetchStatus === "idle" &&
           favouritesQuery.isLoading ? null : favouritesQuery.isLoading ? (
-            <p>Loading...</p>
+            <LoadingScreenWide count={3} />
           ) : (
             favouritesQuery.data.map((fav) => (
               <p
@@ -126,7 +127,7 @@ export default function ClubHouse() {
       </Card>
       {favBetsQuery.fetchStatus === "idle" &&
       favBetsQuery.isLoading ? null : favBetsQuery.isLoading ? (
-        <p>Loading...</p>
+        <LoadingScreenWide count={3} />
       ) : (
         <BetsList
           data={favBetsQuery.data

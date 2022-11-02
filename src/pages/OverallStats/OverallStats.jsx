@@ -42,16 +42,25 @@ export default function OverallStats() {
 
   const dataIndQuery = useQuery(
     ["overall-stats", "independent"],
-    getDataIndependent
+    getDataIndependent,
+    {
+      staleTime: 1000 * 60 * 5,
+    }
   );
 
-  const dataDepQuery = useQuery(["overall-stats", selectedSport], () => {
-    return axios
-      .get(
-        `${API_URL}/site-stats-by/time?timeframe=month&sport=${selectedSport}`
-      )
-      .then((res) => res.data);
-  });
+  const dataDepQuery = useQuery(
+    ["overall-stats", selectedSport],
+    () => {
+      return axios
+        .get(
+          `${API_URL}/site-stats-by/time?timeframe=month&sport=${selectedSport}`
+        )
+        .then((res) => res.data);
+    },
+    {
+      staleTime: 1000 * 60 * 5,
+    }
+  );
 
   if (dataIndQuery.isLoading || dataDepQuery.isLoading) {
     return <LoadingScreen />;

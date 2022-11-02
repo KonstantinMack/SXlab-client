@@ -65,6 +65,7 @@ export default function UserStats() {
     () => getSportAddressQueries(selectedSport, address),
     {
       enabled: !!address,
+      staleTime: 1000 * 60 * 5,
     }
   );
 
@@ -84,6 +85,7 @@ export default function UserStats() {
     () => getAddressQueries(address),
     {
       enabled: !!address,
+      staleTime: 1000 * 60 * 5,
     }
   );
 

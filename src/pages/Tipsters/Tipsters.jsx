@@ -38,11 +38,17 @@ export default function Tipsters() {
     }
   }, [accountAddress]);
 
-  const tipsterQuery = useQuery(["tipsters", selectedSport], () => {
-    return axios
-      .get(`${API_URL}/tipster/tipsters?sport=${selectedSport}`)
-      .then((res) => res.data);
-  });
+  const tipsterQuery = useQuery(
+    ["tipsters", selectedSport],
+    () => {
+      return axios
+        .get(`${API_URL}/tipster/tipsters?sport=${selectedSport}`)
+        .then((res) => res.data);
+    },
+    {
+      staleTime: 1000 * 60 * 5,
+    }
+  );
 
   const sortHandler = (column) => {
     column === sortColumn ? setSortAsc((state) => !state) : setSortAsc(true);

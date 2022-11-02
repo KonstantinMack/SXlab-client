@@ -10,15 +10,21 @@ import LoadingScreenWide from "../LoadingScreen/LoadingScreenWide";
 import { useQuery } from "@tanstack/react-query";
 
 export default function MarketList({ selectedSport, addClass }) {
-  const marketQuery = useQuery(["markets", selectedSport], () => {
-    return axios
-      .get(
-        `${API_URL}/site-stats-by/markets?number=10&sport=${
-          selectedSport === "Other" ? SPORTS.join(",") : selectedSport
-        }&other=${selectedSport === "Other"}`
-      )
-      .then((res) => res.data);
-  });
+  const marketQuery = useQuery(
+    ["markets", selectedSport],
+    () => {
+      return axios
+        .get(
+          `${API_URL}/site-stats-by/markets?number=10&sport=${
+            selectedSport === "Other" ? SPORTS.join(",") : selectedSport
+          }&other=${selectedSport === "Other"}`
+        )
+        .then((res) => res.data);
+    },
+    {
+      staleTime: 1000 * 60 * 5,
+    }
+  );
 
   if (marketQuery.isLoading) return <LoadingScreenWide count={10} />;
 

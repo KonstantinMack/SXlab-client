@@ -3,7 +3,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 export default function LoadingScreen() {
   return (
-    <div className="user__loading-screen">
+    <div className="loading user__loading-screen">
       <Card>
         <SkeletonTheme baseColor="#202020" highlightColor="#444">
           <p>

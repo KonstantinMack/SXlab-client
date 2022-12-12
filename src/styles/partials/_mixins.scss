@@ -11,8 +11,8 @@
   }
 }
 
-@mixin desktop($side-padding: false) {
-  @media only screen and (min-width: 1280px) {
+@mixin phone($side-padding: false) {
+  @media only screen and (max-width: 767px) {
     @if $side-padding {
       // calculate width for a smooth transition from tablet to desktop
       //  1280 - (2 * 36) = 1208px
@@ -23,11 +23,11 @@
   }
 }
 
-@mixin tablet-desktop($side-padding: false) {
+@mixin tablet-phone($side-padding: false) {
   @include tablet($side-padding) {
     @content;
   }
-  @include desktop($side-padding) {
+  @include phone($side-padding) {
     @content;
   }
 }

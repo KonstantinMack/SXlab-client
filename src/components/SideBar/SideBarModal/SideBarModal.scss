@@ -1,0 +1,13 @@
+@use "../../../styles/partials/mixins" as *;
+
+.nav__modal {
+  display: none;
+  @include phone {
+    @include flexbox($dir: column, $gap: 2rem);
+    padding-top: 3rem;
+  }
+}
+
+.header__nav-modal {
+  justify-content: center;
+}

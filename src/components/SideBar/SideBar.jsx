@@ -8,7 +8,7 @@ import SideBarItem from "./SideBarItem/SideBarItem";
 import { SPORTS } from "../../lib/globals";
 import { API_URL } from "../../config";
 
-export default function SideBar({ selectedSport, setter }) {
+export default function SideBar({ selectedSport, setter, withLogo }) {
   const [lastUpdated, setLastUpdated] = useState();
 
   useEffect(() => {
@@ -20,14 +20,16 @@ export default function SideBar({ selectedSport, setter }) {
   return (
     <div className="sidebar">
       <div className="sidebar__content">
-        <Link to="/">
-          <img
-            src={SXLogo}
-            alt="SX logo"
-            className="sidebar__logo"
-            onClick={() => setter("All")}
-          />
-        </Link>
+        {withLogo && (
+          <Link to="/">
+            <img
+              src={SXLogo}
+              alt="SX logo"
+              className="sidebar__logo"
+              onClick={() => setter("All")}
+            />
+          </Link>
+        )}
         <div className="sidebar__icons">
           {SPORTS.map((sport, idx) => (
             <SideBarItem

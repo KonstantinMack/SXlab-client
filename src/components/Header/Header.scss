@@ -8,11 +8,49 @@
   position: sticky;
   top: -1.3rem;
   z-index: 1;
-
   box-shadow: 6px 6px 5px 0 black;
+
+  @include phone {
+    display: block;
+  }
+
+  &__phone {
+    display: none;
+    height: 50px;
+    @include phone {
+      @include flexbox($justify: space-between);
+    }
+
+    &-logo {
+      height: 100%;
+    }
+  }
+
+  &__icon {
+    fill: $sx-orange;
+    align-self: center;
+
+    &-burger {
+      height: 75%;
+    }
+
+    &-close {
+      height: 50%;
+    }
+  }
 
   &__nav {
     @include flexbox($gap: 2rem);
+
+    @include phone {
+      gap: 1rem;
+    }
+
+    &-main {
+      @include phone {
+        display: none;
+      }
+    }
 
     &-link {
       padding: 1rem 2rem;
@@ -30,6 +68,9 @@
     }
     &-login {
       @include flexbox($gap: 2rem);
+      @include tablet-phone {
+        display: none;
+      }
     }
   }
 }

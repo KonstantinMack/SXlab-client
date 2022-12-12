@@ -8,6 +8,11 @@
   @include flexbox($dir: column, $gap: 2rem);
   box-shadow: 6px 6px 5px 0 black;
 
+  @include phone {
+    max-width: 100%;
+    box-shadow: none;
+  }
+
   &__content {
     @include flexbox($dir: column, $gap: 1rem);
     position: sticky;

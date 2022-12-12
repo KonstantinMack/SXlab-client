@@ -3,6 +3,12 @@
 .app {
   @include flexbox;
 
+  &__sidebar {
+    @include phone {
+      display: none;
+    }
+  }
+
   &__all {
     flex-grow: 1;
     min-height: 100vh;

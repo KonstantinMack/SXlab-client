@@ -44,12 +44,20 @@ export default function Layout() {
 
   return (
     <div className="app">
-      <SideBar selectedSport={selectedSport} setter={setSelectedSport} />
+      <div className="app__sidebar">
+        <SideBar
+          selectedSport={selectedSport}
+          setter={setSelectedSport}
+          withLogo={true}
+        />
+      </div>
       <div className="app__all">
         <Header
           connectWallet={connectWallet}
           disconnetWallet={disconnetWallet}
           isConnected={isConnected}
+          selectedSport={selectedSport}
+          setter={setSelectedSport}
         />
         <main className="app__main">
           {isDesktop ? (

@@ -7,6 +7,7 @@
   @include flexbox($dir: column);
   margin-top: auto;
   box-shadow: 10px 0 5px 5px black;
+  z-index: 1;
 
   &__banner {
     align-self: center;

@@ -1,6 +1,5 @@
 import "./Footer.scss";
 
-import DiscordIcon from "../../assets/icons/discord.svg";
 import EmailIcon from "../../assets/icons/email.svg";
 import SXBanner from "../../assets/logos/sx-banner.png";
 
@@ -11,6 +10,11 @@ export default function Footer() {
 
   return (
     <footer className="footer">
+      <div className="footer__banner">
+        <a href="https://sx.bet" target="_blank" rel="noopener noreferrer">
+          <img src={SXBanner} alt="SX Banner" />
+        </a>
+      </div>
       <h3 className="footer__header">Contact:</h3>
       <div className="footer__email">
         <div>
@@ -31,17 +35,7 @@ export default function Footer() {
               </p>
             )}
           </div>
-          <a
-            href="https://discord.gg/xfv4mdNMTp"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src={DiscordIcon} alt="discord" className="footer__icon" />
-          </a>
         </div>
-        <a href="https://sx.bet" target="_blank" rel="noopener noreferrer">
-          <img src={SXBanner} alt="SX Banner" />
-        </a>
       </div>
       <h3 className="footer__header">Disclaimer:</h3>
       <p className="footer__text">

@@ -16,6 +16,9 @@
 
   &__text {
     font-size: 3rem;
+    @include tablet {
+      font-size: 2.5rem;
+    }
   }
 
   &__tooltip-icon {

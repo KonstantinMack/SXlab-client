@@ -4,8 +4,14 @@
 .footer {
   background-color: $background-gray;
   @include padding($size: medium);
+  @include flexbox($dir: column);
   margin-top: auto;
   box-shadow: 10px 0 5px 5px black;
+  z-index: 1;
+
+  &__banner {
+    align-self: center;
+  }
 
   &__header {
     font-size: 1.6rem;

@@ -19,6 +19,9 @@
 
   &__image {
     height: 50%;
+    @include phone {
+      max-height: 50px;
+    }
     align-self: center;
   }
 }

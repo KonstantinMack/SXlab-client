@@ -40,24 +40,30 @@ export default function Layout() {
     setAccountAddress("");
   };
 
-  const isDesktop = useMediaQuery("(min-width: 1280px)");
+  const isDesktop = useMediaQuery("(min-width: 350px)");
 
   return (
     <div className="app">
-      <SideBar selectedSport={selectedSport} setter={setSelectedSport} />
+      <div className="app__sidebar">
+        <SideBar
+          selectedSport={selectedSport}
+          setter={setSelectedSport}
+          withLogo={true}
+        />
+      </div>
       <div className="app__all">
         <Header
           connectWallet={connectWallet}
           disconnetWallet={disconnetWallet}
           isConnected={isConnected}
+          selectedSport={selectedSport}
+          setter={setSelectedSport}
         />
         <main className="app__main">
           {isDesktop ? (
             <Outlet context={[selectedSport, accountAddress]} />
           ) : (
-            <p>
-              There is no mobile version yet, <br></br>please use a desktop.
-            </p>
+            <p>Sorry, your screensize is too small to show the dashboard.</p>
           )}
         </main>
         <Footer />

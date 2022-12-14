@@ -8,11 +8,22 @@
   @include flexbox($dir: column, $gap: 2rem);
   box-shadow: 6px 6px 5px 0 black;
 
+  position: sticky;
+  top: 0;
+  height: 100vh;
+
+  @include phone {
+    max-width: 100%;
+    box-shadow: none;
+  }
+
   &__content {
     @include flexbox($dir: column, $gap: 1rem);
-    position: sticky;
-    top: 0;
     height: 100vh;
+
+    @include phone {
+      height: fit-content;
+    }
   }
 
   &__logo {

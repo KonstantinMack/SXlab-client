@@ -18,7 +18,7 @@ export default function ProfitChart({ data }) {
   }
 
   return (
-    <Card>
+    <Card addClass={"user-stats__profit-chart"}>
       <h2>Profit/Loss over time:</h2>
       <Plot
         data={[

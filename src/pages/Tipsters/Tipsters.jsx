@@ -184,10 +184,10 @@ export default function Tipsters() {
         <div className="tipsters__items tipsters__items-header">
           <div></div>
           <div className="tipsters__items-content">
-            <div className="tipsters__item">
+            <div className="tipsters__item tipsters__item--hidden">
               <h3 className="tipsters__item-header">Rank</h3>
             </div>
-            <div className="tipsters__item">
+            <div className="tipsters__item tipsters__item--hidden">
               <h3 className="tipsters__item-header">Address</h3>
             </div>
             <div
@@ -195,49 +195,77 @@ export default function Tipsters() {
               onClick={() => sortHandler("numBets")}
             >
               <h3 className="tipsters__item-header">Num. Bets</h3>
-              <img src={SortIcon} alt="sort" />
+              <img
+                src={SortIcon}
+                alt="sort"
+                className="tipsters__item-sort-icon"
+              />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortHandler("dollarStake")}
             >
               <h3 className="tipsters__item-header">Volume</h3>
-              <img src={SortIcon} alt="sort" />
+              <img
+                src={SortIcon}
+                alt="sort"
+                className="tipsters__item-sort-icon"
+              />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortHandler("dollarProfitLoss")}
             >
               <h3 className="tipsters__item-header">Profit/Loss</h3>
-              <img src={SortIcon} alt="sort" />
+              <img
+                src={SortIcon}
+                alt="sort"
+                className="tipsters__item-sort-icon"
+              />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortHandler("yield")}
             >
               <h3 className="tipsters__item-header">Yield</h3>
-              <img src={SortIcon} alt="sort" />
+              <img
+                src={SortIcon}
+                alt="sort"
+                className="tipsters__item-sort-icon"
+              />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortHandler("avgOdds")}
             >
               <h3 className="tipsters__item-header">Avg. Odds</h3>
-              <img src={SortIcon} alt="sort" />
+              <img
+                src={SortIcon}
+                alt="sort"
+                className="tipsters__item-sort-icon"
+              />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortHandler("winningPerc")}
             >
               <h3 className="tipsters__item-header">Win %</h3>
-              <img src={SortIcon} alt="sort" />
+              <img
+                src={SortIcon}
+                alt="sort"
+                className="tipsters__item-sort-icon"
+              />
             </div>
             <div
               className="tipsters__item tipsters__item--sort"
               onClick={() => sortHandler("isMaker")}
             >
               <h3 className="tipsters__item-header">Maker %</h3>
-              <img src={SortIcon} alt="sort" />
+              <img
+                src={SortIcon}
+                alt="sort"
+                className="tipsters__item-sort-icon"
+              />
             </div>
           </div>
         </div>
@@ -275,12 +303,26 @@ export default function Tipsters() {
                     key={tipster.bettor}
                     className="tipsters__items-content"
                   >
-                    <p className="tipsters__item">{idx + 1}.</p>
-                    <p className="tipsters__item">
+                    <p className="tipsters__item tipsters__item--hidden">
+                      <span className="tipsters__item-phone-header">Rank:</span>
+                      {idx + 1}.
+                    </p>
+                    <p className="tipsters__item tipsters__item--hidden">
+                      <span className="tipsters__item-phone-header">
+                        Address:
+                      </span>
                       {shortenAddress(tipster.bettor)}
                     </p>
-                    <p className="tipsters__item">{tipster.numBets}</p>
                     <p className="tipsters__item">
+                      <span className="tipsters__item-phone-header">
+                        Num. Bets:
+                      </span>
+                      {tipster.numBets}
+                    </p>
+                    <p className="tipsters__item">
+                      <span className="tipsters__item-phone-header">
+                        Volume:
+                      </span>
                       $ {tipster.dollarStake.toLocaleString()}
                     </p>
                     <p
@@ -290,6 +332,9 @@ export default function Tipsters() {
                           : "tipsters__item--loss"
                       }`}
                     >
+                      <span className="tipsters__item-phone-header">
+                        Profit/Loss:
+                      </span>
                       $ {tipster.dollarProfitLoss.toLocaleString()}
                     </p>
                     <p
@@ -299,11 +344,27 @@ export default function Tipsters() {
                           : "tipsters__item--loss"
                       }`}
                     >
+                      <span className="tipsters__item-phone-header">
+                        Yield:
+                      </span>
                       {tipster.yield}%
                     </p>
-                    <p className="tipsters__item">{tipster.avgOdds}</p>
-                    <p className="tipsters__item">{tipster.winningPerc}%</p>
                     <p className="tipsters__item">
+                      <span className="tipsters__item-phone-header">
+                        Avg. Odds:
+                      </span>
+                      {tipster.avgOdds}
+                    </p>
+                    <p className="tipsters__item">
+                      <span className="tipsters__item-phone-header">
+                        Win %:
+                      </span>
+                      {tipster.winningPerc}%
+                    </p>
+                    <p className="tipsters__item">
+                      <span className="tipsters__item-phone-header">
+                        Maker %:
+                      </span>
                       {Number.parseFloat(tipster.isMaker * 100).toFixed(0)}%
                     </p>
                   </Link>

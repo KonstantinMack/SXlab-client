@@ -12,7 +12,7 @@ export default function UserStatsCard({ data, address }) {
         rel="noopener noreferrer"
         className="user-stats-card__address"
       >
-        {address}
+        {`${address.slice(0, 6)}...${address.slice(-6)}`}
       </a>
       <div className="user-stats-card__container">
         <div className="user-stats-card__item">

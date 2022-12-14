@@ -5,7 +5,7 @@ import Plot from "react-plotly.js";
 
 export default function UserDonutCharts({ values, labels, title, showLegend }) {
   return (
-    <Card>
+    <Card addClass={"user-stats__donut-chart"}>
       <h2>{title}</h2>
       <Plot
         data={[

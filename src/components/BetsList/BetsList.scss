@@ -3,6 +3,9 @@
 
 .bets-list {
   @include flexbox($dir: column, $gap: 2rem);
+  @include tablet-phone {
+    display: none;
+  }
 
   &__container {
     @include flexbox($dir: column);

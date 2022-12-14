@@ -17,6 +17,10 @@
 
   &__form {
     @include flexbox($gap: 1rem);
+    @include tablet-phone {
+      flex-direction: column;
+      align-items: center;
+    }
 
     &-card {
       @include flexbox($dir: column, $gap: 2rem);
@@ -28,9 +32,10 @@
     background-repeat: no-repeat;
     background-position: 1rem;
     background-size: 1.5rem;
-    width: 25%;
+    min-height: 50px;
+    width: 75%;
     max-width: 500px;
-    min-width: 450px;
+    min-width: 250px;
     font: inherit;
     font-size: 1.6rem;
     border-radius: 20px;
@@ -73,6 +78,9 @@
 
   &-stats__combined {
     @include flexbox($dir: row, $gap: 2rem);
+    @include phone {
+      flex-direction: column;
+    }
   }
 
   &-stats__combined2 {
@@ -81,11 +89,18 @@
     &--subcontainer {
       @include flexbox($dir: column, $gap: 2rem);
       flex-grow: 1;
+      @include phone {
+        display: none;
+      }
     }
   }
 
   &-stats__bettype-treemap {
     width: 20vw;
+    @include phone {
+      width: 100%;
+      min-height: 200px;
+    }
   }
 
   &-stats__type-chart {
@@ -106,6 +121,9 @@
 
 .card__sports-treemap {
   flex-grow: 1;
+  @include phone {
+    min-height: 200px;
+  }
 }
 
 #darkGroup {

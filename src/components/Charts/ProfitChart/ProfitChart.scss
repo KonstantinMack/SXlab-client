@@ -1,0 +1,7 @@
+@use "../../../styles/partials/mixins" as *;
+
+.user-stats__profit-chart {
+  @include phone {
+    display: none;
+  }
+}

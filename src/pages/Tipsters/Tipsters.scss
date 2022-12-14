@@ -16,10 +16,13 @@
 
   &__filter {
     @include flexbox($justify: center, $gap: 2rem);
+    @include phone {
+      flex-direction: column;
+    }
 
     &-text {
       @include font($size: 1.6rem);
-      text-align: center;
+      @include flexbox($dir: column, $align: center);
     }
 
     &-input {
@@ -27,6 +30,10 @@
       outline: none;
       border: 1px solid $background-gray;
       text-indent: 1rem;
+      @include phone {
+        min-width: 200px;
+        max-width: 50%;
+      }
 
       &-error {
         color: $sx-red;
@@ -46,6 +53,12 @@
   &__items {
     display: grid;
     grid-template-columns: 1fr 19fr;
+    @include tablet {
+      grid-template-columns: 1fr;
+    }
+    @include phone {
+      display: block;
+    }
     justify-items: center;
     border-bottom: 1px solid $sx-gray;
     @include padding($size: small);
@@ -58,6 +71,12 @@
       width: 100%;
       display: grid;
       grid-template-columns: 1fr 2fr 2fr 3fr 3fr repeat(4, 2fr);
+      @include tablet {
+        grid-template-columns: 2fr 3fr 3fr repeat(4, 2fr);
+      }
+      @include phone {
+        @include flexbox($dir: column, $align: center);
+      }
       justify-items: center;
     }
 
@@ -65,13 +84,37 @@
       &:hover {
         background: $background-gray;
       }
+      @include phone {
+        display: none;
+      }
     }
   }
 
   &__item {
+    @include flexbox($gap: 1rem);
+    &-phone-header {
+      display: none;
+      @include phone {
+        display: inline;
+        font-weight: 600;
+        color: $sx-white;
+      }
+    }
+
+    &--hidden {
+      @include tablet {
+        display: none;
+      }
+    }
     &--sort {
       cursor: pointer;
       @include flexbox($align: center, $gap: 0.5rem);
+    }
+
+    &-sort-icon {
+      @include tablet {
+        display: none;
+      }
     }
 
     &-header {
@@ -92,6 +135,11 @@
       align-self: center;
       fill: $background-gray;
       cursor: pointer;
+
+      @include tablet-phone {
+        display: none;
+      }
+
       &:hover {
         fill: $sx-blue;
       }

@@ -2,7 +2,7 @@
 
 // media mixins
 @mixin tablet($side-padding: false) {
-  @media only screen and (min-width: 768px) and (max-width: 1279px) {
+  @media only screen and (min-width: 860px) and (max-width: 1279px) {
     @if $side-padding {
       padding-left: 36px;
       padding-right: 36px;
@@ -12,7 +12,7 @@
 }
 
 @mixin phone($side-padding: false) {
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 859px) {
     @if $side-padding {
       // calculate width for a smooth transition from tablet to desktop
       //  1280 - (2 * 36) = 1208px

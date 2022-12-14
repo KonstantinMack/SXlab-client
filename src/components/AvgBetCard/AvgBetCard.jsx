@@ -43,7 +43,7 @@ export default function AvgBetCard({ data, other, addClass }) {
   return (
     <Card addClass={`betsize__card ${addClass || ""}`}>
       <h2 data-tip="Average bet size in $ using exchange <br> rates from the time of the bet.">
-        Average Bet Size
+        Avg. Bet Size
       </h2>
       <ReactTooltip
         type="dark"

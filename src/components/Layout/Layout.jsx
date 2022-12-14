@@ -40,7 +40,7 @@ export default function Layout() {
     setAccountAddress("");
   };
 
-  const isDesktop = useMediaQuery("(min-width: 1280px)");
+  const isDesktop = useMediaQuery("(min-width: 350px)");
 
   return (
     <div className="app">
@@ -63,9 +63,7 @@ export default function Layout() {
           {isDesktop ? (
             <Outlet context={[selectedSport, accountAddress]} />
           ) : (
-            <p>
-              There is no mobile version yet, <br></br>please use a desktop.
-            </p>
+            <p>Sorry, your screensize is too small to show the dashboard.</p>
           )}
         </main>
         <Footer />

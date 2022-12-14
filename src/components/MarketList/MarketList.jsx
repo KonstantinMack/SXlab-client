@@ -43,7 +43,7 @@ export default function MarketList({ selectedSport, addClass }) {
           <h3 className="markets__item--small">Sports</h3>
           <h3 className="markets__item">League</h3>
           <h3 className="markets__item--large">Match</h3>
-          <h3 className="markets__item--small">Bets</h3>
+          <h3 className="markets__item--small markets__item--hidden">Bets</h3>
           <h3 className="markets__item--small">Volume</h3>
         </div>
         {marketQuery.data.map((market, idx) => {
@@ -51,14 +51,17 @@ export default function MarketList({ selectedSport, addClass }) {
             <div className="markets__items" key={idx}>
               <p className="markets__item--small">{idx + 1}.</p>
               <p className="markets__item--small">
-                {DateTime.fromSeconds(market.gameTime).toFormat("dd-LL-yy")}
+                {/* {DateTime.fromSeconds(market.gameTime).toFormat("dd-LL-yy")} */}
+                {DateTime.fromSeconds(market.gameTime).toFormat("LLL yy")}
               </p>
               <p className="markets__item--small">{market.sports}</p>
               <p className="markets__item">{market.league}</p>
               <p className="markets__item--large">
                 {market.teamOneName} - {market.teamTwoName}
               </p>
-              <p className="markets__item--small">{market.numberOfBets}</p>
+              <p className="markets__item--small markets__item--hidden">
+                {market.numberOfBets}
+              </p>
               <p className="markets__item--small">
                 $ {Math.round(market.totalVolumeMatched).toLocaleString()}
               </p>

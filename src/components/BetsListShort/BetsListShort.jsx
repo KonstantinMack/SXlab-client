@@ -42,6 +42,8 @@ export default function BetsListShort({ data }) {
               return (
                 <Link
                   to={`/user/${bet.bettor}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   key={idx}
                   className="bets-list-short__item"
                 >

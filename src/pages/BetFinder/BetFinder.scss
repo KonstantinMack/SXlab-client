@@ -1,0 +1,12 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.bet-finder {
+  display: grid;
+  gap: 2rem;
+
+  &__eventId {
+    font-weight: 600;
+    color: $sx-orange;
+  }
+}

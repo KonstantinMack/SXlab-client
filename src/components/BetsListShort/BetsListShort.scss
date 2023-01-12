@@ -1,0 +1,48 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.bets-list-short {
+  @include flexbox($dir: column, $gap: 2rem);
+
+  &__container {
+    @include flexbox($dir: column);
+  }
+
+  &__header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 3fr;
+    padding-bottom: 2rem;
+
+    @include phone {
+      display: none;
+    }
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 3fr;
+    border-top: 1px solid $sx-gray;
+    padding: 1rem 0;
+
+    @include phone {
+      @include flexbox($dir: column);
+    }
+
+    &:hover {
+      background: $background-black;
+    }
+
+    &-ellipsis {
+      max-width: 70vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &--phone {
+      display: none;
+      @include phone {
+        display: block;
+      }
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useOutletContext, useParams, useNavigate } from "react-router-dom";
 
 import { API_URL } from "../../config";
+import Card from "../../components/Card/Card";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import ProfitChart from "../../components/Charts/ProfitChart/ProfitChart";
 import UserDonutCharts from "../../components/Charts/UserDonutCharts/UserDonutCharts";
@@ -13,6 +14,8 @@ import BetTypeBarChart from "../../components/Charts/BetTypeBarChart/BetTypeBarC
 import BetsList from "../../components/BetsList/BetsList";
 import AddressSearchBar from "../../components/AddressSearchBar/AddressSearchBar";
 import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
+import MicroscopeIcon from "../../assets/icons/microscope.svg";
+
 import axios from "axios";
 
 import { useQuery } from "@tanstack/react-query";
@@ -101,11 +104,27 @@ export default function UserStats() {
   ) {
     return (
       <div className="user__container">
-        <AddressSearchBar
-          submitHandler={submitHandler}
-          searchAddress={searchAddress}
-          setSearchAddress={setSearchAddress}
-        />
+        <Card addClass={"user__form-card"}>
+          <div className="user__description">
+            <img
+              src={MicroscopeIcon}
+              alt="microscope"
+              className="user__description-icon"
+            />
+            <div>
+              <h1>Wallet Analyzer:</h1>
+              <p>Take a deep dive into the nitty-gritty bits of any wallet.</p>
+            </div>
+          </div>
+
+          <AddressSearchBar
+            submitHandler={submitHandler}
+            searchAddress={searchAddress}
+            setSearchAddress={setSearchAddress}
+            buttonText="Analyse wallet!"
+            name="address"
+          />
+        </Card>
       </div>
     );
   }
@@ -128,11 +147,27 @@ export default function UserStats() {
 
   return (
     <div className="user__container">
-      <AddressSearchBar
-        submitHandler={submitHandler}
-        searchAddress={searchAddress}
-        setSearchAddress={setSearchAddress}
-      />
+      <Card addClass={"user__form-card"}>
+        <div className="user__description">
+          <img
+            src={MicroscopeIcon}
+            alt="microscope"
+            className="user__description-icon"
+          />
+          <div>
+            <h1>Wallet Analyzer:</h1>
+            <p>Take a deep dive into the nitty-gritty bits of any wallet.</p>
+          </div>
+        </div>
+
+        <AddressSearchBar
+          submitHandler={submitHandler}
+          searchAddress={searchAddress}
+          setSearchAddress={setSearchAddress}
+          buttonText="Analyse wallet!"
+          name="address"
+        />
+      </Card>
       <div className="user-stats__combined">
         <UserStatsCard data={userStats} address={address} />
         <UserDonutCharts

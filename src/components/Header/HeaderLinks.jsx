@@ -12,6 +12,9 @@ export default function HeaderLinks({ addClass, modalSetter }) {
       <NavLink to="/tipsters" className="header__nav-link">
         Tipsters
       </NavLink>
+      <NavLink to="/bet-finder" className="header__nav-link">
+        Bet Finder
+      </NavLink>
     </nav>
   );
 }

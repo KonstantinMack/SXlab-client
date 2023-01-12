@@ -3,11 +3,15 @@
 .nav__modal {
   display: none;
   @include phone {
-    @include flexbox($dir: column, $gap: 2rem);
+    @include flexbox($dir: column, $gap: 5rem);
     padding-top: 3rem;
   }
 }
 
 .header__nav-modal {
-  justify-content: center;
+  // @include flexbox($dir: column, $gap: 2rem, $justify: center, $align: center);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  justify-items: center;
 }

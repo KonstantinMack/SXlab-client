@@ -9,7 +9,11 @@ import ClubHouse from "./pages/ClubHouse/ClubHouse";
 import BetFinder from "./pages/BetFinder/BetFinder";
 import NoMatch from "./pages/NoMatch/NoMatch";
 
+import usePageTracking from "./lib/usePageTracking";
+
 function App() {
+  usePageTracking();
+
   return (
     <Routes>
       <Route element={<Layout />}>

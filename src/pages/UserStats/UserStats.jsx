@@ -143,8 +143,6 @@ export default function UserStats() {
 
   const [userStatsBySport, userBets] = addressQueries.data;
 
-  console.log({ userStats });
-
   return (
     <div className="user__container">
       <Card addClass={"user__form-card"}>

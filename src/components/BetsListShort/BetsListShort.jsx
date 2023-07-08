@@ -40,7 +40,6 @@ export default function BetsListShort({ data }) {
             </div>
 
             {data.data.map((bet, idx) => {
-              console.log(bet);
               return (
                 <Link
                   to={`/user/${bet.bettor}`}

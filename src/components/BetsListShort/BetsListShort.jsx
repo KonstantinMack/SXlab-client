@@ -36,9 +36,11 @@ export default function BetsListShort({ data }) {
               <h3>Odds</h3>
               <h3>Stake</h3>
               <h3>Address</h3>
+              <h3>Maker</h3>
             </div>
 
             {data.data.map((bet, idx) => {
+              console.log(bet);
               return (
                 <Link
                   to={`/user/${bet.bettor}`}
@@ -70,7 +72,13 @@ export default function BetsListShort({ data }) {
                   <div>
                     <h4 className="bets-list-short__item--phone">Address</h4>
                     <p className="bets-list__item-text bets-list-short__item-ellipsis">
-                      {bet.bettor}
+                      {bet.bettor.slice(0, 10)}...{bet.bettor.slice(-5)}
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="bets-list-short__item--phone">Maker</h4>
+                    <p className="bets-list__item-text bets-list-short__item-ellipsis">
+                      {Number(bet.maker)}
                     </p>
                   </div>
                 </Link>

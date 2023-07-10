@@ -15,6 +15,23 @@
     display: block;
   }
 
+  &__button {
+    @include flexbox($gap: 1rem, $align: center);
+    padding: 1rem 2rem;
+    background: rgb(3, 139, 255);
+    background: linear-gradient(
+      to bottom right,
+      rgba(109, 188, 255, 1) 0%,
+      rgba(5, 9, 200, 1) 100%
+    );
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 3px 3px 2px 0 black;
+    font-size: 1.6rem;
+  }
+
   &__phone {
     display: none;
     height: 50px;

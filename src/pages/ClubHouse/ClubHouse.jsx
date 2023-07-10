@@ -2,7 +2,8 @@ import "./ClubHouse.scss";
 
 import axios from "axios";
 import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
+import { useAuth, useUser, SignedIn, SignedOut } from "@clerk/clerk-react";
 
 import { API_URL } from "../../config";
 import Card from "../../components/Card/Card";
@@ -13,30 +14,34 @@ import TrophyIcon from "../../assets/icons/trophy.svg";
 import { useQuery } from "@tanstack/react-query";
 
 export default function ClubHouse() {
-  const [selectedSport, accountAddress] = useOutletContext();
+  const [selectedSport] = useOutletContext();
   const [selectedFavourites, setSelectedFavourites] = useState([]);
+  const { userId } = useAuth();
+  const { user } = useUser();
 
   const ownBetsQuery = useQuery(
-    ["club-house", "own-bets", accountAddress],
+    ["club-house", "own-bets", user?.primaryWeb3Wallet?.web3Wallet],
     () => {
       return axios
-        .get(`${API_URL}/user-stats/address/bets?address=${accountAddress}`)
+        .get(
+          `${API_URL}/user-stats/address/bets?address=${user?.primaryWeb3Wallet?.web3Wallet}`
+        )
         .then((res) => res.data);
     },
     {
-      enabled: !!accountAddress,
+      enabled: !!user?.primaryWeb3Wallet?.web3Wallet,
     }
   );
 
   const favouritesQuery = useQuery(
-    ["favourites", accountAddress],
+    ["favourites", userId],
     () => {
       return axios
-        .get(`${API_URL}/tipster/favourites?address=${accountAddress}`)
+        .get(`${API_URL}/tipster/favourites?address=${userId}`)
         .then((favs) => favs.data);
     },
     {
-      enabled: !!accountAddress,
+      enabled: !!userId,
     }
   );
 
@@ -57,86 +62,97 @@ export default function ClubHouse() {
     }
   );
 
-  if (!accountAddress) {
-    return (
-      <Card>
-        <h2>Sorry we can't find your Club House</h2>
-        <p>Please connect your MetaMask wallet</p>
-      </Card>
-    );
-  }
-
   return (
-    <div className="club-house">
-      <Card addClass={"club-house__overview"}>
-        <img src={TrophyIcon} alt="trophy" className="club-house__icon" />
-        <div>
-          <h1>Welcome to your Club House</h1>
-          <p>
-            Here you can find currently open bets from yourself and any of the
-            tipsters you follow.
-          </p>
-        </div>
-      </Card>
-      {ownBetsQuery.fetchStatus === "idle" &&
-      ownBetsQuery.isLoading ? null : ownBetsQuery.isLoading ? (
-        <LoadingScreenWide count={3} />
-      ) : (
-        <BetsList
-          data={ownBetsQuery.data.sort(
-            (a, b) => a.market.gameTime - b.market.gameTime
-          )}
-          selectedSport={selectedSport}
-          title="My Bets"
-        />
-      )}
-      <Card addClass={"club-house__tipsters"}>
-        <div>
-          <h2>My Tipsters</h2>
-          <p>
-            Select or deselect your tipsters to filter their currently open
-            bets.
-          </p>
-        </div>
-        <div className="club-house__tipsters-list">
-          {favouritesQuery.fetchStatus === "idle" &&
-          favouritesQuery.isLoading ? null : favouritesQuery.isLoading ? (
+    <>
+      <SignedOut>
+        <Card>
+          <h2>Sorry we can't find your Club House</h2>
+          <p>Please sign in first</p>
+        </Card>
+      </SignedOut>
+      <SignedIn>
+        <div className="club-house">
+          <Card addClass={"club-house__overview"}>
+            <img src={TrophyIcon} alt="trophy" className="club-house__icon" />
+            <div>
+              <h1>Welcome to your Club House</h1>
+              <p>
+                Here you can find currently open bets from yourself (if you've
+                signed in through MetaMask) and any of the tipsters you follow.
+              </p>
+            </div>
+          </Card>
+          {ownBetsQuery.fetchStatus === "idle" &&
+          ownBetsQuery.isLoading ? null : ownBetsQuery.isLoading ? (
             <LoadingScreenWide count={3} />
           ) : (
-            favouritesQuery.data.map((fav) => (
-              <p
-                onClick={() =>
-                  setSelectedFavourites((state) =>
-                    state.includes(fav)
-                      ? state.filter((oldFav) => oldFav !== fav)
-                      : [...state, fav]
-                  )
-                }
-                className={`club-house__tipster
+            <BetsList
+              data={ownBetsQuery.data.sort(
+                (a, b) => a.market.gameTime - b.market.gameTime
+              )}
+              selectedSport={selectedSport}
+              title="My Bets"
+            />
+          )}
+          <Card addClass={"club-house__tipsters"}>
+            <div>
+              <h2>My Tipsters</h2>
+              <p>
+                Select or deselect your tipsters to filter their currently open
+                bets.
+              </p>
+            </div>
+
+            {favouritesQuery.fetchStatus === "idle" &&
+            favouritesQuery.isLoading ? null : favouritesQuery.isLoading ? (
+              <LoadingScreenWide count={3} />
+            ) : favouritesQuery.data.length === 0 ? (
+              <p>
+                You don't follow any tipsters yet, head to the{" "}
+                <Link to="/tipsters">
+                  <u>Tipsters</u>
+                </Link>{" "}
+                page and find your favourite tipsters.
+              </p>
+            ) : (
+              <div className="club-house__tipsters-list">
+                {favouritesQuery.data.map((fav) => (
+                  <p
+                    key={fav}
+                    onClick={() =>
+                      setSelectedFavourites((state) =>
+                        state.includes(fav)
+                          ? state.filter((oldFav) => oldFav !== fav)
+                          : [...state, fav]
+                      )
+                    }
+                    className={`club-house__tipster
               ${
                 !selectedFavourites.includes(fav)
                   ? "club-house__tipster--selected"
                   : "club-house__tipster--unselected"
               }`}
-              >
-                {fav}
-              </p>
-            ))
+                  >
+                    {fav}
+                  </p>
+                ))}
+              </div>
+            )}
+          </Card>
+          {favBetsQuery.fetchStatus === "idle" &&
+          favBetsQuery.isLoading ? null : favBetsQuery.isLoading ? (
+            <LoadingScreenWide count={3} />
+          ) : (
+            <BetsList
+              data={favBetsQuery.data
+                .filter((bet) => !selectedFavourites.includes(bet.bettor))
+                .sort((a, b) => a.market.gameTime - b.market.gameTime)}
+              selectedSport={selectedSport}
+              title="Tipster Bets"
+            />
           )}
         </div>
-      </Card>
-      {favBetsQuery.fetchStatus === "idle" &&
-      favBetsQuery.isLoading ? null : favBetsQuery.isLoading ? (
-        <LoadingScreenWide count={3} />
-      ) : (
-        <BetsList
-          data={favBetsQuery.data
-            .filter((bet) => !selectedFavourites.includes(bet.bettor))
-            .sort((a, b) => a.market.gameTime - b.market.gameTime)}
-          selectedSport={selectedSport}
-          title="Tipster Bets"
-        />
-      )}
-    </div>
+      </SignedIn>
+    </>
   );
 }

@@ -13,10 +13,7 @@ export default function ModalComponent({ modalIsOpen, setModalIsOpen }) {
       overlayClassName="myoverlay"
       closeTimeoutMS={500}
     >
-      <p>
-        Please connect your wallet first in order to save your favourite
-        tipsters.
-      </p>
+      <p>Please sign in first in order to save your favourite tipsters.</p>
     </Modal>
   );
 }

@@ -2,6 +2,7 @@ import "./Tipsters.scss";
 
 import { useState, useEffect } from "react";
 import { useOutletContext, Link } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react";
 
 import { API_URL } from "../../config";
 import Card from "../../components/Card/Card";
@@ -17,7 +18,8 @@ import SortIcon from "../../assets/icons/sort.svg";
 import MoneyIcon from "../../assets/icons/money.svg";
 
 export default function Tipsters() {
-  const [selectedSport, accountAddress] = useOutletContext();
+  const { userId } = useAuth();
+  const [selectedSport] = useOutletContext();
   const [favourites, setFavourites] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [sortColumn, setSortColumn] = useState("dollarProfitLoss");
@@ -28,15 +30,15 @@ export default function Tipsters() {
   const [makerFilter, setMakerFilter] = useState(101);
 
   useEffect(() => {
-    if (accountAddress) {
+    if (userId) {
       axios
-        .get(`${API_URL}/tipster/favourites?address=${accountAddress}`)
+        .get(`${API_URL}/tipster/favourites?address=${userId}`)
         .then((favs) => setFavourites(favs.data))
         .catch((err) => console.log(err));
     } else {
       setFavourites([]);
     }
-  }, [accountAddress]);
+  }, [userId]);
 
   const tipsterQuery = useQuery(
     ["tipsters", selectedSport],
@@ -56,7 +58,7 @@ export default function Tipsters() {
   };
 
   const clickHandler = (bettor) => {
-    if (!accountAddress) {
+    if (!userId) {
       setModalIsOpen(true);
       return;
     }
@@ -64,14 +66,14 @@ export default function Tipsters() {
     if (favourites.includes(bettor)) {
       axios.delete(`${API_URL}/tipster/unstar`, {
         data: {
-          address: accountAddress,
+          address: userId,
           bettor,
         },
       });
       setFavourites((state) => state.filter((item) => item !== bettor));
     } else {
       axios.post(`${API_URL}/tipster/star`, {
-        address: accountAddress,
+        address: userId,
         bettor,
       });
       setFavourites((state) => [...state, bettor]);

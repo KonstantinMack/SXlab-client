@@ -21,7 +21,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 export default function UserStats() {
-  const [selectedSport, accountAddress] = useOutletContext();
+  const [selectedSport] = useOutletContext();
   const [searchAddress, setSearchAddress] = useState("");
 
   const { address } = useParams();
@@ -29,8 +29,7 @@ export default function UserStats() {
 
   useEffect(() => {
     if (address) setSearchAddress(address);
-    else if (accountAddress) setSearchAddress(accountAddress);
-  }, [address, accountAddress]);
+  }, [address]);
 
   function getSportAddressQueries(selectedSport, address) {
     return Promise.all([

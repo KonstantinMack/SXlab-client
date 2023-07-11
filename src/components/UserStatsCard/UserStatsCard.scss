@@ -15,7 +15,10 @@
   }
 
   &__address {
-    padding-left: 2rem;
+    &-wrapper {
+      @include flexbox($gap: 2rem, $align: center);
+    }
+
     font-size: 2rem;
   }
 

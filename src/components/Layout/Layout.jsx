@@ -2,7 +2,7 @@ import "./Layout.scss";
 
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import useMediaQuery from "../../lib/hooks";
+import { useMediaQuery } from "../../lib/hooks";
 
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";

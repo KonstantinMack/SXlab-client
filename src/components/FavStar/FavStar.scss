@@ -1,0 +1,22 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.fav-star__icon {
+  height: 2rem;
+  width: 2rem;
+  align-self: center;
+  fill: $background-gray;
+  cursor: pointer;
+
+  @include phone {
+    display: none;
+  }
+
+  &:hover {
+    fill: $sx-blue;
+  }
+
+  &--selected {
+    fill: $sx-blue;
+  }
+}

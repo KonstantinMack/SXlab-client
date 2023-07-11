@@ -1,19 +1,13 @@
 import "./UserStatsCard.scss";
-import axios from "axios";
-import { API_URL } from "../../config";
 import Card from "../Card/Card";
-import { useState, useEffect } from "react";
-import { useAuth } from "@clerk/clerk-react";
 import FavStar from "../FavStar/FavStar";
 
 export default function UserStatsCard({ data, address }) {
-  const { userId } = useAuth();
-
   return (
     <Card addClass={"user-stats-card"}>
       <h2>Bets Analysis for wallet:</h2>
       <div className="user-stats-card__address-wrapper">
-        <FavStar userId={userId} bettor={address} />
+        <FavStar bettor={address} />
         <a
           href={`https://explorer.sx.technology/address/${address}`}
           target="_blank"

@@ -2,14 +2,17 @@ import "./Layout.scss";
 
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useMediaQuery } from "../../lib/hooks";
+import { useFavourites, useMediaQuery } from "../../lib/hooks";
 
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import SideBar from "../SideBar/SideBar";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function Layout() {
+  const { userId } = useAuth();
   const [selectedSport, setSelectedSport] = useState("All");
+  const [favourites, setFavourites] = useFavourites(userId);
 
   const isDesktop = useMediaQuery("(min-width: 350px)");
 
@@ -26,7 +29,9 @@ export default function Layout() {
         <Header selectedSport={selectedSport} setter={setSelectedSport} />
         <main className="app__main">
           {isDesktop ? (
-            <Outlet context={[selectedSport]} />
+            <Outlet
+              context={[selectedSport, userId, favourites, setFavourites]}
+            />
           ) : (
             <p>Sorry, your screensize is too small to show the dashboard.</p>
           )}

@@ -1,14 +1,12 @@
 import "./Tipsters.scss";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useOutletContext, Link } from "react-router-dom";
-import { useAuth } from "@clerk/clerk-react";
 
 import { API_URL } from "../../config";
 import Card from "../../components/Card/Card";
-import ModalComponent from "../../components/ModalComponent/ModalComponent";
 import LoadingScreenWide from "../../components/LoadingScreen/LoadingScreenWide";
-import { ReactComponent as StarIcon } from "../../assets/icons/star.svg";
+import FavStar from "../../components/FavStar/FavStar";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
@@ -18,27 +16,13 @@ import SortIcon from "../../assets/icons/sort.svg";
 import MoneyIcon from "../../assets/icons/money.svg";
 
 export default function Tipsters() {
-  const { userId } = useAuth();
   const [selectedSport] = useOutletContext();
-  const [favourites, setFavourites] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [sortColumn, setSortColumn] = useState("dollarProfitLoss");
   const [sortAsc, setSortAsc] = useState(true);
 
   const [numBetsFilter, setNumBetsFilter] = useState(100);
   const [yieldFilter, setYieldFilter] = useState(-100);
   const [makerFilter, setMakerFilter] = useState(101);
-
-  useEffect(() => {
-    if (userId) {
-      axios
-        .get(`${API_URL}/tipster/favourites?address=${userId}`)
-        .then((favs) => setFavourites(favs.data))
-        .catch((err) => console.log(err));
-    } else {
-      setFavourites([]);
-    }
-  }, [userId]);
 
   const tipsterQuery = useQuery(
     ["tipsters", selectedSport],
@@ -55,29 +39,6 @@ export default function Tipsters() {
   const sortHandler = (column) => {
     column === sortColumn ? setSortAsc((state) => !state) : setSortAsc(true);
     setSortColumn(column);
-  };
-
-  const clickHandler = (bettor) => {
-    if (!userId) {
-      setModalIsOpen(true);
-      return;
-    }
-
-    if (favourites.includes(bettor)) {
-      axios.delete(`${API_URL}/tipster/unstar`, {
-        data: {
-          address: userId,
-          bettor,
-        },
-      });
-      setFavourites((state) => state.filter((item) => item !== bettor));
-    } else {
-      axios.post(`${API_URL}/tipster/star`, {
-        address: userId,
-        bettor,
-      });
-      setFavourites((state) => [...state, bettor]);
-    }
   };
 
   const checkAndSetNumber = (value, setter, defaultValue) => {
@@ -102,15 +63,10 @@ export default function Tipsters() {
           <p>
             Click into a wallet to see a further breakdown of their bets, or
             star them to see a list of all open bets from your starred tipsters
-            in your clubhouse section (only visible after you've connected your
-            wallet).
+            in your clubhouse section (only visible after you've logged in).
           </p>
         </div>
       </div>
-      <ModalComponent
-        modalIsOpen={modalIsOpen}
-        setModalIsOpen={setModalIsOpen}
-      />
       <div className="tipsters__filter">
         <label htmlFor="numBets" className="tipsters__filter-text">
           Min. number of bets:
@@ -292,14 +248,7 @@ export default function Tipsters() {
             .map((tipster, idx) => {
               return (
                 <div className="tipsters__items" key={idx}>
-                  <StarIcon
-                    className={
-                      favourites.includes(tipster.bettor)
-                        ? "tipsters__item-icon tipsters__item-icon--selected"
-                        : "tipsters__item-icon"
-                    }
-                    onClick={() => clickHandler(tipster.bettor)}
-                  />
+                  <FavStar bettor={tipster.bettor} />
                   <Link
                     to={`/user/${tipster.bettor}`}
                     key={tipster.bettor}

@@ -86,7 +86,7 @@
     }
     &-login {
       @include flexbox($gap: 2rem);
-      @include tablet-phone {
+      @include phone {
         display: none;
       }
     }

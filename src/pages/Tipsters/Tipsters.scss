@@ -53,9 +53,6 @@
   &__items {
     display: grid;
     grid-template-columns: 1fr 19fr;
-    @include tablet {
-      grid-template-columns: 1fr;
-    }
     @include phone {
       display: block;
     }
@@ -136,7 +133,7 @@
       fill: $background-gray;
       cursor: pointer;
 
-      @include tablet-phone {
+      @include phone {
         display: none;
       }
 

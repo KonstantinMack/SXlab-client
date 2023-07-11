@@ -3,7 +3,7 @@
 
 .bets-list {
   @include flexbox($dir: column, $gap: 2rem);
-  @include tablet-phone {
+  @include phone {
     display: none;
   }
 
@@ -13,13 +13,13 @@
 
   &__header {
     display: grid;
-    grid-template-columns: 2fr 2fr repeat(3, 3fr) 1fr 2fr 1fr;
+    grid-template-columns: 2fr 2fr repeat(3, 3fr) 2fr 2fr 1fr;
     padding-bottom: 2rem;
   }
 
   &__item {
     display: grid;
-    grid-template-columns: 2fr 2fr repeat(3, 3fr) 1fr 2fr 1fr;
+    grid-template-columns: 2fr 2fr repeat(3, 3fr) 2fr 2fr 1fr;
     border-top: 1px solid $sx-gray;
     padding: 1rem 0;
 

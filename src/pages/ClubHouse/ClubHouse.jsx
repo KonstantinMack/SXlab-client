@@ -9,6 +9,7 @@ import { API_URL } from "../../config";
 import Card from "../../components/Card/Card";
 import BetsList from "../../components/BetsList/BetsList";
 import LoadingScreenWide from "../../components/LoadingScreen/LoadingScreenWide";
+import TelegramNotifications from "../../components/TelegramNotifications/TelegramNotifications";
 
 import TrophyIcon from "../../assets/icons/trophy.svg";
 import { useQuery } from "@tanstack/react-query";
@@ -138,6 +139,7 @@ export default function ClubHouse() {
                 ))}
               </div>
             )}
+            <TelegramNotifications />
           </Card>
           {favBetsQuery.fetchStatus === "idle" &&
           favBetsQuery.isLoading ? null : favBetsQuery.isLoading ? (

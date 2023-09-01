@@ -1,0 +1,25 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.tg {
+  &-icon {
+    height: 3rem;
+  }
+  &__button {
+    @include flexbox($gap: 1rem, $align: center);
+    width: fit-content;
+    padding: 1rem 2rem;
+    background: transparent;
+
+    border: 2px solid rgb(3, 139, 255);
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 3px 3px 2px 0 black;
+    font-size: 1.6rem;
+
+    &--stop {
+      border: 2px solid $sx-red;
+    }
+  }
+}

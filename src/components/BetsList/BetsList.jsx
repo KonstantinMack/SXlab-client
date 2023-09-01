@@ -51,25 +51,33 @@ export default function BetsList({ data, selectedSport, title }) {
                 className="bets-list__item"
                 key={idx}
               >
+                <span className="bets-list__item-phone-header">Date:</span>
                 <p className="bets-list__item-text">
                   {DateTime.fromSeconds(bet.market.gameTime).toFormat(
                     "dd-LL-yy T"
                   )}
                 </p>
+                <span className="bets-list__item-phone-header">Sport:</span>
                 <p className="bets-list__item-text">{bet.market.sportLabel}</p>
+                <span className="bets-list__item-phone-header">League:</span>
                 <p className="bets-list__item-text">{bet.market.leagueLabel}</p>
+                <span className="bets-list__item-phone-header">Match:</span>
                 <p className="bets-list__item-text">
                   {bet.market.teamOneName} vs. {bet.market.teamTwoName}
                 </p>
+                <span className="bets-list__item-phone-header">Bet:</span>
                 <p className="bets-list__item-text">
                   {bet.bettingOutcomeOne
                     ? bet.market.outcomeOneName
                     : bet.market.outcomeTwoName}
                 </p>
+                <span className="bets-list__item-phone-header">Odds:</span>
                 <p className="bets-list__item-text">{convertOdds(bet.odds)}</p>
+                <span className="bets-list__item-phone-header">Stake:</span>
                 <p className="bets-list__item-text">
                   {convertStake(bet.stake, bet.baseToken)}
                 </p>
+                <span className="bets-list__item-phone-header">Maker:</span>
                 <p className="bets-list__item-text">{Number(bet.maker)}</p>
               </a>
             );

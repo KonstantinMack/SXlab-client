@@ -59,6 +59,7 @@
 
   &__nav {
     @include flexbox($gap: 2rem);
+    flex-grow: 1;
 
     @include phone {
       gap: 1rem;
@@ -83,11 +84,12 @@
           rgba(255, 209, 151, 1) 100%
         );
       }
-    }
-    &-login {
-      @include flexbox($gap: 2rem);
-      @include phone {
-        display: none;
+
+      &--separator {
+        margin-left: auto;
+        @include phone {
+          margin-left: revert;
+        }
       }
     }
   }

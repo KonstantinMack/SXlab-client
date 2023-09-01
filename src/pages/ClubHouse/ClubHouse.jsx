@@ -6,6 +6,7 @@ import { Link, useOutletContext } from "react-router-dom";
 import { useAuth, useUser, SignedIn, SignedOut } from "@clerk/clerk-react";
 
 import { API_URL } from "../../config";
+import { shortenAddress } from "../../lib/helpers";
 import Card from "../../components/Card/Card";
 import BetsList from "../../components/BetsList/BetsList";
 import LoadingScreenWide from "../../components/LoadingScreen/LoadingScreenWide";
@@ -134,7 +135,7 @@ export default function ClubHouse() {
                   : "club-house__tipster--unselected"
               }`}
                   >
-                    {fav}
+                    {shortenAddress(fav, 10)}
                   </p>
                 ))}
               </div>

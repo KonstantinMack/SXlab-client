@@ -8,10 +8,6 @@
   fill: $background-gray;
   cursor: pointer;
 
-  @include phone {
-    display: none;
-  }
-
   &:hover {
     fill: $sx-blue;
   }

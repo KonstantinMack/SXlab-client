@@ -35,8 +35,8 @@ const convertSportName = (sport) => {
   return sport.toLowerCase();
 };
 
-const shortenAddress = (address) => {
-  return address.slice(0, 4) + "..." + address.slice(-4);
+const shortenAddress = (address, numChars = 4) => {
+  return address.slice(0, numChars) + "..." + address.slice(-numChars);
 };
 
 export {

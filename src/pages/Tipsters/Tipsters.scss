@@ -54,7 +54,8 @@
     display: grid;
     grid-template-columns: 1fr 19fr;
     @include phone {
-      display: block;
+      @include flexbox($dir: column, $align: center);
+      gap: 1rem;
     }
     justify-items: center;
     border-bottom: 1px solid $sx-gray;

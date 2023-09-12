@@ -36,10 +36,9 @@ export default function FavStar({ bettor }) {
 
   return (
     <>
-      <ModalComponent
-        modalIsOpen={modalIsOpen}
-        setModalIsOpen={setModalIsOpen}
-      />
+      <ModalComponent modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
+        Please sign in first in order to save your favourite tipsters.
+      </ModalComponent>
       <StarIcon
         className={
           favourites.includes(bettor)

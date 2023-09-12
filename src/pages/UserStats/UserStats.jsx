@@ -5,6 +5,7 @@ import { useOutletContext, useParams, useNavigate } from "react-router-dom";
 
 import { API_URL } from "../../config";
 import Card from "../../components/Card/Card";
+import BetHistoryButton from "../../components/BetHistoryButton/BetHistoryButton";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import ProfitChart from "../../components/Charts/ProfitChart/ProfitChart";
 import UserDonutCharts from "../../components/Charts/UserDonutCharts/UserDonutCharts";
@@ -164,6 +165,7 @@ export default function UserStats() {
           buttonText="Analyse wallet!"
           name="address"
         />
+        <BetHistoryButton address={address} />
       </Card>
       <div className="user-stats__combined">
         <UserStatsCard data={userStats} address={address} />

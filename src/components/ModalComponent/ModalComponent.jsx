@@ -3,7 +3,11 @@ import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
-export default function ModalComponent({ modalIsOpen, setModalIsOpen }) {
+export default function ModalComponent({
+  modalIsOpen,
+  setModalIsOpen,
+  children,
+}) {
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -13,7 +17,7 @@ export default function ModalComponent({ modalIsOpen, setModalIsOpen }) {
       overlayClassName="myoverlay"
       closeTimeoutMS={500}
     >
-      <p>Please sign in first in order to save your favourite tipsters.</p>
+      <p>{children}</p>
     </Modal>
   );
 }

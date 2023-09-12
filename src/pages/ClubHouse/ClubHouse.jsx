@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import { useAuth, useUser, SignedIn, SignedOut } from "@clerk/clerk-react";
+import { Link2Icon } from "@radix-ui/react-icons";
 
 import { API_URL } from "../../config";
 import { shortenAddress } from "../../lib/helpers";
@@ -119,24 +120,34 @@ export default function ClubHouse() {
             ) : (
               <div className="club-house__tipsters-list">
                 {favouritesQuery.data.map((fav) => (
-                  <p
-                    key={fav}
-                    onClick={() =>
-                      setSelectedFavourites((state) =>
-                        state.includes(fav)
-                          ? state.filter((oldFav) => oldFav !== fav)
-                          : [...state, fav]
-                      )
-                    }
+                  <div
                     className={`club-house__tipster
-              ${
-                !selectedFavourites.includes(fav)
-                  ? "club-house__tipster--selected"
-                  : "club-house__tipster--unselected"
-              }`}
+                    ${
+                      !selectedFavourites.includes(fav)
+                        ? "club-house__tipster--selected"
+                        : "club-house__tipster--unselected"
+                    }`}
                   >
-                    {shortenAddress(fav, 10)}
-                  </p>
+                    <p
+                      key={fav}
+                      className="club-house__tipster-text"
+                      onClick={() =>
+                        setSelectedFavourites((state) =>
+                          state.includes(fav)
+                            ? state.filter((oldFav) => oldFav !== fav)
+                            : [...state, fav]
+                        )
+                      }
+                    >
+                      {shortenAddress(fav, 7)}
+                    </p>
+                    <Link
+                      to={`/user/${fav}`}
+                      className="club-house__tipster-link"
+                    >
+                      <Link2Icon className="club-house__tipster-icon" />
+                    </Link>
+                  </div>
                 ))}
               </div>
             )}
